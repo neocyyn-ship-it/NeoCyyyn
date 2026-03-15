@@ -161,66 +161,58 @@ function CaseSection({ project, priority }: { project: Project; priority?: boole
               <span>{point}</span>
             </div>)}
           </div>
+          {project.id === "bilibili" ? <div style={{ marginTop:24, display:"grid", gap:16 }}>
+            <div className="ops-hero">
+              <div>
+                <div style={{ fontSize:12, textTransform:"uppercase", letterSpacing:"0.16em", color:"#4E90F5" }}>Operations Results / Bilibili Campaign</div>
+                <h3 style={{ margin:"18px 0 0", fontSize:"clamp(28px,4vw,36px)", lineHeight:1.2, color:"#243128" }}>《大反派》运营数据整合进案例详情</h3>
+                <p className="ops-card-copy">把后台截图里的累计成绩、爆发节点和内容胜出点都放回这个案例里，浏览者点开一次，就能看完整个项目的执行和结果。</p>
+              </div>
+              <div className="ops-summary-card">
+                <div className="ops-summary-label">阶段结论</div>
+                <div className="ops-summary-value">上映期累计播放近 100 万</div>
+                <p className="ops-summary-copy">9 条内容覆盖上映前后讨论窗口，跑出 1 条 30 万级爆款、4 条 10 万+ 内容，并在五一档完成单日 41.6 万播放与 53 净增粉。</p>
+              </div>
+            </div>
+
+            <div className="ops-metric-grid">
+              {operationsMetrics.map((item) => <div key={item.label} className="ops-metric-card">
+                <div className="ops-metric-head">
+                  <div className="ops-metric-label">{item.label}</div>
+                  <span className="ops-metric-dot" style={{ background:item.tone }} />
+                </div>
+                <div className="ops-metric-value">{item.value}</div>
+                <p className="ops-metric-note">{item.note}</p>
+              </div>)}
+            </div>
+
+            <div className="ops-split-grid">
+              <div className="sub-card">
+                <div className="sub-label">Peak Day</div>
+                <div className="sub-title">爆发节点</div>
+                <p className="ops-card-copy">五一档是最明显的放大窗口，播放、点赞、评论、收藏和投币同步抬升，说明内容节奏和上映节奏形成了有效共振。</p>
+                <div className="breakout-grid">
+                  {breakoutMetrics.map((item) => <div key={item.label} className="breakout-card">
+                    <div className="breakout-label">{item.label}</div>
+                    <div className="breakout-value">{item.value}</div>
+                    <div className="breakout-note">{item.note}</div>
+                  </div>)}
+                </div>
+              </div>
+
+              <div className="sub-card">
+                <div className="sub-label">Content Winners</div>
+                <div className="sub-title">内容胜出点</div>
+                <div className="insight-list">
+                  {operationsInsights.map((item) => <div key={item.title} className="insight-item">
+                    <div className="insight-title">{item.title}</div>
+                    <p className="insight-copy">{item.detail}</p>
+                  </div>)}
+                </div>
+              </div>
+            </div>
+          </div> : null}
         </div> : null}
-      </div>
-    </Panel>
-  </section>;
-}
-
-function OperationsResultsSection() {
-  return <section className="section-block" id="results">
-    <SectionLabel number="03" title="Operations Results" />
-    <Panel style={{ borderRadius:36, boxShadow:"0 8px 20px rgba(36,49,40,0.03)" }}>
-      <div className="dashboard-wrap">
-        <div className="ops-hero">
-          <div>
-            <div style={{ fontSize:12, textTransform:"uppercase", letterSpacing:"0.16em", color:"#4E90F5" }}>Operations Results / Bilibili Campaign</div>
-            <h2 className="dashboard-title" style={{ maxWidth:760 }}>把后台截图整理成能直接证明结果的运营成果模块</h2>
-            <p className="dashboard-copy" style={{ maxWidth:760 }}>围绕电影《大“反”派》上映窗口，把累计成绩、爆发节点和内容表现拆成三层信息，让浏览者一眼看懂你做了什么、结果怎样、哪些内容真正跑出来了。</p>
-          </div>
-          <div className="ops-summary-card">
-            <div className="ops-summary-label">阶段结论</div>
-            <div className="ops-summary-value">上映期累计播放近 100 万</div>
-            <p className="ops-summary-copy">9 条内容覆盖上映前后讨论窗口，跑出 1 条 30 万级爆款、4 条 10 万+ 内容，并在五一档完成单日 41.6 万播放与 53 净增粉。</p>
-          </div>
-        </div>
-
-        <div className="ops-metric-grid">
-          {operationsMetrics.map((item) => <div key={item.label} className="ops-metric-card">
-            <div className="ops-metric-head">
-              <div className="ops-metric-label">{item.label}</div>
-              <span className="ops-metric-dot" style={{ background:item.tone }} />
-            </div>
-            <div className="ops-metric-value">{item.value}</div>
-            <p className="ops-metric-note">{item.note}</p>
-          </div>)}
-        </div>
-
-        <div className="ops-split-grid">
-          <div className="sub-card">
-            <div className="sub-label">Peak Day</div>
-            <div className="sub-title">爆发节点</div>
-            <p className="ops-card-copy">后台日数据说明，五一档是最明显的放大窗口，播放、点赞、评论、收藏和投币同步抬升，内容节奏和上映节奏形成了有效共振。</p>
-            <div className="breakout-grid">
-              {breakoutMetrics.map((item) => <div key={item.label} className="breakout-card">
-                <div className="breakout-label">{item.label}</div>
-                <div className="breakout-value">{item.value}</div>
-                <div className="breakout-note">{item.note}</div>
-              </div>)}
-            </div>
-          </div>
-
-          <div className="sub-card">
-            <div className="sub-label">Content Winners</div>
-            <div className="sub-title">内容胜出点</div>
-            <div className="insight-list">
-              {operationsInsights.map((item) => <div key={item.title} className="insight-item">
-                <div className="insight-title">{item.title}</div>
-                <p className="insight-copy">{item.detail}</p>
-              </div>)}
-            </div>
-          </div>
-        </div>
       </div>
     </Panel>
   </section>;
@@ -232,7 +224,7 @@ export default function App() {
       <header className="site-header">
         <div className="header-inner">
           <div><div style={{ fontSize:22, fontWeight:600, color:"#243128" }}>陈衍年</div><div style={{ marginTop:4, fontSize:11, textTransform:"uppercase", letterSpacing:"0.14em", color:"#4E90F5" }}>Content Strategy · Project Execution</div></div>
-          <nav className="desktop-nav"><a href="#work">Projects</a><a href="#results">Results</a><a href="#additional">Additional</a><a href="#contact">Contact</a></nav>
+          <nav className="desktop-nav"><a href="#work">Projects</a><a href="#additional">Additional</a><a href="#contact">Contact</a></nav>
           <button className="ghost-btn">下载简历</button>
         </div>
       </header>
@@ -321,14 +313,12 @@ export default function App() {
           </Panel>
         </section>
 
-        <OperationsResultsSection />
+        <section className="section-block"><SectionLabel number="03" title="Strategy Visuals" /><div className="two-col-grid">{bayerVisuals.map((item) => <div key={item.title} className="visual-card"><div className="visual-media"><img src={item.src} alt={item.title} /></div><div style={{ padding:20 }}><div className="visual-title">{item.title}</div><p className="visual-copy">{item.desc}</p></div></div>)}</div></section>
 
-        <section className="section-block"><SectionLabel number="04" title="Strategy Visuals" /><div className="two-col-grid">{bayerVisuals.map((item) => <div key={item.title} className="visual-card"><div className="visual-media"><img src={item.src} alt={item.title} /></div><div style={{ padding:20 }}><div className="visual-title">{item.title}</div><p className="visual-copy">{item.desc}</p></div></div>)}</div></section>
-
-        <section id="additional" className="section-block"><SectionLabel number="05" title="Operational Experience" /><Panel style={{ borderRadius:36, boxShadow:"0 8px 20px rgba(36,49,40,0.03)" }}><div className="dashboard-wrap"><div style={{ marginBottom:32, fontSize:12, textTransform:"uppercase", letterSpacing:"0.16em", color:"#4E90F5" }}>Operational Experience</div><div className="three-col-grid">{additionalWorks.map((item) => <div key={item.title} className="experience-card"><div className="experience-title">{item.title}</div><p className="experience-copy">{item.desc}</p></div>)}</div></div></Panel></section>
+        <section id="additional" className="section-block"><SectionLabel number="04" title="Operational Experience" /><Panel style={{ borderRadius:36, boxShadow:"0 8px 20px rgba(36,49,40,0.03)" }}><div className="dashboard-wrap"><div style={{ marginBottom:32, fontSize:12, textTransform:"uppercase", letterSpacing:"0.16em", color:"#4E90F5" }}>Operational Experience</div><div className="three-col-grid">{additionalWorks.map((item) => <div key={item.title} className="experience-card"><div className="experience-title">{item.title}</div><p className="experience-copy">{item.desc}</p></div>)}</div></div></Panel></section>
 
         <section id="contact" className="contact-section">
-          <SectionLabel number="06" title="Contact" />
+          <SectionLabel number="05" title="Contact" />
           <div className="contact-grid">
             <div><h2 className="contact-title">用三个核心案例，<br />建立清晰的用人判断。</h2><p className="contact-copy">这版网站的目标不是堆砌经历，而是让浏览者在较短时间内看清项目判断、执行能力与表达方式。后续补入真实素材后，可直接用于正式投递与面试展示。</p></div>
             <Panel style={{ borderRadius:32, boxShadow:"0 8px 20px rgba(36,49,40,0.03)" }}><div className="contact-card"><div className="contact-list"><div className="contact-item"><Mail size={16} /> <span>NeoCyyyn@163.com</span></div><div className="contact-item"><Phone size={16} /> <span>192-8328-7512</span></div><div className="contact-item"><Play size={16} /> <a href="https://space.bilibili.com/1099530248?spm_id_from=333.1007.0.0" target="_blank" rel="noreferrer">B站账号主页</a></div></div><div className="hero-actions" style={{ marginTop:40 }}><button className="primary-btn">下载简历 <Download size={16} /></button><a href="#work" className="ghost-large-btn" style={{ textDecoration:"none" }}>返回项目 <ArrowRight size={16} /></a></div></div></Panel>
