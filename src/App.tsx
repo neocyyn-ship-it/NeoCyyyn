@@ -35,8 +35,9 @@ type VisualItem = { title: string; desc: string; src: string };
 type ExperienceItem = { title: string; desc: string };
 type EvidenceItem = { title: string; desc: string; src: string };
 
-const documentaryCover = "/assets/documentary-cover.jpg";
-const resumeFile = "/assets/chen-yannian-resume.pdf";
+const baseUrl = import.meta.env.BASE_URL;
+const documentaryCover = `${baseUrl}assets/documentary-cover.jpg`;
+const resumeFile = `${baseUrl}assets/chen-yannian-resume.pdf`;
 
 const palette = {
   bg: "#F3F6F3",
@@ -642,7 +643,7 @@ export default function App() {
               <a href="#additional">Additional</a>
               <a href="#contact">Contact</a>
             </nav>
-            <a className="ghost-btn" href={resumeFile} download="陈衍年简历.pdf" style={{ textDecoration: "none" }}>
+            <a className="ghost-btn" href={resumeFile} download="chen-yannian-resume.pdf" style={{ textDecoration: "none" }}>
               下载简历
             </a>
           </div>
@@ -666,7 +667,7 @@ export default function App() {
                       查看项目
                       <ArrowRight size={16} />
                     </a>
-                    <a className="ghost-large-btn" href={resumeFile} download="陈衍年简历.pdf" style={{ textDecoration: "none" }}>
+                    <a className="ghost-large-btn" href={resumeFile} download="chen-yannian-resume.pdf" style={{ textDecoration: "none" }}>
                       下载简历
                       <Download size={16} />
                     </a>
@@ -783,7 +784,7 @@ export default function App() {
                     </div>
                   </div>
                   <div className="hero-actions" style={{ marginTop: 40 }}>
-                    <a className="primary-btn" href={resumeFile} download="陈衍年简历.pdf">
+                    <a className="primary-btn" href={resumeFile} download="chen-yannian-resume.pdf">
                       下载简历
                       <Download size={16} />
                     </a>
