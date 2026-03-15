@@ -6,6 +6,9 @@ type StatItem = { label: string; value: string; color: string; };
 type VisualItem = { title: string; desc: string; src: string; };
 type TopContentItem = { title: string; value: number; likes: number; comments: number; tag: string; };
 type PromoPhase = { stage: string; date: string; value: number; color: string; desc: string; };
+type OpsMetric = { label: string; value: string; note: string; tone: string; };
+type BreakoutMetric = { label: string; value: string; note: string; };
+type OpsInsight = { title: string; detail: string; };
 
 const documentaryCover = "/assets/documentary-cover.jpg";
 
@@ -41,6 +44,33 @@ const promoPhases: PromoPhase[] = [
   { stage:"4月上映期", date:"4.08 - 4.30", value:42, color:"#9EBEED", desc:"电影上映后进入常规宣发阶段，内容持续铺量，但整体热度相对平稳。" },
   { stage:"五一爆发期", date:"5.01 - 5.05", value:100, color:"#4E90F5", desc:"五一档节点叠加高情绪切口内容，播放与讨论明显抬升，形成阶段峰值。" },
   { stage:"节后回落期", date:"5.06 - 5.09", value:46, color:"#94C000", desc:"假期结束后整体流量自然回落，但高记忆点内容仍能维持一定播放表现。" }
+];
+
+const operationsMetrics: OpsMetric[] = [
+  { label:"累计播放", value:"98.7万", note:"9 条视频累计接近百万播放。", tone:"#4E90F5" },
+  { label:"累计点赞", value:"1.59万", note:"强情绪台词和角色反差内容最能带动点赞。", tone:"#1C9AA0" },
+  { label:"累计评论", value:"148", note:"讨论集中在角色梗、台词梗和剧情吐槽。", tone:"#94C000" },
+  { label:"累计收藏", value:"685", note:"内容具备二次回看与转存价值。", tone:"#4B6B03" },
+  { label:"累计分享", value:"109", note:"有一定站外扩散能力。", tone:"#4E90F5" },
+  { label:"累计投币", value:"144", note:"说明用户认可度不只是停留在播放层。", tone:"#1C9AA0" },
+  { label:"粉丝总数", value:"68", note:"小体量账号仍然实现了稳定涨粉。", tone:"#94C000" },
+  { label:"播放峰值", value:"30.8万", note:"《魏翔：别问，吊我！！！》成为爆款视频。", tone:"#4B6B03" }
+];
+
+const breakoutMetrics: BreakoutMetric[] = [
+  { label:"单日净增粉", value:"53", note:"五一档节点拉新明显。" },
+  { label:"单日播放", value:"41.6万", note:"集中放大了上映窗口的关注度。" },
+  { label:"单日点赞", value:"7273", note:"情绪切口内容强势放大互动。" },
+  { label:"单日评论", value:"107", note:"评论区讨论集中爆发。" },
+  { label:"单日收藏", value:"463", note:"用户愿意保存与回看。" },
+  { label:"单日投币", value:"110", note:"认可度在高峰期同步上涨。" }
+];
+
+const operationsInsights: OpsInsight[] = [
+  { title:"播放最高内容", detail:"《魏翔：别问，吊我！！！》播放 30.8 万，说明强人设台词和夸张动作镜头最适合破圈。" },
+  { title:"涨粉最高内容", detail:"《是谁？太没素质了，出来游个泳一股尿味！》单条涨粉 19，是最强拉新内容。" },
+  { title:"互动最高内容", detail:"《尹正的现挂能力有多强？剧组一整个瑞思拜》互动率 4%，点赞 4226、评论 36，幕后感和群像氛围更容易激发讨论。" },
+  { title:"运营结论", detail:"上映窗口内，角色反差、情绪金句、冲突式标题最适合 B 站影视宣传场景，高播放内容负责破圈，高互动内容负责放大讨论。" }
 ];
 
 const bayerVisuals: VisualItem[] = [
@@ -95,13 +125,72 @@ function CaseSection({ project, priority }: { project: Project; priority?: boole
   </section>;
 }
 
+function OperationsResultsSection() {
+  return <section className="section-block" id="results">
+    <SectionLabel number="03" title="Operations Results" />
+    <Panel style={{ borderRadius:36, boxShadow:"0 8px 20px rgba(36,49,40,0.03)" }}>
+      <div className="dashboard-wrap">
+        <div className="ops-hero">
+          <div>
+            <div style={{ fontSize:12, textTransform:"uppercase", letterSpacing:"0.16em", color:"#4E90F5" }}>Operations Results / Bilibili Campaign</div>
+            <h2 className="dashboard-title" style={{ maxWidth:760 }}>把后台截图整理成能直接证明结果的运营成果模块</h2>
+            <p className="dashboard-copy" style={{ maxWidth:760 }}>围绕电影《大“反”派》上映窗口，把累计成绩、爆发节点和内容表现拆成三层信息，让浏览者一眼看懂你做了什么、结果怎样、哪些内容真正跑出来了。</p>
+          </div>
+          <div className="ops-summary-card">
+            <div className="ops-summary-label">阶段结论</div>
+            <div className="ops-summary-value">上映期累计播放近 100 万</div>
+            <p className="ops-summary-copy">9 条内容覆盖上映前后讨论窗口，跑出 1 条 30 万级爆款、4 条 10 万+ 内容，并在五一档完成单日 41.6 万播放与 53 净增粉。</p>
+          </div>
+        </div>
+
+        <div className="ops-metric-grid">
+          {operationsMetrics.map((item) => <div key={item.label} className="ops-metric-card">
+            <div className="ops-metric-head">
+              <div className="ops-metric-label">{item.label}</div>
+              <span className="ops-metric-dot" style={{ background:item.tone }} />
+            </div>
+            <div className="ops-metric-value">{item.value}</div>
+            <p className="ops-metric-note">{item.note}</p>
+          </div>)}
+        </div>
+
+        <div className="ops-split-grid">
+          <div className="sub-card">
+            <div className="sub-label">Peak Day</div>
+            <div className="sub-title">爆发节点</div>
+            <p className="ops-card-copy">后台日数据说明，五一档是最明显的放大窗口，播放、点赞、评论、收藏和投币同步抬升，内容节奏和上映节奏形成了有效共振。</p>
+            <div className="breakout-grid">
+              {breakoutMetrics.map((item) => <div key={item.label} className="breakout-card">
+                <div className="breakout-label">{item.label}</div>
+                <div className="breakout-value">{item.value}</div>
+                <div className="breakout-note">{item.note}</div>
+              </div>)}
+            </div>
+          </div>
+
+          <div className="sub-card">
+            <div className="sub-label">Content Winners</div>
+            <div className="sub-title">内容胜出点</div>
+            <div className="insight-list">
+              {operationsInsights.map((item) => <div key={item.title} className="insight-item">
+                <div className="insight-title">{item.title}</div>
+                <p className="insight-copy">{item.detail}</p>
+              </div>)}
+            </div>
+          </div>
+        </div>
+      </div>
+    </Panel>
+  </section>;
+}
+
 export default function App() {
   return <div style={{ minHeight:"100vh", background:palette.bg, color:palette.text }}>
     <div className="page-shell">
       <header className="site-header">
         <div className="header-inner">
           <div><div style={{ fontSize:22, fontWeight:600, color:"#243128" }}>陈衍年</div><div style={{ marginTop:4, fontSize:11, textTransform:"uppercase", letterSpacing:"0.14em", color:"#4E90F5" }}>Content Strategy · Project Execution</div></div>
-          <nav className="desktop-nav"><a href="#work">Projects</a><a href="#additional">Additional</a><a href="#contact">Contact</a></nav>
+          <nav className="desktop-nav"><a href="#work">Projects</a><a href="#results">Results</a><a href="#additional">Additional</a><a href="#contact">Contact</a></nav>
           <button className="ghost-btn">下载简历</button>
         </div>
       </header>
@@ -190,12 +279,14 @@ export default function App() {
           </Panel>
         </section>
 
-        <section className="section-block"><SectionLabel number="03" title="Strategy Visuals" /><div className="two-col-grid">{bayerVisuals.map((item) => <div key={item.title} className="visual-card"><div className="visual-media"><img src={item.src} alt={item.title} /></div><div style={{ padding:20 }}><div className="visual-title">{item.title}</div><p className="visual-copy">{item.desc}</p></div></div>)}</div></section>
+        <OperationsResultsSection />
 
-        <section id="additional" className="section-block"><SectionLabel number="04" title="Operational Experience" /><Panel style={{ borderRadius:36, boxShadow:"0 8px 20px rgba(36,49,40,0.03)" }}><div className="dashboard-wrap"><div style={{ marginBottom:32, fontSize:12, textTransform:"uppercase", letterSpacing:"0.16em", color:"#4E90F5" }}>Operational Experience</div><div className="three-col-grid">{additionalWorks.map((item) => <div key={item.title} className="experience-card"><div className="experience-title">{item.title}</div><p className="experience-copy">{item.desc}</p></div>)}</div></div></Panel></section>
+        <section className="section-block"><SectionLabel number="04" title="Strategy Visuals" /><div className="two-col-grid">{bayerVisuals.map((item) => <div key={item.title} className="visual-card"><div className="visual-media"><img src={item.src} alt={item.title} /></div><div style={{ padding:20 }}><div className="visual-title">{item.title}</div><p className="visual-copy">{item.desc}</p></div></div>)}</div></section>
+
+        <section id="additional" className="section-block"><SectionLabel number="05" title="Operational Experience" /><Panel style={{ borderRadius:36, boxShadow:"0 8px 20px rgba(36,49,40,0.03)" }}><div className="dashboard-wrap"><div style={{ marginBottom:32, fontSize:12, textTransform:"uppercase", letterSpacing:"0.16em", color:"#4E90F5" }}>Operational Experience</div><div className="three-col-grid">{additionalWorks.map((item) => <div key={item.title} className="experience-card"><div className="experience-title">{item.title}</div><p className="experience-copy">{item.desc}</p></div>)}</div></div></Panel></section>
 
         <section id="contact" className="contact-section">
-          <SectionLabel number="05" title="Contact" />
+          <SectionLabel number="06" title="Contact" />
           <div className="contact-grid">
             <div><h2 className="contact-title">用三个核心案例，<br />建立清晰的用人判断。</h2><p className="contact-copy">这版网站的目标不是堆砌经历，而是让浏览者在较短时间内看清项目判断、执行能力与表达方式。后续补入真实素材后，可直接用于正式投递与面试展示。</p></div>
             <Panel style={{ borderRadius:32, boxShadow:"0 8px 20px rgba(36,49,40,0.03)" }}><div className="contact-card"><div className="contact-list"><div className="contact-item"><Mail size={16} /> <span>NeoCyyyn@163.com</span></div><div className="contact-item"><Phone size={16} /> <span>192-8328-7512</span></div><div className="contact-item"><Play size={16} /> <a href="https://space.bilibili.com/1099530248?spm_id_from=333.1007.0.0" target="_blank" rel="noreferrer">B站账号主页</a></div></div><div className="hero-actions" style={{ marginTop:40 }}><button className="primary-btn">下载简历 <Download size={16} /></button><a href="#work" className="ghost-large-btn" style={{ textDecoration:"none" }}>返回项目 <ArrowRight size={16} /></a></div></div></Panel>
@@ -206,5 +297,5 @@ export default function App() {
   </div>;
 }
 
-const sanityChecks = [projects.length === 3, additionalWorks.length === 3, bilibiliStats.length === 4, topContent.length === 4, promoPhases.length === 3, bayerVisuals.length === 2].every(Boolean);
+const sanityChecks = [projects.length === 3, additionalWorks.length === 3, bilibiliStats.length === 4, topContent.length === 4, promoPhases.length === 3, operationsMetrics.length === 8, breakoutMetrics.length === 6, operationsInsights.length === 4, bayerVisuals.length === 2].every(Boolean);
 if (!sanityChecks) throw new Error("Portfolio data is incomplete.");
