@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ArrowRight, Download, Mail, Phone, Play } from "lucide-react";
 
 type Project = { id: string; title: string; subtitle: string; role: string; s: string; a: string; r: string; highlight: string; accent: string; cover?: string; };
@@ -9,6 +9,7 @@ type PromoPhase = { stage: string; date: string; value: number; color: string; d
 type OpsMetric = { label: string; value: string; note: string; tone: string; };
 type BreakoutMetric = { label: string; value: string; note: string; };
 type OpsInsight = { title: string; detail: string; };
+type CaseDetail = { title: string; points: string[]; };
 
 const documentaryCover = "/assets/documentary-cover.jpg";
 
@@ -25,6 +26,33 @@ const additionalWorks = [
   { title:"新闻摄影《旅人》组照", desc:"可延展为影像展示模块，体现视觉表达与纪实内容判断。" },
   { title:"沉船互动视频项目", desc:"体现脚本整理、叙事设计与互动内容执行经验。" }
 ];
+
+const caseDetails: Record<string, CaseDetail> = {
+  documentary: {
+    title: "完整案例补充",
+    points: [
+      "从前期选题、采访沟通到拍摄执行，持续跟进人物线索，保证纪录片叙事完整。",
+      "拍摄周期跨越较长时间，需要反复协调拍摄对象状态与时间，保持素材连续性。",
+      "最终完成 15 分钟成片，并形成可用于比赛与作品集展示的完整案例。"
+    ]
+  },
+  bilibili: {
+    title: "完整案例补充",
+    points: [
+      "围绕电影上映窗口拆分内容节奏，优先布局角色记忆点、冲突台词和情绪高点。",
+      "根据后台反馈持续优化标题和文案方向，让高播放内容负责破圈，高互动内容负责讨论。",
+      "最终跑出近 100 万累计播放、4 条 10 万+ 视频和 1 条 30 万级爆款。"
+    ]
+  },
+  bayer: {
+    title: "完整案例补充",
+    points: [
+      "完成受众洞察、传播策略、提案逻辑和视觉表达的整套梳理。",
+      "将线上线下联动传播路径拆成可展示、可汇报的提案结构，突出执行可行性。",
+      "最终以系统化方案参加比赛并获得奖项，证明策略整理与表达能力。"
+    ]
+  }
+};
 
 const bilibiliStats: StatItem[] = [
   { label:"累计播放", value:"986,951", color:"#4E90F5" },
@@ -93,6 +121,8 @@ function Panel({ children, style = {} as React.CSSProperties }: { children: Reac
 
 function CaseSection({ project, priority }: { project: Project; priority?: boolean }) {
   const isDocumentary = project.id === "documentary";
+  const [expanded, setExpanded] = useState(false);
+  const detail = caseDetails[project.id];
   return <section id={`case-${project.id}`}>
     <Panel style={{ borderRadius:34, boxShadow:"0 8px 18px rgba(36,49,40,0.04)" }}>
       <div style={{ position:"relative", overflow:"hidden", background:project.accent }}>
@@ -119,7 +149,19 @@ function CaseSection({ project, priority }: { project: Project; priority?: boole
       </div>
       <div className="bottom-row" style={{ display:"flex", flexDirection:"column", gap:20, padding:"24px 28px" }}>
         <div><div style={{ fontSize:12, textTransform:"uppercase", letterSpacing:"0.14em", color:"#4E90F5" }}>Business Outcome</div><div style={{ marginTop:12, fontSize:"clamp(24px, 3vw, 30px)", fontWeight:500, color:"#243128" }}>{project.highlight}</div></div>
-        <a href={`#case-${project.id}`} style={{ display:"inline-flex", alignItems:"center", gap:8, borderRadius:999, border:"1px solid #DCE7DE", background:"#F7FBFF", padding:"12px 20px", fontSize:14, color:"#243128", textDecoration:"none", width:"fit-content" }}>查看完整案例 <ArrowRight size={16} /></a>
+        <button onClick={() => setExpanded((value) => !value)} style={{ display:"inline-flex", alignItems:"center", gap:8, borderRadius:999, border:"1px solid #DCE7DE", background:"#F7FBFF", padding:"12px 20px", fontSize:14, color:"#243128", cursor:"pointer", width:"fit-content" }}>
+          {expanded ? "收起案例详情" : "查看完整案例"}
+          <ArrowRight size={16} style={{ transform:expanded ? "rotate(90deg)" : "none", transition:"transform 160ms ease" }} />
+        </button>
+        {expanded && detail ? <div style={{ borderRadius:24, border:"1px solid #DCE7DE", background:"#F7FBFF", padding:20, boxShadow:"0 6px 16px rgba(36,49,40,0.02)" }}>
+          <div style={{ fontSize:12, textTransform:"uppercase", letterSpacing:"0.14em", color:"#4E90F5" }}>{detail.title}</div>
+          <div style={{ marginTop:16, display:"grid", gap:12 }}>
+            {detail.points.map((point) => <div key={point} style={{ display:"flex", alignItems:"flex-start", gap:10, color:"#243128", fontSize:14, lineHeight:1.85 }}>
+              <span style={{ marginTop:8, width:6, height:6, borderRadius:"50%", background:"#4E90F5", flexShrink:0 }} />
+              <span>{point}</span>
+            </div>)}
+          </div>
+        </div> : null}
       </div>
     </Panel>
   </section>;
