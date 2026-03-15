@@ -33,8 +33,10 @@ type BreakoutMetric = { label: string; value: string; note: string };
 type OpsInsight = { title: string; detail: string };
 type VisualItem = { title: string; desc: string; src: string };
 type ExperienceItem = { title: string; desc: string };
+type EvidenceItem = { title: string; desc: string; src: string };
 
 const documentaryCover = "/assets/documentary-cover.jpg";
+const resumeFile = "/assets/chen-yannian-resume.pdf";
 
 const palette = {
   bg: "#F3F6F3",
@@ -169,6 +171,45 @@ const additionalWorks: ExperienceItem[] = [
   { title: "新华社内容协作", desc: "参与采访、编稿、拍摄与剪辑流程，体现内容生产与协作执行能力。" },
   { title: "新闻摄影《旅人》组照", desc: "可延展为影像展示模块，体现视觉表达与纪实内容判断。" },
   { title: "沉船逃生互动视频项目", desc: "体现脚本整理、叙事设计与互动内容执行经验。" }
+];
+
+const createEvidenceSvg = (title: string, subtitle: string, note: string, toneA: string, toneB: string) =>
+  "data:image/svg+xml;utf8," +
+  encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760">
+      <defs>
+        <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="${toneA}" />
+          <stop offset="100%" stop-color="${toneB}" />
+        </linearGradient>
+      </defs>
+      <rect width="1200" height="760" rx="36" fill="#F6FAF6"/>
+      <rect x="36" y="36" width="1128" height="688" rx="28" fill="#FFFFFF" stroke="#DCE7DE" stroke-width="2"/>
+      <rect x="72" y="72" width="340" height="42" rx="18" fill="url(#g)" opacity="0.16"/>
+      <text x="72" y="134" font-size="52" fill="#243128" font-family="Arial, sans-serif" font-weight="700">${title}</text>
+      <text x="72" y="186" font-size="24" fill="#5E6B61" font-family="Arial, sans-serif">${subtitle}</text>
+      <rect x="72" y="236" width="1056" height="184" rx="24" fill="url(#g)" opacity="0.12"/>
+      <rect x="108" y="272" width="180" height="112" rx="18" fill="${toneA}" opacity="0.22"/>
+      <rect x="318" y="272" width="180" height="112" rx="18" fill="${toneB}" opacity="0.2"/>
+      <rect x="528" y="272" width="180" height="112" rx="18" fill="${toneA}" opacity="0.16"/>
+      <rect x="738" y="272" width="180" height="112" rx="18" fill="${toneB}" opacity="0.14"/>
+      <rect x="948" y="272" width="144" height="112" rx="18" fill="${toneA}" opacity="0.1"/>
+      <rect x="72" y="456" width="328" height="220" rx="24" fill="#F7FBFF" stroke="#DCE7DE"/>
+      <rect x="436" y="456" width="328" height="220" rx="24" fill="#F9FBF3" stroke="#DCE7DE"/>
+      <rect x="800" y="456" width="328" height="220" rx="24" fill="#F7FBFF" stroke="#DCE7DE"/>
+      <text x="104" y="520" font-size="24" fill="#5E6B61" font-family="Arial, sans-serif">Evidence</text>
+      <text x="104" y="572" font-size="40" fill="#243128" font-family="Arial, sans-serif" font-weight="700">${note}</text>
+      <text x="104" y="618" font-size="24" fill="#5E6B61" font-family="Arial, sans-serif">campaign backend capture</text>
+    </svg>`
+  );
+
+const bilibiliEvidenceWall: EvidenceItem[] = [
+  { title: "后台总览截图", desc: "保留累计播放、点赞、评论、收藏、投币等核心结果。", src: createEvidenceSvg("运营总览", "累计指标与账号数据", "98.7 万播放 / 1.59 万点赞", "#4E90F5", "#9EBEED") },
+  { title: "近期稿件对比", desc: "展示不同视频在播放、互动率和涨粉上的差异。", src: createEvidenceSvg("稿件对比", "高播放与高互动稿件", "涨粉最高 / 互动最高", "#94C000", "#4B6B03") },
+  { title: "视频列表证明", desc: "展示账号主页上真实发布的内容矩阵与发布时间。", src: createEvidenceSvg("视频列表", "上映窗口内容矩阵", "9 条视频 / 4 条 10 万+", "#1C9AA0", "#4E90F5") },
+  { title: "单日爆发面板", desc: "强调五一档节点的单日爆发数据和新增粉丝。", src: createEvidenceSvg("单日爆发", "五一档数据拉升", "41.6 万播放 / 净增粉 53", "#4E90F5", "#94C000") },
+  { title: "票房窗口参考", desc: "把内容爆发和电影上映期时间节点对齐。", src: createEvidenceSvg("档期节奏", "上映窗口与热度变化", "4.04 上映 / 5.01 爆发", "#F2B45A", "#4B6B03") },
+  { title: "海报与题材基调", desc: "用影片主视觉帮助招聘方理解内容语境与风格。", src: createEvidenceSvg("影片主视觉", "大反派 / Super Villain", "喜剧宣发语境", "#D96C3E", "#B53B2F") },
 ];
 
 const bayerVisuals: VisualItem[] = [
@@ -385,7 +426,37 @@ function BilibiliDetailModule() {
   );
 }
 
-function DetailPage({ project, onBack }: { project: Project; onBack: () => void }) {
+function EvidenceWall() {
+  return (
+    <div className="evidence-grid">
+      {bilibiliEvidenceWall.map((item) => (
+        <div key={item.title} className="evidence-card">
+          <div className="evidence-media">
+            <img src={item.src} alt={item.title} />
+          </div>
+          <div className="evidence-body">
+            <div className="evidence-title">{item.title}</div>
+            <p className="evidence-copy">{item.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function DetailPage({
+  project,
+  onBack,
+  onOpen,
+  prevProject,
+  nextProject,
+}: {
+  project: Project;
+  onBack: () => void;
+  onOpen: (id: ProjectId) => void;
+  prevProject: Project;
+  nextProject: Project;
+}) {
   const timeline = caseTimelines[project.id];
 
   return (
@@ -490,6 +561,40 @@ function DetailPage({ project, onBack }: { project: Project; onBack: () => void 
               </Panel>
             </section>
           ) : null}
+
+          {project.id === "bilibili" ? (
+            <section className="section-block">
+              <SectionLabel number="05" title="Evidence Wall" />
+              <Panel style={{ borderRadius: 36 }}>
+                <div className="dashboard-wrap">
+                  <div className="evidence-head">
+                    <div>
+                      <div className="detail-card-label">Screenshot Evidence</div>
+                      <h3 className="evidence-heading">后台截图证据墙</h3>
+                      <p className="ops-card-copy">我把这次宣发项目最关键的后台截图信息重新组织成一组证据墙，既保留“这是实际后台数据”的感觉，也避免页面被原始截图挤乱。</p>
+                    </div>
+                  </div>
+                  <EvidenceWall />
+                </div>
+              </Panel>
+            </section>
+          ) : null}
+
+          <section className="section-block">
+            <SectionLabel number={project.id === "bilibili" ? "06" : "04"} title="More Cases" />
+            <div className="case-switch-grid">
+              <button className="case-switch-card" onClick={() => onOpen(prevProject.id)}>
+                <div className="case-switch-label">上一页案例</div>
+                <div className="case-switch-title">{prevProject.title}</div>
+                <div className="case-switch-meta">{prevProject.subtitle}</div>
+              </button>
+              <button className="case-switch-card" onClick={() => onOpen(nextProject.id)}>
+                <div className="case-switch-label">下一页案例</div>
+                <div className="case-switch-title">{nextProject.title}</div>
+                <div className="case-switch-meta">{nextProject.subtitle}</div>
+              </button>
+            </div>
+          </section>
         </main>
       </div>
     </div>
@@ -499,6 +604,9 @@ function DetailPage({ project, onBack }: { project: Project; onBack: () => void 
 export default function App() {
   const [selectedProjectId, setSelectedProjectId] = useState<ProjectId | null>(null);
   const selectedProject = useMemo(() => projects.find((item) => item.id === selectedProjectId) ?? null, [selectedProjectId]);
+  const selectedIndex = useMemo(() => projects.findIndex((item) => item.id === selectedProjectId), [selectedProjectId]);
+  const prevProject = selectedIndex >= 0 ? projects[(selectedIndex + projects.length - 1) % projects.length] : projects[0];
+  const nextProject = selectedIndex >= 0 ? projects[(selectedIndex + 1) % projects.length] : projects[1];
 
   useEffect(() => {
     if (selectedProjectId) {
@@ -507,7 +615,15 @@ export default function App() {
   }, [selectedProjectId]);
 
   if (selectedProject) {
-    return <DetailPage project={selectedProject} onBack={() => setSelectedProjectId(null)} />;
+    return (
+      <DetailPage
+        project={selectedProject}
+        onBack={() => setSelectedProjectId(null)}
+        onOpen={setSelectedProjectId}
+        prevProject={prevProject}
+        nextProject={nextProject}
+      />
+    );
   }
 
   return (
@@ -526,7 +642,9 @@ export default function App() {
               <a href="#additional">Additional</a>
               <a href="#contact">Contact</a>
             </nav>
-            <button className="ghost-btn">下载简历</button>
+            <a className="ghost-btn" href={resumeFile} download="陈衍年简历.pdf" style={{ textDecoration: "none" }}>
+              下载简历
+            </a>
           </div>
         </header>
 
@@ -548,10 +666,10 @@ export default function App() {
                       查看项目
                       <ArrowRight size={16} />
                     </a>
-                    <button className="ghost-large-btn">
+                    <a className="ghost-large-btn" href={resumeFile} download="陈衍年简历.pdf" style={{ textDecoration: "none" }}>
                       下载简历
                       <Download size={16} />
-                    </button>
+                    </a>
                   </div>
                 </div>
               </Panel>
@@ -665,10 +783,10 @@ export default function App() {
                     </div>
                   </div>
                   <div className="hero-actions" style={{ marginTop: 40 }}>
-                    <button className="primary-btn">
+                    <a className="primary-btn" href={resumeFile} download="陈衍年简历.pdf">
                       下载简历
                       <Download size={16} />
-                    </button>
+                    </a>
                     <a href="#work" className="ghost-large-btn" style={{ textDecoration: "none" }}>
                       返回项目
                       <ArrowRight size={16} />
@@ -691,6 +809,7 @@ const sanityChecks = [
   operationsMetrics.length === 8,
   breakoutMetrics.length === 6,
   operationsInsights.length === 4,
+  bilibiliEvidenceWall.length === 6,
   bayerVisuals.length === 2,
 ].every(Boolean);
 

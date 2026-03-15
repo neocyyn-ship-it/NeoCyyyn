@@ -218,7 +218,9 @@ button {
 .ops-split-grid,
 .breakout-grid,
 .insight-list,
-.contact-grid {
+.contact-grid,
+.evidence-grid,
+.case-switch-grid {
   display: grid;
   gap: 16px;
 }
@@ -545,6 +547,85 @@ button {
   margin: 12px 0 0;
 }
 
+.evidence-head {
+  margin-bottom: 20px;
+}
+
+.evidence-heading {
+  margin: 10px 0 0;
+  font-size: 28px;
+  line-height: 1.2;
+  color: #243128;
+}
+
+.evidence-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.evidence-card,
+.case-switch-card {
+  border-radius: 28px;
+  border: 1px solid #dce7de;
+  background: #fff;
+  box-shadow: 0 6px 16px rgba(36, 49, 40, 0.02);
+}
+
+.evidence-card {
+  overflow: hidden;
+}
+
+.evidence-media {
+  aspect-ratio: 16 / 10;
+  background: #f7fbff;
+}
+
+.evidence-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.evidence-body {
+  padding: 18px;
+}
+
+.evidence-title,
+.case-switch-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #243128;
+}
+
+.evidence-copy,
+.case-switch-meta {
+  margin: 10px 0 0;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #5e6b61;
+}
+
+.case-switch-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.case-switch-card {
+  padding: 22px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.case-switch-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #4e90f5;
+}
+
+.case-switch-title {
+  margin-top: 14px;
+}
+
 .visual-card {
   padding: 0;
   overflow: hidden;
@@ -609,6 +690,8 @@ button {
   .ops-hero,
   .ops-split-grid,
   .contact-grid,
+  .evidence-grid,
+  .case-switch-grid,
   .two-col-grid,
   .three-col-grid,
   .case-grid {
