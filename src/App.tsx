@@ -241,11 +241,11 @@ const bayerVisuals: VisualItem[] = [
 ];
 
 const sectionLabelStyle: React.CSSProperties = {
-  marginBottom: 32,
+  marginBottom: 36,
   display: "flex",
   alignItems: "center",
-  gap: 16,
-  fontSize: 13,
+  gap: 18,
+  fontSize: 15,
   fontWeight: 500,
   letterSpacing: "0.08em",
   color: palette.blue
@@ -281,21 +281,21 @@ function Panel({ children, style = {} as React.CSSProperties }: { children: Reac
 
 function GeneratedCover({ project, compact = false }: { project: Project; compact?: boolean }) {
   return (
-    <div className="generated-cover" style={{ background: project.accent, minHeight: compact ? 172 : undefined }}>
+    <div className="generated-cover" style={{ background: project.accent, minHeight: compact ? 236 : undefined }}>
       <div className="generated-cover-glow" />
-      <div className="generated-cover-inner" style={{ minHeight: compact ? 172 : undefined, padding: compact ? 18 : 24 }}>
-        <div className="generated-cover-label" style={compact ? { fontSize: 14 } : undefined}>
+      <div className="generated-cover-inner" style={{ minHeight: compact ? 236 : undefined, padding: compact ? 24 : 24 }}>
+        <div className="generated-cover-label" style={compact ? { fontSize: 15 } : undefined}>
           {project.subtitle}
         </div>
         <div
           className="generated-cover-title"
-          style={compact ? { maxWidth: "9.5ch", fontSize: "clamp(23px, 3vw, 28px)", lineHeight: 1.16 } : undefined}
+          style={compact ? { maxWidth: "10ch", fontSize: "clamp(30px, 2.7vw, 38px)", lineHeight: 1.08 } : undefined}
         >
           {project.title}
         </div>
         <div className="generated-cover-tags" style={compact ? { gap: 8 } : undefined}>
           {project.tags.map((tag) => (
-            <span key={tag} style={compact ? { padding: "5px 10px", fontSize: 14, background: "rgba(255,255,255,0.08)" } : undefined}>
+            <span key={tag} style={compact ? { padding: "8px 14px", fontSize: 15, background: "rgba(255,255,255,0.08)" } : undefined}>
               {tag}
             </span>
           ))}
@@ -315,17 +315,17 @@ function CaseCard({ project, onOpen, priority }: { project: Project; onOpen: (id
           <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at top left, rgba(255,255,255,0.18), transparent 24%), radial-gradient(circle at bottom right, rgba(255,255,255,0.10), transparent 30%), linear-gradient(180deg, rgba(255,255,255,0), rgba(31,36,48,0.06))" }} />
           <div className="case-padding" style={{ position: "relative", zIndex: 1, color: "white" }}>
             <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 24, flexWrap: "wrap" }}>
-              <div style={{ borderRadius: 999, border: "1px solid rgba(255,255,255,0.3)", background: "rgba(255,255,255,0.18)", padding: "8px 16px", fontSize: 13, fontWeight: 500, letterSpacing: "0.08em" }}>
+              <div style={{ borderRadius: 999, border: "1px solid rgba(255,255,255,0.3)", background: "rgba(255,255,255,0.18)", padding: "10px 18px", fontSize: 15, fontWeight: 500, letterSpacing: "0.08em" }}>
                 {project.subtitle}
               </div>
-              <div style={{ fontSize: 13, fontWeight: 500, letterSpacing: "0.08em", color: "rgba(255,255,255,0.8)" }}>
+              <div style={{ fontSize: 15, fontWeight: 500, letterSpacing: "0.08em", color: "rgba(255,255,255,0.8)" }}>
                 {priority ? "Core Project" : "Project"}
               </div>
             </div>
 
             <div style={{ marginTop: 56, maxWidth: 820 }}>
-              <h2 style={{ maxWidth: "12ch", fontSize: "clamp(34px, 4.2vw, 42px)", fontWeight: 600, lineHeight: 1.16, margin: 0 }}>{project.title}</h2>
-              <p style={{ marginTop: 18, fontSize: 15, lineHeight: 1.7, letterSpacing: "0.04em", color: "rgba(255,255,255,0.9)" }}>{project.role}</p>
+              <h2 style={{ maxWidth: "12ch", fontSize: "clamp(36px, 4.2vw, 46px)", fontWeight: 600, lineHeight: 1.14, margin: 0 }}>{project.title}</h2>
+              <p style={{ marginTop: 18, fontSize: 17, lineHeight: 1.72, letterSpacing: "0.04em", color: "rgba(255,255,255,0.9)" }}>{project.role}</p>
             </div>
 
             <div className="case-grid" style={{ marginTop: 36, display: "grid", gap: 16, gridTemplateColumns: isDocumentary ? "minmax(0,0.95fr) minmax(0,1.05fr)" : "repeat(3, minmax(0,1fr))" }}>
@@ -343,9 +343,9 @@ function CaseCard({ project, onOpen, priority }: { project: Project; onOpen: (id
                   { label: "Action", text: project.action },
                   { label: "Result", text: project.result },
                 ].map((block) => (
-                  <div key={block.label} style={{ borderRadius: 24, border: "1px solid rgba(255,255,255,0.25)", background: "rgba(255,255,255,0.18)", padding: 20, backdropFilter: "blur(8px)" }}>
-                    <div style={{ fontSize: 13, fontWeight: 500, letterSpacing: "0.08em", color: "rgba(255,255,255,0.82)" }}>{block.label}</div>
-                    <p style={{ marginTop: 16, fontSize: 17, lineHeight: 1.85, color: "rgba(255,255,255,0.96)" }}>{block.text}</p>
+                  <div key={block.label} style={{ borderRadius: 24, border: "1px solid rgba(255,255,255,0.25)", background: "rgba(255,255,255,0.18)", padding: 22, backdropFilter: "blur(8px)" }}>
+                    <div style={{ fontSize: 15, fontWeight: 500, letterSpacing: "0.08em", color: "rgba(255,255,255,0.82)" }}>{block.label}</div>
+                    <p style={{ marginTop: 16, fontSize: 18, lineHeight: 1.82, color: "rgba(255,255,255,0.96)" }}>{block.text}</p>
                   </div>
                 ))}
               </div>
@@ -353,14 +353,14 @@ function CaseCard({ project, onOpen, priority }: { project: Project; onOpen: (id
           </div>
         </div>
 
-        <div className="bottom-row" style={{ display: "flex", flexDirection: "column", gap: 20, padding: "24px 28px" }}>
+        <div className="bottom-row" style={{ display: "flex", flexDirection: "column", gap: 20, padding: "28px 32px" }}>
           <div>
-            <div style={{ fontSize: 13, fontWeight: 500, letterSpacing: "0.08em", color: palette.blue }}>Business Outcome</div>
-            <div style={{ marginTop: 14, fontSize: "clamp(26px, 3vw, 32px)", fontWeight: 550, lineHeight: 1.3, color: palette.text }}>{project.highlight}</div>
+            <div style={{ fontSize: 15, fontWeight: 500, letterSpacing: "0.08em", color: palette.blue }}>Business Outcome</div>
+            <div style={{ marginTop: 14, fontSize: "clamp(30px, 3vw, 38px)", fontWeight: 550, lineHeight: 1.3, color: palette.text }}>{project.highlight}</div>
           </div>
           <button className="detail-trigger-btn" onClick={() => onOpen(project.id)}>
             看看这个项目
-            <ArrowRight size={16} />
+            <ArrowRight size={18} />
           </button>
         </div>
       </Panel>
@@ -373,8 +373,8 @@ function BilibiliDetailModule() {
     <div style={{ marginTop: 32, display: "grid", gap: 16 }}>
       <div className="ops-hero">
         <div>
-          <div style={{ fontSize: 13, fontWeight: 500, letterSpacing: "0.08em", color: palette.blue }}>Operations Results / Bilibili Campaign</div>
-          <h3 style={{ margin: "18px 0 0", fontSize: "clamp(30px,4vw,40px)", lineHeight: 1.24, color: palette.text }}>项目结果 / What Happened</h3>
+          <div style={{ fontSize: 15, fontWeight: 500, letterSpacing: "0.08em", color: palette.blue }}>Operations Results / Bilibili Campaign</div>
+          <h3 style={{ margin: "18px 0 0", fontSize: "clamp(32px, 4vw, 44px)", lineHeight: 1.22, color: palette.text }}>项目结果 / What Happened</h3>
           <p className="ops-card-copy">上映窗口很短，所以每一次标题、节奏和内容切口都要跑得足够准。最后留下来的，是一组还挺漂亮的数据。</p>
         </div>
         <div className="ops-summary-card">
@@ -648,8 +648,8 @@ export default function App() {
         <header className="site-header">
           <div className="header-inner">
             <div>
-              <div style={{ fontSize: 24, fontWeight: 600, lineHeight: 1.2, color: palette.text }}>陈衍年</div>
-              <div style={{ marginTop: 6, fontSize: 13, fontWeight: 500, letterSpacing: "0.06em", color: palette.blue }}>
+              <div style={{ fontSize: 26, fontWeight: 600, lineHeight: 1.2, color: palette.text }}>陈衍年</div>
+              <div style={{ marginTop: 6, fontSize: 15, fontWeight: 500, letterSpacing: "0.06em", color: palette.blue }}>
                 Ideas, images, and things becoming real
               </div>
             </div>
@@ -664,249 +664,233 @@ export default function App() {
           </div>
         </header>
 
-        <main>
+        <main className="home-main">
           <section className="hero-section">
-            <Panel style={{ borderRadius: 46, boxShadow: "0 12px 30px rgba(36,49,40,0.04)", maxWidth: 1360, margin: "0 auto" }}>
-              <div className="hero-card" style={{ padding: "clamp(40px, 5.5vw, 76px) clamp(28px, 4.4vw, 68px) clamp(44px, 5.4vw, 72px)" }}>
-                <div style={{ display: "grid", gap: 8, maxWidth: 640 }}>
-                  <div style={{ fontSize: "clamp(28px, 2.2vw, 36px)", fontWeight: 600, lineHeight: 1.14, color: palette.text }}>陈衍年</div>
-                  <div style={{ fontSize: 15, fontWeight: 500, letterSpacing: "0.04em", color: palette.blue }}>
+            <Panel style={{ borderRadius: 46, boxShadow: "0 18px 44px rgba(36,49,40,0.05)", maxWidth: 1120, margin: "0 auto" }}>
+              <div className="hero-card home-hero-stage" style={{ padding: "clamp(30px, 4vw, 54px)" }}>
+                <div className="home-hero-identity">
+                  <div style={{ fontSize: "clamp(30px, 2.4vw, 38px)", fontWeight: 600, lineHeight: 1.08, color: palette.text }}>陈衍年</div>
+                  <div style={{ fontSize: "clamp(16px, 1vw, 18px)", fontWeight: 500, letterSpacing: "0.04em", color: palette.blue }}>
                     Ideas, images, and things becoming real
                   </div>
                 </div>
-                <h1 className="hero-title" style={{ marginTop: 28, maxWidth: "13.8ch" }}>
-                  有一点想象力，也有一点
+
+                <h1 className="hero-title home-hero-title" style={{ marginTop: 16 }}>
+                  有一点想象力，
                   <br />
-                  把它变成现实的魔法。
+                  也有一点把它变成现实的魔法。
                 </h1>
-                <p className="hero-copy" style={{ marginTop: 28, maxWidth: 860, fontSize: "clamp(18px, 1.2vw, 20px)", lineHeight: 1.82 }}>
-                  影像、内容、策划和执行，都是把脑海里的东西一点点带到现实里的方式。
-                </p>
-                <div className="hero-actions" style={{ marginTop: 44 }}>
-                  <a href="#work" className="primary-btn">
-                    先看作品
-                    <ArrowRight size={16} />
-                  </a>
-                  <a className="ghost-large-btn" href={resumeFile} download="chen-yannian-resume.pdf" style={{ textDecoration: "none" }}>
-                    下载简历
-                    <Download size={16} />
-                  </a>
+
+                <div className="home-hero-foot">
+                  <p className="hero-copy home-hero-copy" style={{ margin: 0 }}>
+                    影像、内容、策划和执行，都是把脑海里的东西一点点带到现实里的方式。
+                  </p>
+                  <div className="hero-actions home-hero-actions" style={{ marginTop: 0 }}>
+                    <a href="#work" className="primary-btn">
+                      先看作品
+                      <ArrowRight size={18} />
+                    </a>
+                    <a className="ghost-large-btn" href={resumeFile} download="chen-yannian-resume.pdf" style={{ textDecoration: "none" }}>
+                      下载简历
+                      <Download size={18} />
+                    </a>
+                  </div>
                 </div>
               </div>
             </Panel>
           </section>
 
-          <section id="work" className="section-block" style={{ paddingTop: 12 }}>
-            <div style={{ marginBottom: 40, maxWidth: 880 }}>
-              <div style={{ fontSize: 13, fontWeight: 500, letterSpacing: "0.08em", color: palette.blue }}>Selected Works</div>
-              <h2
-                style={{
-                  margin: "16px 0 0",
-                  fontSize: "clamp(36px, 4vw, 48px)",
-                  lineHeight: 1.18,
-                  fontWeight: 600,
-                  color: palette.text,
-                  textWrap: "balance",
-                }}
-              >
-                把想法慢慢做成看得见的东西。
-              </h2>
-            </div>
-
-            <div className="project-preview-grid">
-              {projects.map((item, idx) => {
-                const softs = ["#F7FBFF", "#F6FBF0", "#F6FBF6"];
-                const dots = [palette.blue, palette.apple, palette.moss];
-                const [leadHighlight, supportingHighlight] = item.highlight.split(" / ");
-
-                return (
-                  <button key={item.id} className="preview-card-btn" onClick={() => setSelectedProjectId(item.id)}>
-                    <Panel style={{ borderRadius: 30, boxShadow: "0 6px 16px rgba(36,49,40,0.02)", height: "100%" }}>
-                      <div
-                        className="home-preview-card"
-                        style={{
-                          borderRadius: 24,
-                          border: `1px solid ${palette.line}`,
-                          padding: 28,
-                          background: softs[idx],
-                          textAlign: "left",
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: 0,
-                          height: "100%",
-                          minHeight: "clamp(420px, 34vw, 520px)",
-                        }}
-                      >
-                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
-                          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                            <span style={{ width: 11, height: 11, borderRadius: "50%", background: dots[idx], display: "inline-block" }} />
-                            <div style={{ fontSize: 15, fontWeight: 600, letterSpacing: "0.04em", color: palette.blue }}>{item.subtitle}</div>
-                          </div>
-                          <div style={{ fontSize: 15, fontWeight: 600, letterSpacing: "0.04em", color: palette.textSoft }}>0{idx + 1}</div>
-                        </div>
-
-                        {item.coverType === "image" && item.cover ? (
-                          <div style={{ marginTop: 18, overflow: "hidden", borderRadius: 18 }}>
-                            <img src={item.cover} alt={item.title} style={{ height: "clamp(176px, 14vw, 208px)", width: "100%", objectFit: "cover", display: "block" }} />
-                          </div>
-                        ) : (
-                          <div style={{ marginTop: 18 }}>
-                            <GeneratedCover project={item} compact />
-                          </div>
-                        )}
-
-                        <div
-                          style={{
-                            marginTop: 20,
-                            fontSize: "clamp(30px, 2.8vw, 38px)",
-                            fontWeight: 600,
-                            lineHeight: 1.18,
-                            color: palette.text,
-                            textWrap: "balance",
-                          }}
-                        >
-                          {item.title}
-                        </div>
-
-                        <div style={{ marginTop: "auto", paddingTop: 18, borderTop: `1px solid ${palette.line}` }}>
-                          <p style={{ margin: 0, fontSize: 18, lineHeight: 1.68, color: palette.textSoft }}>
-                            <span style={{ fontWeight: 600, color: palette.text }}>{leadHighlight}</span>
-                            {supportingHighlight ? <span style={{ color: dots[idx] }}> · {supportingHighlight}</span> : null}
-                          </p>
-                          <p style={{ margin: "10px 0 0", fontSize: 16, lineHeight: 1.72, color: palette.textSoft }}>{item.summary}</p>
-                        </div>
-                      </div>
-                    </Panel>
-                  </button>
-                );
-              })}
-            </div>
-          </section>
-
-          <section className="section-block" style={{ paddingTop: 8 }}>
-            <div className="home-about-grid" style={{ maxWidth: 1320 }}>
-              <div>
-                <div style={{ fontSize: 13, fontWeight: 500, letterSpacing: "0.08em", color: palette.blue }}>About Me</div>
+          <section id="work" className="section-block" style={{ paddingTop: 0 }}>
+            <div className="home-sheet-wrap">
+              <div className="home-works-head" style={{ marginBottom: 40, maxWidth: 860 }}>
+                <div style={{ fontSize: 15, fontWeight: 500, letterSpacing: "0.08em", color: palette.blue }}>Selected Works</div>
                 <h2
                   style={{
-                    margin: "18px 0 0",
-                    maxWidth: 720,
-                    fontSize: "clamp(32px, 3.2vw, 42px)",
-                    lineHeight: 1.24,
+                    margin: "14px 0 0",
+                    fontSize: "clamp(40px, 4vw, 56px)",
+                    lineHeight: 1.12,
                     fontWeight: 600,
                     color: palette.text,
                     textWrap: "balance",
                   }}
                 >
-                  一个有点子、也很会
+                  把想法慢慢做成
                   <br />
-                  把事情做出来的人。
+                  看得见的东西。
                 </h2>
-                <p
-                  style={{
-                    margin: "18px 0 0",
-                    maxWidth: 760,
-                    fontSize: "clamp(18px, 1.1vw, 19px)",
-                    lineHeight: 1.84,
-                    color: palette.textSoft,
-                  }}
-                >
-                  会做内容，会推项目，也会认真回头看看——让好想法不只停在想法里。
-                </p>
-                <div
-                  style={{
-                    marginTop: 16,
-                    fontSize: 16,
-                    fontWeight: 500,
-                    lineHeight: 1.6,
-                    letterSpacing: "0.03em",
-                    color: "#8A958D",
-                    fontStyle: "italic",
-                  }}
-                >
-                  Good ideas deserve to come true.
-                </div>
               </div>
 
-              <div className="home-about-notes">
-                {personalIntroNotes.map((item) => (
-                  <div key={item.title} style={{ paddingTop: 18, borderTop: `1px solid ${palette.line}` }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                      <span
-                        style={{
-                          width: 10,
-                          height: 10,
-                          borderRadius: "50%",
-                          background: item.tone,
-                          flexShrink: 0,
-                        }}
-                      />
-                      <div
-                        style={{
-                          fontSize: 20,
-                          lineHeight: 1.32,
-                          fontWeight: 600,
-                          color: palette.text,
-                        }}
-                      >
-                        {item.title}
-                      </div>
-                    </div>
-                    <p
+              <div className="project-preview-grid">
+                {projects.map((item, idx) => {
+                  const softs = ["#F7FBFF", "#F6FBF0", "#F6FBF6"];
+                  const dots = [palette.blue, palette.apple, palette.moss];
+                  const [leadHighlight, supportingHighlight] = item.highlight.split(" / ");
+
+                  return (
+                    <button key={item.id} className="preview-card-btn" onClick={() => setSelectedProjectId(item.id)}>
+                      <Panel style={{ borderRadius: 34, boxShadow: "0 10px 24px rgba(36,49,40,0.04)", height: "100%" }}>
+                        <div
+                          className="home-preview-card"
+                          style={{
+                            borderRadius: 28,
+                            border: `1px solid ${palette.line}`,
+                            padding: "28px 28px 26px",
+                            background: softs[idx],
+                            textAlign: "left",
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: 0,
+                            height: "100%",
+                            minHeight: "clamp(480px, 34vw, 560px)",
+                          }}
+                        >
+                          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                              <span style={{ width: 10, height: 10, borderRadius: "50%", background: dots[idx], display: "inline-block" }} />
+                              <div style={{ fontSize: 15, fontWeight: 600, letterSpacing: "0.04em", color: palette.blue }}>{item.subtitle}</div>
+                            </div>
+                            <div style={{ fontSize: 15, fontWeight: 600, letterSpacing: "0.04em", color: palette.textSoft }}>0{idx + 1}</div>
+                          </div>
+
+                          {item.coverType === "image" && item.cover ? (
+                            <div className="home-preview-media" style={{ marginTop: 20, overflow: "hidden", borderRadius: 20 }}>
+                              <img src={item.cover} alt={item.title} style={{ height: "clamp(200px, 13vw, 236px)", width: "100%", objectFit: "cover", display: "block" }} />
+                            </div>
+                          ) : (
+                            <div className="home-preview-media" style={{ marginTop: 20 }}>
+                              <GeneratedCover project={item} compact />
+                            </div>
+                          )}
+
+                          <div
+                            style={{
+                              marginTop: 22,
+                              fontSize: "clamp(34px, 2.8vw, 44px)",
+                              fontWeight: 600,
+                              lineHeight: 1.08,
+                              color: palette.text,
+                              textWrap: "balance",
+                            }}
+                          >
+                            {item.title}
+                          </div>
+
+                          <div style={{ marginTop: 18 }}>
+                            <p style={{ margin: 0, fontSize: 18, lineHeight: 1.72, color: palette.textSoft }}>{item.summary}</p>
+                          </div>
+
+                          <div style={{ marginTop: "auto", paddingTop: 20, borderTop: `1px solid ${palette.line}` }}>
+                            <p style={{ margin: 0, fontSize: "clamp(20px, 1.6vw, 26px)", lineHeight: 1.45, color: palette.textSoft }}>
+                              <span style={{ fontWeight: 600, color: palette.text }}>{leadHighlight}</span>
+                              {supportingHighlight ? <span style={{ color: dots[idx] }}> · {supportingHighlight}</span> : null}
+                            </p>
+                          </div>
+                        </div>
+                      </Panel>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+
+          <section className="section-block" style={{ paddingTop: 8 }}>
+            <Panel style={{ borderRadius: 40, boxShadow: "0 12px 28px rgba(36,49,40,0.035)", maxWidth: 1120, margin: "0 auto" }}>
+              <div
+                className="dashboard-wrap home-about-shell"
+                style={{
+                  padding: "clamp(28px, 3.8vw, 44px)",
+                  background: "linear-gradient(135deg, rgba(255,255,255,0.96), rgba(247,250,247,0.96) 50%, rgba(250,247,241,0.92))",
+                  borderRadius: 40,
+                }}
+              >
+                <div className="home-about-copy">
+                  <div style={{ fontSize: 15, fontWeight: 500, letterSpacing: "0.08em", color: palette.blue }}>About Me</div>
+                  <h2
+                    style={{
+                      margin: "20px 0 0",
+                      maxWidth: 760,
+                      fontSize: "clamp(44px, 3.6vw, 60px)",
+                      lineHeight: 1.12,
+                      fontWeight: 600,
+                      color: palette.text,
+                      textWrap: "balance",
+                    }}
+                  >
+                    一个有点子，
+                    <br />
+                    也很会把事情做出来的人。
+                  </h2>
+                  <p
+                    style={{
+                      margin: "22px 0 0",
+                      maxWidth: 780,
+                      fontSize: "clamp(22px, 1.45vw, 26px)",
+                      lineHeight: 1.78,
+                      color: palette.textSoft,
+                    }}
+                  >
+                    会做内容，会推项目，也会认真回头看看——让好想法不只停在想法里。
+                  </p>
+                  <div
+                    style={{
+                      marginTop: 18,
+                      fontSize: 20,
+                      fontWeight: 500,
+                      lineHeight: 1.6,
+                      letterSpacing: "0.03em",
+                      color: "#8A958D",
+                      fontStyle: "italic",
+                    }}
+                  >
+                    Good ideas deserve to come true.
+                  </div>
+                </div>
+
+                <div className="home-about-notes-grid">
+                  {personalIntroNotes.map((item) => (
+                    <div
+                      key={item.title}
+                      className="home-about-note"
                       style={{
-                        margin: "10px 0 0",
-                        fontSize: 16,
-                        lineHeight: 1.78,
-                        color: palette.textSoft,
+                        borderRadius: 28,
+                        border: `1px solid ${palette.line}`,
+                        background: "rgba(255,255,255,0.78)",
+                        padding: "28px 28px 26px",
+                        boxShadow: "0 6px 14px rgba(36,49,40,0.02)",
                       }}
                     >
-                      {item.desc}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          <section id="case-studies" className="section-block">
-            <SectionLabel number="01" title="CASE STUDIES" />
-            <div style={{ display: "grid", gap: 24 }}>
-              <CaseCard project={projects[0]} onOpen={setSelectedProjectId} priority />
-              <CaseCard project={projects[1]} onOpen={setSelectedProjectId} />
-              <CaseCard project={projects[2]} onOpen={setSelectedProjectId} />
-            </div>
-          </section>
-
-          <section className="section-block">
-            <SectionLabel number="02" title="Strategy Visuals" />
-            <div className="two-col-grid">
-              {bayerVisuals.map((item) => (
-                <div key={item.title} className="visual-card">
-                  <div className="visual-media">
-                    <img src={item.src} alt={item.title} />
-                  </div>
-                  <div style={{ padding: 20 }}>
-                    <div className="visual-title">{item.title}</div>
-                    <p className="visual-copy">{item.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          <section id="additional" className="section-block">
-            <SectionLabel number="03" title="MORE" />
-            <Panel style={{ borderRadius: 36, boxShadow: "0 8px 20px rgba(36,49,40,0.03)" }}>
-              <div className="dashboard-wrap">
-                <div style={{ marginBottom: 24, fontSize: 13, fontWeight: 500, letterSpacing: "0.08em", color: palette.blue }}>MORE</div>
-                <h2 style={{ margin: "0 0 32px", fontSize: "clamp(28px, 3.6vw, 40px)", lineHeight: 1.25, fontWeight: 600, color: palette.text }}>
-                  还有一些零零碎碎、但也很喜欢的小事。
-                </h2>
-                <div className="three-col-grid">
-                  {additionalWorks.map((item) => (
-                    <div key={item.title} className="experience-card">
-                      <div className="experience-title">{item.title}</div>
-                      <p className="experience-copy">{item.desc}</p>
+                      <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                        <span
+                          style={{
+                            width: 12,
+                            height: 12,
+                            borderRadius: "50%",
+                            background: item.tone,
+                            flexShrink: 0,
+                          }}
+                        />
+                        <div
+                          style={{
+                            fontSize: "clamp(26px, 1.6vw, 32px)",
+                            lineHeight: 1.22,
+                            fontWeight: 600,
+                            color: palette.text,
+                          }}
+                        >
+                          {item.title}
+                        </div>
+                      </div>
+                      <p
+                        style={{
+                          margin: "14px 0 0",
+                          fontSize: 20,
+                          lineHeight: 1.7,
+                          color: palette.textSoft,
+                        }}
+                      >
+                        {item.desc}
+                      </p>
                     </div>
                   ))}
                 </div>
@@ -914,48 +898,102 @@ export default function App() {
             </Panel>
           </section>
 
-          <section id="contact" className="contact-section">
-            <SectionLabel number="04" title="Contact" />
-            <div className="contact-grid">
-              <div>
-                <h2 className="contact-title">
-                  如果你刚好也喜欢把想法做成现实，
-                  <br />
-                  欢迎来找我。
-                </h2>
-                <p className="contact-copy">无论是内容、影像、策划，还是一个还在发光的项目灵感，都很愿意继续聊下去。</p>
+          <section id="case-studies" className="section-block">
+            <div className="home-sheet-wrap">
+              <SectionLabel number="01" title="CASE STUDIES" />
+              <div style={{ display: "grid", gap: 24 }}>
+                <CaseCard project={projects[0]} onOpen={setSelectedProjectId} priority />
+                <CaseCard project={projects[1]} onOpen={setSelectedProjectId} />
+                <CaseCard project={projects[2]} onOpen={setSelectedProjectId} />
               </div>
+            </div>
+          </section>
 
-              <Panel style={{ borderRadius: 32, boxShadow: "0 8px 20px rgba(36,49,40,0.03)" }}>
-                <div className="contact-card">
-                  <div className="contact-list">
-                    <div className="contact-item">
-                      <Mail size={16} />
-                      <span>NeoCyyyn@163.com</span>
+          <section className="section-block">
+            <div className="home-sheet-wrap">
+              <SectionLabel number="02" title="Strategy Visuals" />
+              <div className="two-col-grid">
+                {bayerVisuals.map((item) => (
+                  <div key={item.title} className="visual-card">
+                    <div className="visual-media">
+                      <img src={item.src} alt={item.title} />
                     </div>
-                    <div className="contact-item">
-                      <Phone size={16} />
-                      <span>192-8328-7512</span>
-                    </div>
-                    <div className="contact-item">
-                      <Play size={16} />
-                      <a href="https://space.bilibili.com/1099530248?spm_id_from=333.1007.0.0" target="_blank" rel="noreferrer">
-                        B 站账号主页
-                      </a>
+                    <div style={{ padding: 20 }}>
+                      <div className="visual-title">{item.title}</div>
+                      <p className="visual-copy">{item.desc}</p>
                     </div>
                   </div>
-                  <div className="hero-actions" style={{ marginTop: 40 }}>
-                    <a className="primary-btn" href={resumeFile} download="chen-yannian-resume.pdf">
-                      下载简历
-                      <Download size={16} />
-                    </a>
-                    <a href="#work" className="ghost-large-btn" style={{ textDecoration: "none" }}>
-                      回到作品
-                      <ArrowRight size={16} />
-                    </a>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section id="additional" className="section-block">
+            <div className="home-sheet-wrap">
+              <SectionLabel number="03" title="MORE" />
+              <Panel style={{ borderRadius: 36, boxShadow: "0 8px 20px rgba(36,49,40,0.03)" }}>
+                <div className="dashboard-wrap">
+                  <div style={{ marginBottom: 24, fontSize: 15, fontWeight: 500, letterSpacing: "0.08em", color: palette.blue }}>MORE</div>
+                  <h2 style={{ margin: "0 0 32px", fontSize: "clamp(32px, 3.8vw, 46px)", lineHeight: 1.22, fontWeight: 600, color: palette.text }}>
+                    还有一些零零碎碎、但也很喜欢的小事。
+                  </h2>
+                  <div className="three-col-grid">
+                    {additionalWorks.map((item) => (
+                      <div key={item.title} className="experience-card">
+                        <div className="experience-title">{item.title}</div>
+                        <p className="experience-copy">{item.desc}</p>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </Panel>
+            </div>
+          </section>
+
+          <section id="contact" className="contact-section">
+            <div className="home-sheet-wrap">
+              <SectionLabel number="04" title="Contact" />
+              <div className="contact-grid">
+                <div>
+                  <h2 className="contact-title">
+                    如果你刚好也喜欢把想法做成现实，
+                    <br />
+                    欢迎来找我。
+                  </h2>
+                  <p className="contact-copy">无论是内容、影像、策划，还是一个还在发光的项目灵感，都很愿意继续聊下去。</p>
+                </div>
+
+                <Panel style={{ borderRadius: 32, boxShadow: "0 8px 20px rgba(36,49,40,0.03)" }}>
+                  <div className="contact-card">
+                    <div className="contact-list">
+                      <div className="contact-item">
+                        <Mail size={16} />
+                        <span>NeoCyyyn@163.com</span>
+                      </div>
+                      <div className="contact-item">
+                        <Phone size={16} />
+                        <span>192-8328-7512</span>
+                      </div>
+                      <div className="contact-item">
+                        <Play size={16} />
+                        <a href="https://space.bilibili.com/1099530248?spm_id_from=333.1007.0.0" target="_blank" rel="noreferrer">
+                          B 站账号主页
+                        </a>
+                      </div>
+                    </div>
+                    <div className="hero-actions" style={{ marginTop: 40 }}>
+                      <a className="primary-btn" href={resumeFile} download="chen-yannian-resume.pdf">
+                        下载简历
+                        <Download size={16} />
+                      </a>
+                      <a href="#work" className="ghost-large-btn" style={{ textDecoration: "none" }}>
+                        回到作品
+                        <ArrowRight size={16} />
+                      </a>
+                    </div>
+                  </div>
+                </Panel>
+              </div>
             </div>
           </section>
         </main>
