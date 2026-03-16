@@ -174,6 +174,12 @@ const additionalWorks: ExperienceItem[] = [
   { title: "沉船逃生互动视频项目", desc: "体现脚本整理、叙事设计与互动内容执行经验。" }
 ];
 
+const personalIntroMetrics = [
+  { title: "执行力 / 100", desc: "目标拆解、节点推进、交付落地", tone: palette.blue },
+  { title: "配合度 / 100", desc: "沟通顺畅、协作稳定、响应及时", tone: palette.apple },
+  { title: "复盘意识 / 持续加分", desc: "数据回看、行业分析、SOP 沉淀", tone: palette.teal },
+];
+
 const createEvidenceSvg = (title: string, subtitle: string, note: string, toneA: string, toneB: string) =>
   "data:image/svg+xml;utf8," +
   encodeURIComponent(
@@ -671,6 +677,130 @@ export default function App() {
                       下载简历
                       <Download size={16} />
                     </a>
+                  </div>
+
+                  <div
+                    style={{
+                      marginTop: 36,
+                      display: "grid",
+                      gap: 18,
+                      gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+                      alignItems: "start",
+                      borderRadius: 28,
+                      border: `1px solid ${palette.line}`,
+                      background: "linear-gradient(135deg, rgba(255,255,255,0.94), rgba(247,251,255,0.88))",
+                      padding: 22,
+                      boxShadow: "0 8px 18px rgba(36,49,40,0.03)",
+                    }}
+                  >
+                    <div>
+                      <div
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: 8,
+                          borderRadius: 999,
+                          border: `1px solid ${palette.line}`,
+                          background: "rgba(255,255,255,0.8)",
+                          padding: "6px 12px",
+                          fontSize: 11,
+                          letterSpacing: "0.16em",
+                          textTransform: "uppercase",
+                          color: palette.blue,
+                        }}
+                      >
+                        PERSONAL INTRODUCTION
+                      </div>
+                      <h2
+                        style={{
+                          margin: "18px 0 0",
+                          fontSize: "clamp(24px, 3.2vw, 34px)",
+                          lineHeight: 1.35,
+                          fontWeight: 600,
+                          color: palette.text,
+                        }}
+                      >
+                        一个执行力、配合度都
+                        <span
+                          style={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            margin: "0 8px",
+                            borderRadius: 999,
+                            background: "#243128",
+                            color: "#F6FBF6",
+                            padding: "4px 12px",
+                            fontSize: "0.9em",
+                            boxShadow: "0 6px 14px rgba(36,49,40,0.14)",
+                          }}
+                        >
+                          满分在线
+                        </span>
+                        的运营新人
+                      </h2>
+                      <p
+                        style={{
+                          margin: "16px 0 0",
+                          maxWidth: 520,
+                          fontSize: 15,
+                          lineHeight: 1.9,
+                          color: palette.textSoft,
+                        }}
+                      >
+                        既能做内容与活动执行，也能通过数据复盘、行业分析和 SOP 沉淀，把经验慢慢变成更高效的方法。
+                      </p>
+                    </div>
+
+                    <div
+                      style={{
+                        display: "grid",
+                        gap: 12,
+                        gridTemplateColumns: "repeat(auto-fit, minmax(148px, 1fr))",
+                      }}
+                    >
+                      {personalIntroMetrics.map((item) => (
+                        <div
+                          key={item.title}
+                          style={{
+                            borderRadius: 22,
+                            border: `1px solid ${palette.line}`,
+                            background: "#FFFFFF",
+                            padding: 16,
+                            boxShadow: "0 6px 14px rgba(36,49,40,0.03)",
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: 10,
+                              height: 10,
+                              borderRadius: "50%",
+                              background: item.tone,
+                            }}
+                          />
+                          <div
+                            style={{
+                              marginTop: 14,
+                              fontSize: 16,
+                              lineHeight: 1.45,
+                              fontWeight: 600,
+                              color: palette.text,
+                            }}
+                          >
+                            {item.title}
+                          </div>
+                          <p
+                            style={{
+                              margin: "10px 0 0",
+                              fontSize: 13,
+                              lineHeight: 1.75,
+                              color: palette.textSoft,
+                            }}
+                          >
+                            {item.desc}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </Panel>
