@@ -67,11 +67,11 @@ const projects: Project[] = [
     situation: "毕业设计需要完成一部具备社会观察价值的纪录片作品，我选择了视障女性创业者作为核心人物。",
     action: "负责选题判断、采访沟通、拍摄执行与后期结构梳理，持续推进人物关系和叙事线索。",
     result: "完成 15 分钟成片，并获得 2025 EKA 天物创意奖二等奖。",
-    detailIntro: "这个项目更能体现我在长期内容项目里的判断力，不只是拍得到，而是能持续把人和事讲完整。",
+    detailIntro: "不是只把镜头对准一个人，而是慢慢走近她的生活，再把那些不容易被看见的东西认真留下来。",
     detailPoints: [
-      "前期靠大量沟通建立人物信任，再决定进入拍摄。",
-      "拍摄周期横跨较长时间，需要持续维护叙事线的连贯性。",
-      "后期重点放在人物行动逻辑和情绪推进，而不是信息堆砌。"
+      "前期最重要的不是拍摄，而是先建立信任。",
+      "跟拍的时间拉得很长，真正考验的是耐心和判断。",
+      "后期更在意人物的情绪和行动，而不是把信息堆满。"
     ]
   },
   {
@@ -87,11 +87,11 @@ const projects: Project[] = [
     situation: "电影上映期需要在 B 站持续输出短视频内容，提升讨论度、拉动播放，并尽可能承接角色与剧情热度。",
     action: "我负责整理宣发素材、撰写标题与文案、按上映节奏安排发布，并根据后台反馈不断优化表达方向。",
     result: "最终跑出近 100 万累计播放、4 条 10 万+ 内容、1 条 30 万级爆款，并形成可复用的运营复盘。",
-    detailIntro: "这是一个很适合放进作品集的运营案例，因为它既有明确窗口期，也有清楚的数据反馈，能把内容判断和执行能力一起讲明白。",
+    detailIntro: "它不只是一次宣发窗口里的内容发布，更像是一场和平台节奏、观众情绪一起跑的实验。",
     detailPoints: [
-      "标题重点往角色反差、冲突感和情绪金句靠，让用户先被一句话钩住。",
-      "内容策略上用高播放稿件负责破圈，用高互动稿件负责放大讨论。",
-      "复盘中能清晰看到什么样的切口适合 B 站影视宣发场景。"
+      "标题会往角色反差、情绪钩子和一句话记忆点上靠。",
+      "内容既要负责破圈，也要把讨论留住。",
+      "复盘不是做完才补一页总结，而是为了下次更快找到有效的表达方式。"
     ]
   },
   {
@@ -107,11 +107,11 @@ const projects: Project[] = [
     situation: "比赛要求围绕品牌议题提出针对年轻人的传播方案，既要有策略逻辑，也要能落地执行。",
     action: "完成受众洞察、传播策略、提案结构与视觉表达设计，并输出完整项目方案和展示材料。",
     result: "形成线上线下联动传播方案，并获得中国大学生公共关系策划创业大赛三等奖。",
-    detailIntro: "这个案例更偏策略和表达力，能说明我不只是做内容，也能把复杂信息组织成一套可汇报的方案。",
+    detailIntro: "比起把一份方案写完整，更在意怎么让一个想法被理解、被相信，也真的有机会走到现实里。",
     detailPoints: [
-      "先把受众、议题和传播路径梳理清楚，再进入创意表达。",
-      "提案结构围绕问题、洞察、策略、执行与效果预估展开。",
-      "最终方案兼顾可执行性和展示感，适合比赛与面试场景。"
+      "先把人群、议题和传播路径想清楚，再去做创意。",
+      "提案要有逻辑，但也要让人愿意看下去。",
+      "好方案不只是“能讲”，还要有一点真的能发生的可能。"
     ]
   }
 ];
@@ -169,9 +169,9 @@ const operationsInsights: OpsInsight[] = [
 ];
 
 const additionalWorks: ExperienceItem[] = [
-  { title: "新华社内容协作", desc: "参与采访、编稿、拍摄与剪辑流程，体现内容生产与协作执行能力。" },
-  { title: "新闻摄影《旅人》组照", desc: "可延展为影像展示模块，体现视觉表达与纪实内容判断。" },
-  { title: "沉船逃生互动视频项目", desc: "体现脚本整理、叙事设计与互动内容执行经验。" }
+  { title: "新华社内容协作", desc: "采访、编稿、拍摄、剪辑——在真实的新闻流程里练习怎么把内容做得更准确，也更完整。" },
+  { title: "新闻摄影《旅人》组照", desc: "喜欢用镜头去看人和空间之间那些安静但很有情绪的瞬间。" },
+  { title: "沉船逃生互动视频项目", desc: "从脚本到互动叙事，试着让内容不只是被看见，也能被“进入”。" }
 ];
 
 const personalIntroNotes = [
@@ -350,7 +350,7 @@ function CaseCard({ project, onOpen, priority }: { project: Project; onOpen: (id
             <div style={{ marginTop: 12, fontSize: "clamp(24px, 3vw, 30px)", fontWeight: 500, color: palette.text }}>{project.highlight}</div>
           </div>
           <button className="detail-trigger-btn" onClick={() => onOpen(project.id)}>
-            查看完整案例页
+            看看这个项目
             <ArrowRight size={16} />
           </button>
         </div>
@@ -365,8 +365,8 @@ function BilibiliDetailModule() {
       <div className="ops-hero">
         <div>
           <div style={{ fontSize: 12, textTransform: "uppercase", letterSpacing: "0.16em", color: palette.blue }}>Operations Results / Bilibili Campaign</div>
-          <h3 style={{ margin: "18px 0 0", fontSize: "clamp(28px,4vw,38px)", lineHeight: 1.2, color: palette.text }}>《大反派》运营成果</h3>
-          <p className="ops-card-copy">这里把原本分散在后面板块的数据全部收回到案例详情页里，让项目背景、执行动作和结果表现形成一条完整叙事链。</p>
+          <h3 style={{ margin: "18px 0 0", fontSize: "clamp(28px,4vw,38px)", lineHeight: 1.2, color: palette.text }}>项目结果 / What Happened</h3>
+          <p className="ops-card-copy">上映窗口很短，所以每一次标题、节奏和内容切口都要跑得足够准。最后留下来的，是一组还挺漂亮的数据。</p>
         </div>
         <div className="ops-summary-card">
           <div className="ops-summary-label">阶段结论</div>
@@ -481,7 +481,7 @@ function DetailPage({
             <Panel style={{ borderRadius: 40, boxShadow: "0 8px 20px rgba(36,49,40,0.03)" }}>
               <div className="detail-hero">
                 <div className="detail-hero-copy">
-                  <div className="detail-page-label">Case Detail Page</div>
+                  <div className="detail-page-label">Selected Work</div>
                   <h1 className="detail-page-title">{project.title}</h1>
                   <p className="detail-page-role">{project.role}</p>
                   <p className="detail-page-intro">{project.detailIntro}</p>
@@ -577,8 +577,8 @@ function DetailPage({
                   <div className="evidence-head">
                     <div>
                       <div className="detail-card-label">Screenshot Evidence</div>
-                      <h3 className="evidence-heading">后台截图证据墙</h3>
-                      <p className="ops-card-copy">我把这次宣发项目最关键的后台截图信息重新组织成一组证据墙，既保留“这是实际后台数据”的感觉，也避免页面被原始截图挤乱。</p>
+                      <h3 className="evidence-heading">后台截图 / Real Screenshots</h3>
+                      <p className="ops-card-copy">把几张最关键的后台截图放在这里，既能看见结果，也能更直观地感受到这次宣发是怎么跑出来的。</p>
                     </div>
                   </div>
                   <EvidenceWall />
@@ -641,7 +641,7 @@ export default function App() {
             <div>
               <div style={{ fontSize: 22, fontWeight: 600, color: palette.text }}>陈衍年</div>
               <div style={{ marginTop: 4, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.14em", color: palette.blue }}>
-                Content Strategy · Project Execution
+                Ideas, images, and things becoming real
               </div>
             </div>
             <nav className="desktop-nav">
@@ -660,17 +660,17 @@ export default function App() {
             <div className="hero-grid">
               <Panel style={{ borderRadius: 40, boxShadow: "0 8px 20px rgba(36,49,40,0.03)" }}>
                 <div className="hero-card">
-                  <div style={{ fontSize: 12, textTransform: "uppercase", letterSpacing: "0.18em", color: palette.blue }}>Portfolio / Core Cases</div>
-                  <div className="pill">Content · Execution · Strategy</div>
+                  <div style={{ fontSize: 12, textTransform: "uppercase", letterSpacing: "0.18em", color: palette.blue }}>Selected Works</div>
+                  <div className="pill">Images · Ideas · Things becoming real</div>
                   <h1 className="hero-title">
-                    内容策划、项目执行与传播表达
+                    有一点想象力，
                     <br />
-                    用案例把能力讲清楚
+                    也有一点把它变成现实的魔法。
                   </h1>
-                  <p className="hero-copy">这版作品集网站重点展示我在内容、宣发、纪录片和传播策划项目里的判断力与执行力。点击案例后，会进入更完整的案例详情页，而不是留在同一屏里机械展开。</p>
+                  <p className="hero-copy">影像、内容、策划和执行，都是把脑海里的东西一点点带到现实里的方式。</p>
                   <div className="hero-actions">
                     <a href="#work" className="primary-btn">
-                      查看项目
+                      先看作品
                       <ArrowRight size={16} />
                     </a>
                     <a className="ghost-large-btn" href={resumeFile} download="chen-yannian-resume.pdf" style={{ textDecoration: "none" }}>
@@ -720,7 +720,7 @@ export default function App() {
                           color: palette.text,
                         }}
                       >
-                        一个有点子、也很会落地的运营新人
+                        一个有点子、也很会把事情做出来的人
                       </h2>
                       <p
                         style={{
@@ -731,7 +731,7 @@ export default function App() {
                           color: palette.textSoft,
                         }}
                       >
-                        会做内容，会推项目，也会认真回头看看——把做过的事，一点点变成更顺手的办法。
+                        会做内容，会推项目，也会认真回头看看——让好想法不只停在想法里。
                       </p>
                       <div
                         style={{
@@ -841,7 +841,12 @@ export default function App() {
           </section>
 
           <section id="work" className="section-block">
-            <SectionLabel number="01" title="Core Cases" />
+            <SectionLabel number="01" title="SELECTED WORKS" />
+            <div style={{ marginBottom: 28, maxWidth: 720 }}>
+              <h2 style={{ margin: 0, fontSize: "clamp(30px, 4vw, 44px)", lineHeight: 1.2, fontWeight: 600, color: palette.text }}>
+                把想法慢慢做成看得见的东西。
+              </h2>
+            </div>
             <div style={{ display: "grid", gap: 24 }}>
               <CaseCard project={projects[0]} onOpen={setSelectedProjectId} priority />
               <CaseCard project={projects[1]} onOpen={setSelectedProjectId} />
@@ -867,10 +872,13 @@ export default function App() {
           </section>
 
           <section id="additional" className="section-block">
-            <SectionLabel number="03" title="Operational Experience" />
+            <SectionLabel number="03" title="MORE" />
             <Panel style={{ borderRadius: 36, boxShadow: "0 8px 20px rgba(36,49,40,0.03)" }}>
               <div className="dashboard-wrap">
-                <div style={{ marginBottom: 32, fontSize: 12, textTransform: "uppercase", letterSpacing: "0.16em", color: palette.blue }}>Operational Experience</div>
+                <div style={{ marginBottom: 24, fontSize: 12, textTransform: "uppercase", letterSpacing: "0.16em", color: palette.blue }}>MORE</div>
+                <h2 style={{ margin: "0 0 32px", fontSize: "clamp(28px, 3.6vw, 40px)", lineHeight: 1.25, fontWeight: 600, color: palette.text }}>
+                  还有一些零零碎碎、但也很喜欢的小事。
+                </h2>
                 <div className="three-col-grid">
                   {additionalWorks.map((item) => (
                     <div key={item.title} className="experience-card">
@@ -888,11 +896,11 @@ export default function App() {
             <div className="contact-grid">
               <div>
                 <h2 className="contact-title">
-                  用项目把能力说清楚，
+                  如果你刚好也喜欢把想法做成现实，
                   <br />
-                  让结果自己成立
+                  欢迎来找我。
                 </h2>
-                <p className="contact-copy">这个网站不是简单堆经历，而是让浏览者在较短时间里看清我做过什么、怎么做、最后做成了什么。后续还可以继续补真实素材与更多案例截图。</p>
+                <p className="contact-copy">无论是内容、影像、策划，还是一个还在发光的项目灵感，都很愿意继续聊下去。</p>
               </div>
 
               <Panel style={{ borderRadius: 32, boxShadow: "0 8px 20px rgba(36,49,40,0.03)" }}>
@@ -919,7 +927,7 @@ export default function App() {
                       <Download size={16} />
                     </a>
                     <a href="#work" className="ghost-large-btn" style={{ textDecoration: "none" }}>
-                      返回项目
+                      回到作品
                       <ArrowRight size={16} />
                     </a>
                   </div>
