@@ -668,39 +668,38 @@ export default function App() {
           <section className="hero-section">
             <Panel style={{ borderRadius: 46, boxShadow: "0 18px 44px rgba(36,49,40,0.05)", maxWidth: 1040, margin: "0 auto" }}>
               <div className="hero-card home-hero-stage" style={{ padding: "clamp(30px, 4vw, 54px)" }}>
-                <div className="home-hero-main">
-                  <div className="home-hero-identity">
-                    <div style={{ fontSize: "clamp(30px, 2.4vw, 38px)", fontWeight: 600, lineHeight: 1.08, color: palette.text }}>陈衍年</div>
-                    <div style={{ fontSize: "clamp(16px, 1vw, 18px)", fontWeight: 500, letterSpacing: "0.04em", color: palette.blue }}>
-                      Ideas, images, and things becoming real
-                    </div>
+                <div className="home-hero-identity">
+                  <div style={{ fontSize: "clamp(30px, 2.4vw, 38px)", fontWeight: 600, lineHeight: 1.08, color: palette.text }}>陈衍年</div>
+                  <div style={{ fontSize: "clamp(16px, 1vw, 18px)", fontWeight: 500, letterSpacing: "0.04em", color: palette.blue }}>
+                    Ideas, images, and things becoming real
                   </div>
-
-                  <h1 className="hero-title home-hero-title" style={{ marginTop: 16 }}>
-                    有一点想象力，
-                    <br />
-                    也有一点把它变成现实的魔法。
-                  </h1>
                 </div>
 
-                <div className="home-hero-side">
+                <h1 className="hero-title home-hero-title" style={{ marginTop: 8 }}>
+                  <span className="home-hero-line">有一点想象力，</span>
+                  <span className="home-hero-line">也有一点把它变成现实的魔法。</span>
+                </h1>
+
+                <div className="home-hero-bottom">
                   <p className="hero-copy home-hero-copy" style={{ margin: 0 }}>
                     影像、内容、策划和执行，都是把脑海里的东西一点点带到现实里的方式。
                   </p>
-                  <div className="home-hero-tags">
-                    <span>影像内容</span>
-                    <span>策划执行</span>
-                    <span>项目落地</span>
-                  </div>
-                  <div className="hero-actions home-hero-actions" style={{ marginTop: 0 }}>
-                    <a href="#work" className="primary-btn">
-                      先看作品
-                      <ArrowRight size={18} />
-                    </a>
-                    <a className="ghost-large-btn" href={resumeFile} download="chen-yannian-resume.pdf" style={{ textDecoration: "none" }}>
-                      下载简历
-                      <Download size={18} />
-                    </a>
+                  <div className="home-hero-aside">
+                    <div className="home-hero-tags">
+                      <span>影像内容</span>
+                      <span>策划执行</span>
+                      <span>项目落地</span>
+                    </div>
+                    <div className="hero-actions home-hero-actions" style={{ marginTop: 0 }}>
+                      <a href="#work" className="primary-btn">
+                        先看作品
+                        <ArrowRight size={18} />
+                      </a>
+                      <a className="ghost-large-btn" href={resumeFile} download="chen-yannian-resume.pdf" style={{ textDecoration: "none" }}>
+                        下载简历
+                        <Download size={18} />
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -727,70 +726,134 @@ export default function App() {
 
               <div className="project-preview-grid">
                 {projects.map((item, idx) => {
+                  const isFeatured = idx === 0;
                   const softs = ["#F7FBFF", "#F6FBF0", "#F6FBF6"];
                   const dots = [palette.blue, palette.apple, palette.moss];
                   const [leadHighlight, supportingHighlight] = item.highlight.split(" / ");
+                  const mediaNode =
+                    item.coverType === "image" && item.cover ? (
+                      <div className="home-preview-media" style={{ overflow: "hidden", borderRadius: isFeatured ? 24 : 20 }}>
+                        <img
+                          src={item.cover}
+                          alt={item.title}
+                          style={{
+                            height: isFeatured ? "100%" : "clamp(200px, 13vw, 236px)",
+                            minHeight: isFeatured ? 320 : undefined,
+                            width: "100%",
+                            objectFit: "cover",
+                            display: "block",
+                          }}
+                        />
+                      </div>
+                    ) : (
+                      <div className="home-preview-media">
+                        <GeneratedCover project={item} compact />
+                      </div>
+                    );
 
                   return (
                     <button key={item.id} className="preview-card-btn" onClick={() => setSelectedProjectId(item.id)}>
                       <Panel style={{ borderRadius: 34, boxShadow: "0 10px 24px rgba(36,49,40,0.04)", height: "100%" }}>
-                        <div
-                          className="home-preview-card"
-                          style={{
-                            borderRadius: 28,
-                            border: `1px solid ${palette.line}`,
-                            padding: "28px 28px 26px",
-                            background: softs[idx],
-                            textAlign: "left",
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: 0,
-                            height: "100%",
-                            minHeight: "clamp(480px, 34vw, 560px)",
-                          }}
-                        >
-                          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
-                            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                              <span style={{ width: 10, height: 10, borderRadius: "50%", background: dots[idx], display: "inline-block" }} />
-                              <div style={{ fontSize: 15, fontWeight: 600, letterSpacing: "0.04em", color: palette.blue }}>{item.subtitle}</div>
-                            </div>
-                            <div style={{ fontSize: 15, fontWeight: 600, letterSpacing: "0.04em", color: palette.textSoft }}>0{idx + 1}</div>
-                          </div>
-
-                          {item.coverType === "image" && item.cover ? (
-                            <div className="home-preview-media" style={{ marginTop: 20, overflow: "hidden", borderRadius: 20 }}>
-                              <img src={item.cover} alt={item.title} style={{ height: "clamp(200px, 13vw, 236px)", width: "100%", objectFit: "cover", display: "block" }} />
-                            </div>
-                          ) : (
-                            <div className="home-preview-media" style={{ marginTop: 20 }}>
-                              <GeneratedCover project={item} compact />
-                            </div>
-                          )}
-
+                        {isFeatured ? (
                           <div
+                            className="home-preview-card home-preview-card-featured"
                             style={{
-                              marginTop: 22,
-                              fontSize: "clamp(34px, 2.8vw, 44px)",
-                              fontWeight: 600,
-                              lineHeight: 1.08,
-                              color: palette.text,
-                              textWrap: "balance",
+                              borderRadius: 28,
+                              border: `1px solid ${palette.line}`,
+                              padding: "28px 28px 26px",
+                              background: softs[idx],
+                              textAlign: "left",
+                              height: "100%",
                             }}
                           >
-                            {item.title}
-                          </div>
+                            <div className="home-preview-featured-grid">
+                              <div className="home-preview-featured-media">{mediaNode}</div>
+                              <div className="home-preview-featured-content">
+                                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
+                                  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                                    <span style={{ width: 10, height: 10, borderRadius: "50%", background: dots[idx], display: "inline-block" }} />
+                                    <div style={{ fontSize: 15, fontWeight: 600, letterSpacing: "0.04em", color: palette.blue }}>{item.subtitle}</div>
+                                  </div>
+                                  <div style={{ fontSize: 15, fontWeight: 600, letterSpacing: "0.04em", color: palette.textSoft }}>0{idx + 1}</div>
+                                </div>
 
-                          <div style={{ marginTop: 18 }}>
-                            <p style={{ margin: 0, fontSize: 18, lineHeight: 1.72, color: palette.textSoft }}>{item.summary}</p>
-                          </div>
+                                <div
+                                  style={{
+                                    marginTop: 22,
+                                    fontSize: "clamp(38px, 3vw, 50px)",
+                                    fontWeight: 600,
+                                    lineHeight: 1.08,
+                                    color: palette.text,
+                                    textWrap: "balance",
+                                  }}
+                                >
+                                  {item.title}
+                                </div>
 
-                          <div style={{ marginTop: "auto", paddingTop: 20, borderTop: `1px solid ${palette.line}` }}>
-                            <p style={{ margin: 0, fontSize: "clamp(20px, 1.6vw, 26px)", lineHeight: 1.45, color: palette.textSoft }}>
-                              <span style={{ fontWeight: 600, color: palette.text }}>{leadHighlight}</span>
-                              {supportingHighlight ? <span style={{ color: dots[idx] }}> · {supportingHighlight}</span> : null}
-                            </p>
+                                <div style={{ marginTop: 18 }}>
+                                  <p style={{ margin: 0, fontSize: 19, lineHeight: 1.76, color: palette.textSoft }}>{item.summary}</p>
+                                </div>
+
+                                <div style={{ marginTop: "auto", paddingTop: 24, borderTop: `1px solid ${palette.line}` }}>
+                                  <p style={{ margin: 0, fontSize: "clamp(22px, 1.8vw, 28px)", lineHeight: 1.42, color: palette.textSoft }}>
+                                    <span style={{ fontWeight: 600, color: palette.text }}>{leadHighlight}</span>
+                                    {supportingHighlight ? <span style={{ color: dots[idx] }}> · {supportingHighlight}</span> : null}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                        </div>
+                        ) : (
+                          <div
+                            className="home-preview-card home-preview-card-secondary"
+                            style={{
+                              borderRadius: 28,
+                              border: `1px solid ${palette.line}`,
+                              padding: "28px 28px 26px",
+                              background: softs[idx],
+                              textAlign: "left",
+                              display: "flex",
+                              flexDirection: "column",
+                              gap: 0,
+                              height: "100%",
+                              minHeight: "clamp(480px, 34vw, 560px)",
+                            }}
+                          >
+                            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
+                              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                                <span style={{ width: 10, height: 10, borderRadius: "50%", background: dots[idx], display: "inline-block" }} />
+                                <div style={{ fontSize: 15, fontWeight: 600, letterSpacing: "0.04em", color: palette.blue }}>{item.subtitle}</div>
+                              </div>
+                              <div style={{ fontSize: 15, fontWeight: 600, letterSpacing: "0.04em", color: palette.textSoft }}>0{idx + 1}</div>
+                            </div>
+
+                            <div style={{ marginTop: 20 }}>{mediaNode}</div>
+
+                            <div
+                              style={{
+                                marginTop: 22,
+                                fontSize: "clamp(32px, 2.5vw, 40px)",
+                                fontWeight: 600,
+                                lineHeight: 1.08,
+                                color: palette.text,
+                                textWrap: "balance",
+                              }}
+                            >
+                              {item.title}
+                            </div>
+
+                            <div style={{ marginTop: 16 }}>
+                              <p style={{ margin: 0, fontSize: 17, lineHeight: 1.72, color: palette.textSoft }}>{item.summary}</p>
+                            </div>
+
+                            <div style={{ marginTop: "auto", paddingTop: 18, borderTop: `1px solid ${palette.line}` }}>
+                              <p style={{ margin: 0, fontSize: "clamp(18px, 1.4vw, 22px)", lineHeight: 1.45, color: palette.textSoft }}>
+                                <span style={{ fontWeight: 600, color: palette.text }}>{leadHighlight}</span>
+                                {supportingHighlight ? <span style={{ color: dots[idx] }}> · {supportingHighlight}</span> : null}
+                              </p>
+                            </div>
+                          </div>
+                        )}
                       </Panel>
                     </button>
                   );
