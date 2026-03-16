@@ -43,7 +43,7 @@ const palette = {
   bg: "#F3F6F3",
   panel: "#FFFFFF",
   text: "#243128",
-  textSoft: "#5E6B61",
+  textSoft: "#4C5A52",
   line: "#DCE7DE",
   blue: "#4E90F5",
   sky: "#9EBEED",
@@ -245,9 +245,9 @@ const sectionLabelStyle: React.CSSProperties = {
   display: "flex",
   alignItems: "center",
   gap: 16,
-  fontSize: 12,
-  textTransform: "uppercase",
-  letterSpacing: "0.18em",
+  fontSize: 13,
+  fontWeight: 500,
+  letterSpacing: "0.08em",
   color: palette.blue
 };
 
@@ -306,17 +306,17 @@ function CaseCard({ project, onOpen, priority }: { project: Project; onOpen: (id
           <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at top left, rgba(255,255,255,0.18), transparent 24%), radial-gradient(circle at bottom right, rgba(255,255,255,0.10), transparent 30%), linear-gradient(180deg, rgba(255,255,255,0), rgba(31,36,48,0.06))" }} />
           <div className="case-padding" style={{ position: "relative", zIndex: 1, color: "white" }}>
             <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 24, flexWrap: "wrap" }}>
-              <div style={{ borderRadius: 999, border: "1px solid rgba(255,255,255,0.3)", background: "rgba(255,255,255,0.18)", padding: "8px 16px", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.14em" }}>
+              <div style={{ borderRadius: 999, border: "1px solid rgba(255,255,255,0.3)", background: "rgba(255,255,255,0.18)", padding: "8px 16px", fontSize: 13, fontWeight: 500, letterSpacing: "0.08em" }}>
                 {project.subtitle}
               </div>
-              <div style={{ fontSize: 12, textTransform: "uppercase", letterSpacing: "0.14em", color: "rgba(255,255,255,0.72)" }}>
+              <div style={{ fontSize: 13, fontWeight: 500, letterSpacing: "0.08em", color: "rgba(255,255,255,0.8)" }}>
                 {priority ? "Core Project" : "Project"}
               </div>
             </div>
 
             <div style={{ marginTop: 56, maxWidth: 820 }}>
-              <h2 style={{ maxWidth: "12ch", fontSize: "clamp(36px, 5vw, 72px)", fontWeight: 600, lineHeight: 1.06, margin: 0 }}>{project.title}</h2>
-              <p style={{ marginTop: 16, fontSize: 14, textTransform: "uppercase", letterSpacing: "0.14em", color: "rgba(255,255,255,0.82)" }}>{project.role}</p>
+              <h2 style={{ maxWidth: "12ch", fontSize: "clamp(34px, 4.2vw, 42px)", fontWeight: 600, lineHeight: 1.16, margin: 0 }}>{project.title}</h2>
+              <p style={{ marginTop: 18, fontSize: 15, lineHeight: 1.7, letterSpacing: "0.04em", color: "rgba(255,255,255,0.9)" }}>{project.role}</p>
             </div>
 
             <div className="case-grid" style={{ marginTop: 36, display: "grid", gap: 16, gridTemplateColumns: isDocumentary ? "minmax(0,0.95fr) minmax(0,1.05fr)" : "repeat(3, minmax(0,1fr))" }}>
@@ -335,8 +335,8 @@ function CaseCard({ project, onOpen, priority }: { project: Project; onOpen: (id
                   { label: "Result", text: project.result },
                 ].map((block) => (
                   <div key={block.label} style={{ borderRadius: 24, border: "1px solid rgba(255,255,255,0.25)", background: "rgba(255,255,255,0.18)", padding: 20, backdropFilter: "blur(8px)" }}>
-                    <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.14em", color: "rgba(255,255,255,0.78)" }}>{block.label}</div>
-                    <p style={{ marginTop: 16, fontSize: 14, lineHeight: 1.85, color: "rgba(255,255,255,0.92)" }}>{block.text}</p>
+                    <div style={{ fontSize: 13, fontWeight: 500, letterSpacing: "0.08em", color: "rgba(255,255,255,0.82)" }}>{block.label}</div>
+                    <p style={{ marginTop: 16, fontSize: 17, lineHeight: 1.85, color: "rgba(255,255,255,0.96)" }}>{block.text}</p>
                   </div>
                 ))}
               </div>
@@ -346,8 +346,8 @@ function CaseCard({ project, onOpen, priority }: { project: Project; onOpen: (id
 
         <div className="bottom-row" style={{ display: "flex", flexDirection: "column", gap: 20, padding: "24px 28px" }}>
           <div>
-            <div style={{ fontSize: 12, textTransform: "uppercase", letterSpacing: "0.14em", color: palette.blue }}>Business Outcome</div>
-            <div style={{ marginTop: 12, fontSize: "clamp(24px, 3vw, 30px)", fontWeight: 500, color: palette.text }}>{project.highlight}</div>
+            <div style={{ fontSize: 13, fontWeight: 500, letterSpacing: "0.08em", color: palette.blue }}>Business Outcome</div>
+            <div style={{ marginTop: 14, fontSize: "clamp(26px, 3vw, 32px)", fontWeight: 550, lineHeight: 1.3, color: palette.text }}>{project.highlight}</div>
           </div>
           <button className="detail-trigger-btn" onClick={() => onOpen(project.id)}>
             看看这个项目
@@ -364,8 +364,8 @@ function BilibiliDetailModule() {
     <div style={{ marginTop: 32, display: "grid", gap: 16 }}>
       <div className="ops-hero">
         <div>
-          <div style={{ fontSize: 12, textTransform: "uppercase", letterSpacing: "0.16em", color: palette.blue }}>Operations Results / Bilibili Campaign</div>
-          <h3 style={{ margin: "18px 0 0", fontSize: "clamp(28px,4vw,38px)", lineHeight: 1.2, color: palette.text }}>项目结果 / What Happened</h3>
+          <div style={{ fontSize: 13, fontWeight: 500, letterSpacing: "0.08em", color: palette.blue }}>Operations Results / Bilibili Campaign</div>
+          <h3 style={{ margin: "18px 0 0", fontSize: "clamp(30px,4vw,40px)", lineHeight: 1.24, color: palette.text }}>项目结果 / What Happened</h3>
           <p className="ops-card-copy">上映窗口很短，所以每一次标题、节奏和内容切口都要跑得足够准。最后留下来的，是一组还挺漂亮的数据。</p>
         </div>
         <div className="ops-summary-card">
@@ -639,8 +639,8 @@ export default function App() {
         <header className="site-header">
           <div className="header-inner">
             <div>
-              <div style={{ fontSize: 22, fontWeight: 600, color: palette.text }}>陈衍年</div>
-              <div style={{ marginTop: 4, fontSize: 11, textTransform: "uppercase", letterSpacing: "0.14em", color: palette.blue }}>
+              <div style={{ fontSize: 24, fontWeight: 600, lineHeight: 1.2, color: palette.text }}>陈衍年</div>
+              <div style={{ marginTop: 6, fontSize: 13, fontWeight: 500, letterSpacing: "0.06em", color: palette.blue }}>
                 Ideas, images, and things becoming real
               </div>
             </div>
@@ -660,7 +660,7 @@ export default function App() {
             <div className="hero-grid">
               <Panel style={{ borderRadius: 40, boxShadow: "0 8px 20px rgba(36,49,40,0.03)" }}>
                 <div className="hero-card">
-                  <div style={{ fontSize: 12, textTransform: "uppercase", letterSpacing: "0.18em", color: palette.blue }}>Selected Works</div>
+                  <div style={{ fontSize: 13, fontWeight: 500, letterSpacing: "0.08em", color: palette.blue }}>Selected Works</div>
                   <div className="pill">Images · Ideas · Things becoming real</div>
                   <h1 className="hero-title">
                     有一点想象力，
@@ -702,9 +702,9 @@ export default function App() {
                           border: `1px solid ${palette.line}`,
                           background: "rgba(255,255,255,0.8)",
                           padding: "6px 12px",
-                          fontSize: 11,
-                          letterSpacing: "0.16em",
-                          textTransform: "uppercase",
+                          fontSize: 13,
+                          fontWeight: 500,
+                          letterSpacing: "0.08em",
                           color: palette.blue,
                         }}
                       >
@@ -726,8 +726,8 @@ export default function App() {
                         style={{
                           margin: "16px 0 0",
                           maxWidth: 520,
-                          fontSize: 15,
-                          lineHeight: 1.9,
+                          fontSize: 17,
+                          lineHeight: 1.85,
                           color: palette.textSoft,
                         }}
                       >
@@ -736,9 +736,10 @@ export default function App() {
                       <div
                         style={{
                           marginTop: 14,
-                          fontSize: 13,
+                          fontSize: 15,
+                          fontWeight: 500,
                           lineHeight: 1.6,
-                          letterSpacing: "0.04em",
+                          letterSpacing: "0.03em",
                           color: "#8A958D",
                           fontStyle: "italic",
                         }}
@@ -779,7 +780,7 @@ export default function App() {
                             />
                             <div
                               style={{
-                                fontSize: 15,
+                                fontSize: 18,
                                 lineHeight: 1.35,
                                 fontWeight: 600,
                                 color: palette.text,
@@ -790,8 +791,8 @@ export default function App() {
                           </div>
                           <p
                             style={{
-                              fontSize: 13,
-                              lineHeight: 1.7,
+                              fontSize: 15,
+                              lineHeight: 1.75,
                               color: palette.textSoft,
                               margin: 0,
                             }}
@@ -825,12 +826,12 @@ export default function App() {
                           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
                             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                               <span style={{ width: 12, height: 12, borderRadius: "50%", background: dots[idx], display: "inline-block" }} />
-                              <div style={{ fontSize: 12, textTransform: "uppercase", letterSpacing: "0.14em", color: palette.blue }}>{item.subtitle}</div>
+                              <div style={{ fontSize: 13, fontWeight: 500, letterSpacing: "0.06em", color: palette.blue }}>{item.subtitle}</div>
                             </div>
-                            <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.18em", color: palette.textSoft }}>0{idx + 1}</div>
+                            <div style={{ fontSize: 13, fontWeight: 500, letterSpacing: "0.06em", color: palette.textSoft }}>0{idx + 1}</div>
                           </div>
-                          <div style={{ marginTop: 20, fontSize: 28, fontWeight: 500, lineHeight: 1.14, color: palette.text }}>{item.title}</div>
-                          <div style={{ marginTop: 12, fontSize: 14, color: palette.textSoft }}>{item.highlight}</div>
+                          <div style={{ marginTop: 20, fontSize: "clamp(24px, 2.6vw, 30px)", fontWeight: 550, lineHeight: 1.24, color: palette.text }}>{item.title}</div>
+                          <div style={{ marginTop: 14, fontSize: 16, lineHeight: 1.7, color: palette.textSoft }}>{item.highlight}</div>
                         </div>
                       </Panel>
                     </button>
@@ -875,7 +876,7 @@ export default function App() {
             <SectionLabel number="03" title="MORE" />
             <Panel style={{ borderRadius: 36, boxShadow: "0 8px 20px rgba(36,49,40,0.03)" }}>
               <div className="dashboard-wrap">
-                <div style={{ marginBottom: 24, fontSize: 12, textTransform: "uppercase", letterSpacing: "0.16em", color: palette.blue }}>MORE</div>
+                <div style={{ marginBottom: 24, fontSize: 13, fontWeight: 500, letterSpacing: "0.08em", color: palette.blue }}>MORE</div>
                 <h2 style={{ margin: "0 0 32px", fontSize: "clamp(28px, 3.6vw, 40px)", lineHeight: 1.25, fontWeight: 600, color: palette.text }}>
                   还有一些零零碎碎、但也很喜欢的小事。
                 </h2>
