@@ -1,5 +1,14 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, Download, Mail, Phone, Play } from "lucide-react";
+import documentaryHeroImage from "./assets/documentary-hero.jpg";
+import documentaryInterviewImage from "./assets/documentary-interview.jpg";
+import documentaryMarketTouchImage from "./assets/documentary-market-touch.jpg";
+import documentaryMarketWideImage from "./assets/documentary-market-wide.jpg";
+import documentaryMorningImage from "./assets/documentary-morning.jpg";
+import documentaryMotherImage from "./assets/documentary-mother.jpg";
+import documentaryPartnerImage from "./assets/documentary-partner.jpg";
+import documentarySetImage from "./assets/documentary-set.jpg";
+import documentaryWalkImage from "./assets/documentary-walk.jpg";
 
 type ProjectId = "documentary" | "bilibili" | "bayer";
 
@@ -34,10 +43,14 @@ type OpsInsight = { title: string; detail: string };
 type VisualItem = { title: string; desc: string; src: string };
 type ExperienceItem = { title: string; desc: string };
 type EvidenceItem = { title: string; desc: string; src: string };
+type DocumentaryCapability = { label: string; title: string; detail: string; tone: string };
+type DocumentaryFrame = { title: string; desc: string; src: string };
+type DocumentaryPerson = { name: string; role: string; desc: string; src: string };
 
 const baseUrl = import.meta.env.BASE_URL;
-const documentaryCover = `${baseUrl}assets/documentary-cover.jpg`;
+const documentaryCover = documentaryHeroImage;
 const resumeFile = `${baseUrl}assets/chen-yannian-resume.pdf`;
+const documentaryWatchLink = "https://pan.baidu.com/s/15sMVeJ_CkSf2tGbXJz0EXw?pwd=rajy";
 
 const palette = {
   bg: "#F3F6F3",
@@ -57,21 +70,21 @@ const projects: Project[] = [
     id: "documentary",
     title: "纪录片《视界之外》",
     subtitle: "Documentary Project",
-    role: "编导 / 摄像 / 项目负责人",
-    summary: "毕业设计纪录片项目，围绕视障女性创业者展开长期跟拍与内容组织。",
+    role: "编导 / 摄像 / 后期结构梳理",
+    summary: "以视障女性创业者为核心人物的毕业设计纪录片，完成长期跟拍、采访组织与后期叙事结构搭建。",
     highlight: "15 分钟成片 / EKA 天物创意奖二等奖",
     accent: "linear-gradient(135deg, #EAF4FB 0%, #9EBEED 55%, #4E90F5 100%)",
     coverType: "image",
     cover: documentaryCover,
-    tags: ["纪录片", "长期拍摄", "人物叙事"],
-    situation: "毕业设计需要完成一部具备社会观察价值的纪录片作品，我选择了视障女性创业者作为核心人物。",
-    action: "负责选题判断、采访沟通、拍摄执行与后期结构梳理，持续推进人物关系和叙事线索。",
-    result: "完成 15 分钟成片，并获得 2025 EKA 天物创意奖二等奖。",
-    detailIntro: "不是只把镜头对准一个人，而是慢慢走近她的生活，再把那些不容易被看见的东西认真留下来。",
+    tags: ["纪录片", "长期跟拍", "编导判断"],
+    situation: "毕业设计需要做出一部既有社会观察价值、又能避免同质化表达的人物纪录片，我最终把镜头放在视障女性创业者的职业转型上。",
+    action: "完成选题判断、资料调研、采访设计、长期跟拍、现场拍摄与后期结构梳理，把人物命运、社会议题和叙事节奏放进同一条线上。",
+    result: "完成 15 分钟人物纪录片成片，入选毕业设计展并获得 2025 EKA 天物创意奖二等奖。",
+    detailIntro: "这部片子里，编导做的不是替人物下结论，而是陪她走进生活现场，再把真正有重量的转折留下来。",
     detailPoints: [
-      "前期最重要的不是拍摄，而是先建立信任。",
-      "跟拍的时间拉得很长，真正考验的是耐心和判断。",
-      "后期更在意人物的情绪和行动，而不是把信息堆满。"
+      "前期先用大量资料和接触排除掉常见公益叙事，最后把主题压在“创业转型”与“社会连接”上。",
+      "拍摄中采用长期观察 + 固定采访双保险，让后期既有情绪流，也有清晰的结构锚点。",
+      "后期主动舍弃碎片化的感情线，把重心收回职业困境、行动选择和人物弧光。"
     ]
   },
   {
@@ -118,9 +131,11 @@ const projects: Project[] = [
 
 const caseTimelines: Record<ProjectId, TimelineItem[]> = {
   documentary: [
-    { date: "2023.12", title: "确定选题", desc: "完成前期调研并锁定核心人物。" },
-    { date: "2024.03", title: "进入拍摄", desc: "开始长期跟拍，收集人物生活与行动素材。" },
-    { date: "2025.05", title: "完成成片", desc: "完成纪录片剪辑并用于比赛展示。" }
+    { date: "2023.12", title: "确定人物方向", desc: "从公益服务类选题转向视障创业者，把故事重心锁定在职业转型与社会连接上。" },
+    { date: "2024.04", title: "进入长期跟拍", desc: "从家中工作、日常生活到公共空间活动，开始持续积累人物行动与关系素材。" },
+    { date: "2024.11", title: "补齐采访关系", desc: "围绕人物本人、母亲与伙伴三组关系补拍采访，给后期结构留出解释和对照。" },
+    { date: "2025.01", title: "重组叙事重点", desc: "在大量生活变化中重新判断主线，舍弃分散注意力的支线素材。" },
+    { date: "2025.05", title: "完成成片展出", desc: "完成 15 分钟成片与创作报告，并进入毕业设计展陈系统。" }
   ],
   bilibili: [
     { date: "2024.04.04", title: "上映节点启动", desc: "围绕电影上映窗口开始集中发布内容。" },
@@ -178,6 +193,81 @@ const personalIntroNotes = [
   { title: "有点子", desc: "喜欢把灵感变成具体表达", tone: palette.blue },
   { title: "不掉线", desc: "事情接到手里就会认真推进", tone: palette.apple },
   { title: "会回头看", desc: "做完也会留一点时间给复盘和整理", tone: palette.teal },
+];
+
+const documentaryCapabilities: DocumentaryCapability[] = [
+  {
+    label: "Topic Choice",
+    title: "先判断题，再决定怎么拍",
+    detail: "前期从大量同类报道和已拍过的视障题材中做排除，最后把重点放在“事业转型”而不是单纯励志叙事上。",
+    tone: palette.blue,
+  },
+  {
+    label: "Field Direction",
+    title: "长期观察，给后期留足空间",
+    detail: "跟拍之外补入固定机位采访、动作细节与场景对照，让素材既能承接真实变化，也能在后期重组出清晰结构。",
+    tone: palette.teal,
+  },
+  {
+    label: "Story Cut",
+    title: "敢舍弃，才能把人物立住",
+    detail: "后期主动舍弃难以承接主线的感情内容，把镜头重新收回创业困境、职业选择和社会价值的表达上。",
+    tone: palette.apple,
+  },
+];
+
+const documentaryFrames: DocumentaryFrame[] = [
+  {
+    title: "家中采访",
+    desc: "固定机位采访补足人物表达，也为后期提供了清晰的结构锚点。",
+    src: documentaryInterviewImage,
+  },
+  {
+    title: "公共空间跟拍",
+    desc: "在商场和集市里跟着人物移动，让环境关系一起进入叙事。",
+    src: documentaryMarketWideImage,
+  },
+  {
+    title: "触觉细节",
+    desc: "不只交代她去了哪里，也记录她如何感知与确认眼前的世界。",
+    src: documentaryMarketTouchImage,
+  },
+  {
+    title: "关系移动",
+    desc: "跟人物一起走，画面里自然带出她和伙伴之间的协作关系。",
+    src: documentaryWalkImage,
+  },
+  {
+    title: "生活动作",
+    desc: "晨间动作和琐碎日常，是人物状态最有说服力的部分。",
+    src: documentaryMorningImage,
+  },
+  {
+    title: "采访现场",
+    desc: "预留采访保险镜头，让情绪流和信息流都能在后期接得住。",
+    src: documentarySetImage,
+  },
+];
+
+const documentaryPeople: DocumentaryPerson[] = [
+  {
+    name: "马寅青",
+    role: "核心人物 / 视障创业者",
+    desc: "片子围绕她的工作、转型和自我表达展开，不把她拍成“被说明的人”，而是让她成为叙事主动者。",
+    src: documentaryHeroImage,
+  },
+  {
+    name: "宣丽英",
+    role: "母亲采访 / 家庭视角",
+    desc: "母亲采访帮助故事落回人物成长与创业压力，也让职业选择背后的家庭支撑被看见。",
+    src: documentaryMotherImage,
+  },
+  {
+    name: "朱君",
+    role: "伙伴采访 / 关系补充",
+    desc: "从工作伙伴与伴侣的双重关系切入，让人物在工作场与生活场里的变化形成对照。",
+    src: documentaryPartnerImage,
+  },
 ];
 
 const createEvidenceSvg = (title: string, subtitle: string, note: string, toneA: string, toneB: string) =>
@@ -460,6 +550,94 @@ function EvidenceWall() {
   );
 }
 
+function DocumentaryDetailModule() {
+  const [leadFrame, ...supportingFrames] = documentaryFrames;
+
+  return (
+    <div className="documentary-stack">
+      <div className="documentary-overview-grid">
+        <div>
+          <div style={{ fontSize: 15, fontWeight: 500, letterSpacing: "0.08em", color: palette.blue }}>Director&apos;s Lens / Documentary</div>
+          <h3 className="documentary-title">不是只记录她做了什么，而是把她怎样继续和世界发生连接这件事拍清楚。</h3>
+          <p className="ops-card-copy">
+            这次项目最重要的不是“拍到很多素材”，而是判断哪些素材真的能说明人物。选题、关系建立、长期跟拍、采访补位和后期取舍，都是编导工作的一部分。
+          </p>
+        </div>
+
+        <div className="documentary-watch-card">
+          <div className="documentary-watch-label">成片入口</div>
+          <div className="documentary-watch-value">15 分钟人物纪录片</div>
+          <p className="ops-card-copy">原始文件体量较大，线上项目页先放可直接打开的成片链接，方便浏览和投递使用。</p>
+          <div className="hero-actions" style={{ marginTop: 28 }}>
+            <a className="primary-btn" href={documentaryWatchLink} target="_blank" rel="noreferrer">
+              打开成片
+              <Play size={16} />
+            </a>
+          </div>
+          <div className="documentary-watch-meta">
+            百度网盘提取码：
+            <span style={{ fontFamily: "ui-monospace, SFMono-Regular, Consolas, monospace" }}> rajy</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="documentary-capability-grid">
+        {documentaryCapabilities.map((item) => (
+          <div key={item.title} className="documentary-capability-card">
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
+              <div className="documentary-capability-label">{item.label}</div>
+              <span style={{ width: 10, height: 10, borderRadius: "50%", background: item.tone, flexShrink: 0 }} />
+            </div>
+            <div className="documentary-capability-title">{item.title}</div>
+            <p className="documentary-capability-copy">{item.detail}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="documentary-frame-grid">
+        <div className="documentary-frame-card documentary-frame-lead">
+          <div className="documentary-frame-media documentary-frame-media-lead">
+            <img src={leadFrame.src} alt={leadFrame.title} />
+          </div>
+          <div className="documentary-frame-body">
+            <div className="documentary-frame-title">{leadFrame.title}</div>
+            <p className="documentary-frame-copy">{leadFrame.desc}</p>
+          </div>
+        </div>
+
+        <div className="documentary-frame-side">
+          {supportingFrames.map((item) => (
+            <div key={item.title} className="documentary-frame-card">
+              <div className="documentary-frame-media">
+                <img src={item.src} alt={item.title} />
+              </div>
+              <div className="documentary-frame-body">
+                <div className="documentary-frame-title">{item.title}</div>
+                <p className="documentary-frame-copy">{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="documentary-people-grid">
+        {documentaryPeople.map((item) => (
+          <div key={item.name} className="documentary-person-card">
+            <div className="documentary-person-media">
+              <img src={item.src} alt={item.name} />
+            </div>
+            <div className="documentary-person-body">
+              <div className="documentary-person-name">{item.name}</div>
+              <div className="documentary-person-role">{item.role}</div>
+              <p className="documentary-person-copy">{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function DetailPage({
   project,
   onBack,
@@ -474,6 +652,7 @@ function DetailPage({
   nextProject: Project;
 }) {
   const timeline = caseTimelines[project.id];
+  const closingSectionNumber = project.id === "bilibili" ? "06" : project.id === "documentary" ? "05" : "04";
 
   return (
     <div className="detail-page">
@@ -567,6 +746,17 @@ function DetailPage({
             </Panel>
           </section>
 
+          {project.id === "documentary" ? (
+            <section className="section-block">
+              <SectionLabel number="04" title="Director's Lens" />
+              <Panel style={{ borderRadius: 36 }}>
+                <div className="dashboard-wrap">
+                  <DocumentaryDetailModule />
+                </div>
+              </Panel>
+            </section>
+          ) : null}
+
           {project.id === "bilibili" ? (
             <section className="section-block">
               <SectionLabel number="04" title="Performance Data" />
@@ -597,7 +787,7 @@ function DetailPage({
           ) : null}
 
           <section className="section-block">
-            <SectionLabel number={project.id === "bilibili" ? "06" : "04"} title="More Cases" />
+            <SectionLabel number={closingSectionNumber} title="More Cases" />
             <div className="case-switch-grid">
               <button className="case-switch-card" onClick={() => onOpen(prevProject.id)}>
                 <div className="case-switch-label">上一页案例</div>
@@ -1079,6 +1269,9 @@ const sanityChecks = [
   operationsInsights.length === 4,
   bilibiliEvidenceWall.length === 6,
   bayerVisuals.length === 2,
+  documentaryCapabilities.length === 3,
+  documentaryFrames.length === 6,
+  documentaryPeople.length === 3,
 ].every(Boolean);
 
 if (!sanityChecks) {
