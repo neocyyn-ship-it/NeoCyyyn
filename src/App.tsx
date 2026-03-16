@@ -666,25 +666,32 @@ export default function App() {
 
         <main className="home-main">
           <section className="hero-section">
-            <Panel style={{ borderRadius: 46, boxShadow: "0 18px 44px rgba(36,49,40,0.05)", maxWidth: 1120, margin: "0 auto" }}>
+            <Panel style={{ borderRadius: 46, boxShadow: "0 18px 44px rgba(36,49,40,0.05)", maxWidth: 1040, margin: "0 auto" }}>
               <div className="hero-card home-hero-stage" style={{ padding: "clamp(30px, 4vw, 54px)" }}>
-                <div className="home-hero-identity">
-                  <div style={{ fontSize: "clamp(30px, 2.4vw, 38px)", fontWeight: 600, lineHeight: 1.08, color: palette.text }}>陈衍年</div>
-                  <div style={{ fontSize: "clamp(16px, 1vw, 18px)", fontWeight: 500, letterSpacing: "0.04em", color: palette.blue }}>
-                    Ideas, images, and things becoming real
+                <div className="home-hero-main">
+                  <div className="home-hero-identity">
+                    <div style={{ fontSize: "clamp(30px, 2.4vw, 38px)", fontWeight: 600, lineHeight: 1.08, color: palette.text }}>陈衍年</div>
+                    <div style={{ fontSize: "clamp(16px, 1vw, 18px)", fontWeight: 500, letterSpacing: "0.04em", color: palette.blue }}>
+                      Ideas, images, and things becoming real
+                    </div>
                   </div>
+
+                  <h1 className="hero-title home-hero-title" style={{ marginTop: 16 }}>
+                    有一点想象力，
+                    <br />
+                    也有一点把它变成现实的魔法。
+                  </h1>
                 </div>
 
-                <h1 className="hero-title home-hero-title" style={{ marginTop: 16 }}>
-                  有一点想象力，
-                  <br />
-                  也有一点把它变成现实的魔法。
-                </h1>
-
-                <div className="home-hero-foot">
+                <div className="home-hero-side">
                   <p className="hero-copy home-hero-copy" style={{ margin: 0 }}>
                     影像、内容、策划和执行，都是把脑海里的东西一点点带到现实里的方式。
                   </p>
+                  <div className="home-hero-tags">
+                    <span>影像内容</span>
+                    <span>策划执行</span>
+                    <span>项目落地</span>
+                  </div>
                   <div className="hero-actions home-hero-actions" style={{ marginTop: 0 }}>
                     <a href="#work" className="primary-btn">
                       先看作品
@@ -707,16 +714,14 @@ export default function App() {
                 <h2
                   style={{
                     margin: "14px 0 0",
-                    fontSize: "clamp(40px, 4vw, 56px)",
-                    lineHeight: 1.12,
+                    fontSize: "clamp(34px, 3.2vw, 46px)",
+                    lineHeight: 1.18,
                     fontWeight: 600,
                     color: palette.text,
                     textWrap: "balance",
                   }}
                 >
-                  把想法慢慢做成
-                  <br />
-                  看得见的东西。
+                  把想法慢慢做成看得见的东西。
                 </h2>
               </div>
 

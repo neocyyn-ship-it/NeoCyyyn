@@ -171,8 +171,8 @@ button {
 .hero-title {
   margin: 32px 0 0;
   max-width: none;
-  font-size: clamp(58px, 5.6vw, 84px);
-  line-height: 1.03;
+  font-size: clamp(52px, 5vw, 72px);
+  line-height: 1.04;
   font-weight: 600;
   letter-spacing: -0.04em;
   text-wrap: pretty;
@@ -250,8 +250,15 @@ button {
 
 .home-hero-stage {
   display: grid;
-  gap: 28px;
+  grid-template-columns: minmax(0, 1.08fr) minmax(280px, 0.72fr);
+  gap: 32px;
+  align-items: end;
   min-height: 0;
+}
+
+.home-hero-main {
+  display: grid;
+  gap: 12px;
 }
 
 .home-hero-identity {
@@ -260,20 +267,35 @@ button {
 }
 
 .home-hero-title {
-  max-width: none;
-}
-
-.home-hero-foot {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 24px 36px;
-  align-items: end;
+  max-width: 8.8ch;
 }
 
 .home-hero-copy {
-  max-width: 26ch;
-  font-size: clamp(21px, 1.7vw, 26px);
-  line-height: 1.78;
+  max-width: 18ch;
+  font-size: clamp(18px, 1.35vw, 22px);
+  line-height: 1.8;
+}
+
+.home-hero-side {
+  display: grid;
+  gap: 20px;
+  align-self: end;
+}
+
+.home-hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.home-hero-tags span {
+  border-radius: 999px;
+  border: 1px solid #dce7de;
+  background: rgba(255, 255, 255, 0.88);
+  padding: 8px 14px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #4d5b53;
 }
 
 .home-hero-actions {
@@ -806,9 +828,21 @@ button {
     grid-template-columns: 1fr;
   }
 
-  .home-hero-foot {
+  .home-hero-stage {
     grid-template-columns: 1fr;
-    align-items: start;
+    gap: 24px;
+  }
+
+  .home-hero-side {
+    max-width: none;
+  }
+
+  .home-hero-actions {
+    justify-content: flex-start;
+  }
+
+  .home-hero-tags {
+    gap: 8px;
   }
 
   .hero-grid,
@@ -860,8 +894,8 @@ button {
 
   .hero-title {
     max-width: none;
-    font-size: clamp(64px, 5.8vw, 92px);
-    line-height: 1.02;
+    font-size: clamp(58px, 5.2vw, 78px);
+    line-height: 1.04;
   }
 
   .project-preview-grid {
@@ -912,7 +946,7 @@ button {
 
   .hero-title {
     max-width: none;
-    font-size: clamp(50px, 5vw, 72px);
+    font-size: clamp(46px, 4.8vw, 64px);
     line-height: 1.04;
   }
 
@@ -1002,11 +1036,6 @@ button {
   .home-hero-copy {
     font-size: 18px;
     line-height: 1.7;
-  }
-
-  .home-hero-foot {
-    grid-template-columns: 1fr;
-    gap: 20px;
   }
 
   .project-preview-grid {
