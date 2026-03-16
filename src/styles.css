@@ -39,9 +39,9 @@ button {
 }
 
 .page-shell {
-  max-width: 1440px;
+  max-width: 1520px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 clamp(24px, 2.6vw, 40px);
 }
 
 .site-header {
@@ -55,7 +55,7 @@ button {
 
 .header-inner,
 .detail-header {
-  max-width: 1360px;
+  max-width: 1440px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -64,7 +64,7 @@ button {
 }
 
 .header-inner {
-  height: 80px;
+  height: 88px;
 }
 
 .detail-header {
@@ -74,8 +74,8 @@ button {
 .desktop-nav {
   display: flex;
   align-items: center;
-  gap: 32px;
-  font-size: 15px;
+  gap: 36px;
+  font-size: 16px;
   line-height: 1.6;
   color: #46544c;
 }
@@ -90,7 +90,7 @@ button {
 .detail-trigger-btn,
 .detail-back-btn {
   border-radius: 999px;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 500;
   line-height: 1.5;
   display: inline-flex;
@@ -109,20 +109,20 @@ button {
 }
 
 .ghost-btn {
-  padding: 10px 20px;
+  padding: 11px 22px;
 }
 
 .ghost-large-btn,
 .detail-trigger-btn,
 .detail-back-btn {
-  padding: 12px 24px;
+  padding: 14px 28px;
 }
 
 .primary-btn {
   border: 1px solid transparent;
   background: #4e90f5;
   color: #fff;
-  padding: 12px 24px;
+  padding: 14px 28px;
   text-decoration: none;
   box-shadow: 0 8px 18px rgba(78, 144, 245, 0.16);
 }
@@ -138,14 +138,7 @@ button {
 }
 
 .hero-section {
-  padding: 44px 0 56px;
-}
-
-.hero-grid {
-  display: grid;
-  gap: 24px;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-  align-items: start;
+  padding: 60px 0 82px;
 }
 
 .hero-card,
@@ -176,9 +169,9 @@ button {
 
 .hero-title {
   margin: 32px 0 0;
-  max-width: 12.8ch;
-  font-size: clamp(46px, 5.2vw, 58px);
-  line-height: 1.16;
+  max-width: 13.4ch;
+  font-size: clamp(54px, 4.9vw, 70px);
+  line-height: 1.1;
   font-weight: 600;
   letter-spacing: -0.025em;
   text-wrap: balance;
@@ -212,10 +205,10 @@ button {
 }
 
 .hero-actions {
-  margin-top: 40px;
+  margin-top: 44px;
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 18px;
 }
 
 .project-preview-grid,
@@ -237,11 +230,23 @@ button {
 .project-preview-grid {
   align-content: start;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
+  gap: 26px;
 }
 
 .section-block {
-  padding: 40px 0 48px;
+  padding: 56px 0 70px;
+}
+
+.home-about-grid {
+  display: grid;
+  gap: clamp(28px, 3.2vw, 52px);
+  grid-template-columns: minmax(0, 0.92fr) minmax(360px, 1.08fr);
+  align-items: start;
+}
+
+.home-about-notes {
+  display: grid;
+  gap: 18px;
 }
 
 .case-grid,
@@ -708,6 +713,12 @@ button {
 @media (max-width: 1180px) {
   .project-preview-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .home-about-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
   }
 
   .hero-grid,
@@ -732,6 +743,92 @@ button {
 
   .sar-grid {
     grid-template-columns: 1fr !important;
+  }
+}
+
+@media (min-width: 1440px) {
+  .page-shell {
+    max-width: 1600px;
+    padding: 0 44px;
+  }
+
+  .header-inner,
+  .detail-header {
+    max-width: 1500px;
+  }
+
+  .hero-section {
+    padding: 72px 0 94px;
+  }
+
+  .section-block {
+    padding: 66px 0 84px;
+  }
+
+  .hero-title {
+    max-width: 13.8ch;
+    font-size: clamp(60px, 4.8vw, 78px);
+    line-height: 1.06;
+  }
+
+  .project-preview-grid {
+    gap: 30px;
+  }
+}
+
+@media (min-width: 1280px) and (max-width: 1439px) {
+  .page-shell {
+    max-width: 1520px;
+    padding: 0 34px;
+  }
+
+  .header-inner,
+  .detail-header {
+    max-width: 1440px;
+  }
+
+  .hero-section {
+    padding: 64px 0 82px;
+  }
+
+  .section-block {
+    padding: 58px 0 74px;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .page-shell {
+    max-width: 1360px;
+    padding: 0 24px;
+  }
+
+  .header-inner,
+  .detail-header {
+    max-width: 1280px;
+  }
+
+  .hero-section {
+    padding: 48px 0 62px;
+  }
+
+  .hero-title {
+    max-width: 13ch;
+    font-size: clamp(46px, 5vw, 58px);
+    line-height: 1.12;
+  }
+
+  .project-preview-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+  }
+
+  .section-block {
+    padding: 46px 0 60px;
+  }
+
+  .home-about-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
   }
 }
 
@@ -780,6 +877,12 @@ button {
 
   .project-preview-grid {
     grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .home-about-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
   }
 
   .detail-page-title {

@@ -666,17 +666,23 @@ export default function App() {
 
         <main>
           <section className="hero-section">
-            <Panel style={{ borderRadius: 42, boxShadow: "0 10px 24px rgba(36,49,40,0.035)", maxWidth: 1120, margin: "0 auto" }}>
-              <div className="hero-card" style={{ padding: "clamp(32px, 5vw, 52px) clamp(24px, 4vw, 44px) clamp(36px, 5vw, 50px)" }}>
-                <h1 className="hero-title" style={{ marginTop: 0, maxWidth: "12.4ch" }}>
+            <Panel style={{ borderRadius: 46, boxShadow: "0 12px 30px rgba(36,49,40,0.04)", maxWidth: 1360, margin: "0 auto" }}>
+              <div className="hero-card" style={{ padding: "clamp(40px, 5.5vw, 76px) clamp(28px, 4.4vw, 68px) clamp(44px, 5.4vw, 72px)" }}>
+                <div style={{ display: "grid", gap: 8, maxWidth: 640 }}>
+                  <div style={{ fontSize: "clamp(28px, 2.2vw, 36px)", fontWeight: 600, lineHeight: 1.14, color: palette.text }}>陈衍年</div>
+                  <div style={{ fontSize: 15, fontWeight: 500, letterSpacing: "0.04em", color: palette.blue }}>
+                    Ideas, images, and things becoming real
+                  </div>
+                </div>
+                <h1 className="hero-title" style={{ marginTop: 28, maxWidth: "13.8ch" }}>
                   有一点想象力，也有一点
                   <br />
                   把它变成现实的魔法。
                 </h1>
-                <p className="hero-copy" style={{ marginTop: 24, maxWidth: 720 }}>
+                <p className="hero-copy" style={{ marginTop: 28, maxWidth: 860, fontSize: "clamp(18px, 1.2vw, 20px)", lineHeight: 1.82 }}>
                   影像、内容、策划和执行，都是把脑海里的东西一点点带到现实里的方式。
                 </p>
-                <div className="hero-actions" style={{ marginTop: 36 }}>
+                <div className="hero-actions" style={{ marginTop: 44 }}>
                   <a href="#work" className="primary-btn">
                     先看作品
                     <ArrowRight size={16} />
@@ -691,13 +697,13 @@ export default function App() {
           </section>
 
           <section id="work" className="section-block" style={{ paddingTop: 12 }}>
-            <div style={{ marginBottom: 30, maxWidth: 760 }}>
+            <div style={{ marginBottom: 40, maxWidth: 880 }}>
               <div style={{ fontSize: 13, fontWeight: 500, letterSpacing: "0.08em", color: palette.blue }}>Selected Works</div>
               <h2
                 style={{
                   margin: "16px 0 0",
-                  fontSize: "clamp(32px, 4vw, 42px)",
-                  lineHeight: 1.22,
+                  fontSize: "clamp(36px, 4vw, 48px)",
+                  lineHeight: 1.18,
                   fontWeight: 600,
                   color: palette.text,
                   textWrap: "balance",
@@ -717,29 +723,31 @@ export default function App() {
                   <button key={item.id} className="preview-card-btn" onClick={() => setSelectedProjectId(item.id)}>
                     <Panel style={{ borderRadius: 30, boxShadow: "0 6px 16px rgba(36,49,40,0.02)", height: "100%" }}>
                       <div
+                        className="home-preview-card"
                         style={{
                           borderRadius: 24,
                           border: `1px solid ${palette.line}`,
-                          padding: 24,
+                          padding: 28,
                           background: softs[idx],
                           textAlign: "left",
                           display: "flex",
                           flexDirection: "column",
                           gap: 0,
                           height: "100%",
+                          minHeight: "clamp(420px, 34vw, 520px)",
                         }}
                       >
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
                           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                             <span style={{ width: 11, height: 11, borderRadius: "50%", background: dots[idx], display: "inline-block" }} />
-                            <div style={{ fontSize: 14, fontWeight: 600, letterSpacing: "0.04em", color: palette.blue }}>{item.subtitle}</div>
+                            <div style={{ fontSize: 15, fontWeight: 600, letterSpacing: "0.04em", color: palette.blue }}>{item.subtitle}</div>
                           </div>
-                          <div style={{ fontSize: 14, fontWeight: 600, letterSpacing: "0.04em", color: palette.textSoft }}>0{idx + 1}</div>
+                          <div style={{ fontSize: 15, fontWeight: 600, letterSpacing: "0.04em", color: palette.textSoft }}>0{idx + 1}</div>
                         </div>
 
                         {item.coverType === "image" && item.cover ? (
                           <div style={{ marginTop: 18, overflow: "hidden", borderRadius: 18 }}>
-                            <img src={item.cover} alt={item.title} style={{ height: 146, width: "100%", objectFit: "cover", display: "block" }} />
+                            <img src={item.cover} alt={item.title} style={{ height: "clamp(176px, 14vw, 208px)", width: "100%", objectFit: "cover", display: "block" }} />
                           </div>
                         ) : (
                           <div style={{ marginTop: 18 }}>
@@ -750,9 +758,9 @@ export default function App() {
                         <div
                           style={{
                             marginTop: 20,
-                            fontSize: "clamp(28px, 2.6vw, 34px)",
+                            fontSize: "clamp(30px, 2.8vw, 38px)",
                             fontWeight: 600,
-                            lineHeight: 1.22,
+                            lineHeight: 1.18,
                             color: palette.text,
                             textWrap: "balance",
                           }}
@@ -761,10 +769,11 @@ export default function App() {
                         </div>
 
                         <div style={{ marginTop: "auto", paddingTop: 18, borderTop: `1px solid ${palette.line}` }}>
-                          <p style={{ margin: 0, fontSize: 17, lineHeight: 1.7, color: palette.textSoft }}>
+                          <p style={{ margin: 0, fontSize: 18, lineHeight: 1.68, color: palette.textSoft }}>
                             <span style={{ fontWeight: 600, color: palette.text }}>{leadHighlight}</span>
                             {supportingHighlight ? <span style={{ color: dots[idx] }}> · {supportingHighlight}</span> : null}
                           </p>
+                          <p style={{ margin: "10px 0 0", fontSize: 16, lineHeight: 1.72, color: palette.textSoft }}>{item.summary}</p>
                         </div>
                       </div>
                     </Panel>
@@ -775,56 +784,58 @@ export default function App() {
           </section>
 
           <section className="section-block" style={{ paddingTop: 8 }}>
-            <div style={{ maxWidth: 980 }}>
-              <div style={{ fontSize: 13, fontWeight: 500, letterSpacing: "0.08em", color: palette.blue }}>About Me</div>
-              <h2
-                style={{
-                  margin: "18px 0 0",
-                  maxWidth: 660,
-                  fontSize: "clamp(28px, 3.2vw, 36px)",
-                  lineHeight: 1.32,
-                  fontWeight: 600,
-                  color: palette.text,
-                  textWrap: "balance",
-                }}
-              >
-                一个有点子、也很会
-                <br />
-                把事情做出来的人。
-              </h2>
-              <p
-                style={{
-                  margin: "16px 0 0",
-                  maxWidth: 700,
-                  fontSize: 17,
-                  lineHeight: 1.85,
-                  color: palette.textSoft,
-                }}
-              >
-                会做内容，会推项目，也会认真回头看看——让好想法不只停在想法里。
-              </p>
-              <div
-                style={{
-                  marginTop: 14,
-                  fontSize: 15,
-                  fontWeight: 500,
-                  lineHeight: 1.6,
-                  letterSpacing: "0.03em",
-                  color: "#8A958D",
-                  fontStyle: "italic",
-                }}
-              >
-                Good ideas deserve to come true.
+            <div className="home-about-grid" style={{ maxWidth: 1320 }}>
+              <div>
+                <div style={{ fontSize: 13, fontWeight: 500, letterSpacing: "0.08em", color: palette.blue }}>About Me</div>
+                <h2
+                  style={{
+                    margin: "18px 0 0",
+                    maxWidth: 720,
+                    fontSize: "clamp(32px, 3.2vw, 42px)",
+                    lineHeight: 1.24,
+                    fontWeight: 600,
+                    color: palette.text,
+                    textWrap: "balance",
+                  }}
+                >
+                  一个有点子、也很会
+                  <br />
+                  把事情做出来的人。
+                </h2>
+                <p
+                  style={{
+                    margin: "18px 0 0",
+                    maxWidth: 760,
+                    fontSize: "clamp(18px, 1.1vw, 19px)",
+                    lineHeight: 1.84,
+                    color: palette.textSoft,
+                  }}
+                >
+                  会做内容，会推项目，也会认真回头看看——让好想法不只停在想法里。
+                </p>
+                <div
+                  style={{
+                    marginTop: 16,
+                    fontSize: 16,
+                    fontWeight: 500,
+                    lineHeight: 1.6,
+                    letterSpacing: "0.03em",
+                    color: "#8A958D",
+                    fontStyle: "italic",
+                  }}
+                >
+                  Good ideas deserve to come true.
+                </div>
               </div>
 
-              <div className="three-col-grid" style={{ marginTop: 26, gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 20 }}>
+              <div className="home-about-notes">
                 {personalIntroNotes.map((item) => (
-                  <div key={item.title} style={{ paddingTop: 14, borderTop: `1px solid ${palette.line}` }}>
+                  <div key={item.title} style={{ paddingTop: 18, borderTop: `1px solid ${palette.line}` }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                       <span
                         style={{
-                          width: 9,
-                          height: 9,
+                          width: 10,
+                          height: 10,
                           borderRadius: "50%",
                           background: item.tone,
                           flexShrink: 0,
@@ -832,8 +843,8 @@ export default function App() {
                       />
                       <div
                         style={{
-                          fontSize: 18,
-                          lineHeight: 1.35,
+                          fontSize: 20,
+                          lineHeight: 1.32,
                           fontWeight: 600,
                           color: palette.text,
                         }}
@@ -844,8 +855,8 @@ export default function App() {
                     <p
                       style={{
                         margin: "10px 0 0",
-                        fontSize: 15,
-                        lineHeight: 1.75,
+                        fontSize: 16,
+                        lineHeight: 1.78,
                         color: palette.textSoft,
                       }}
                     >
