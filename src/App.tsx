@@ -174,10 +174,10 @@ const additionalWorks: ExperienceItem[] = [
   { title: "沉船逃生互动视频项目", desc: "体现脚本整理、叙事设计与互动内容执行经验。" }
 ];
 
-const personalIntroMetrics = [
-  { title: "执行力 / 100", desc: "目标拆解、节点推进、交付落地", tone: palette.blue },
-  { title: "配合度 / 100", desc: "沟通顺畅、协作稳定、响应及时", tone: palette.apple },
-  { title: "复盘意识 / 持续加分", desc: "数据回看、行业分析、SOP 沉淀", tone: palette.teal },
+const personalIntroNotes = [
+  { title: "有点子", desc: "喜欢把灵感变成具体表达", tone: palette.blue },
+  { title: "不掉线", desc: "事情接到手里就会认真推进", tone: palette.apple },
+  { title: "会回头看", desc: "做完也会留一点时间给复盘和整理", tone: palette.teal },
 ];
 
 const createEvidenceSvg = (title: string, subtitle: string, note: string, toneA: string, toneB: string) =>
@@ -683,14 +683,13 @@ export default function App() {
                     style={{
                       marginTop: 36,
                       display: "grid",
-                      gap: 18,
-                      gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-                      alignItems: "start",
+                      gap: 20,
                       borderRadius: 28,
                       border: `1px solid ${palette.line}`,
-                      background: "linear-gradient(135deg, rgba(255,255,255,0.94), rgba(247,251,255,0.88))",
-                      padding: 22,
-                      boxShadow: "0 8px 18px rgba(36,49,40,0.03)",
+                      background: "linear-gradient(135deg, rgba(255,255,255,0.96), rgba(250,247,241,0.92))",
+                      padding: 24,
+                      boxShadow: "0 10px 22px rgba(36,49,40,0.035)",
+                      maxWidth: 760,
                     }}
                   >
                     <div>
@@ -714,29 +713,14 @@ export default function App() {
                       <h2
                         style={{
                           margin: "18px 0 0",
-                          fontSize: "clamp(24px, 3.2vw, 34px)",
-                          lineHeight: 1.35,
+                          maxWidth: 600,
+                          fontSize: "clamp(26px, 3.4vw, 36px)",
+                          lineHeight: 1.4,
                           fontWeight: 600,
                           color: palette.text,
                         }}
                       >
-                        一个执行力、配合度都
-                        <span
-                          style={{
-                            display: "inline-flex",
-                            alignItems: "center",
-                            margin: "0 8px",
-                            borderRadius: 999,
-                            background: "#243128",
-                            color: "#F6FBF6",
-                            padding: "4px 12px",
-                            fontSize: "0.9em",
-                            boxShadow: "0 6px 14px rgba(36,49,40,0.14)",
-                          }}
-                        >
-                          满分在线
-                        </span>
-                        的运营新人
+                        一个有点子、也很会落地的运营新人
                       </h2>
                       <p
                         style={{
@@ -747,53 +731,69 @@ export default function App() {
                           color: palette.textSoft,
                         }}
                       >
-                        既能做内容与活动执行，也能通过数据复盘、行业分析和 SOP 沉淀，把经验慢慢变成更高效的方法。
+                        会做内容，会推项目，也会认真回头看看——把做过的事，一点点变成更顺手的办法。
                       </p>
+                      <div
+                        style={{
+                          marginTop: 14,
+                          fontSize: 13,
+                          lineHeight: 1.6,
+                          letterSpacing: "0.04em",
+                          color: "#8A958D",
+                          fontStyle: "italic",
+                        }}
+                      >
+                        Good ideas deserve to come true.
+                      </div>
                     </div>
 
                     <div
                       style={{
                         display: "grid",
-                        gap: 12,
-                        gridTemplateColumns: "repeat(auto-fit, minmax(148px, 1fr))",
+                        gap: 10,
+                        gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
                       }}
                     >
-                      {personalIntroMetrics.map((item) => (
+                      {personalIntroNotes.map((item) => (
                         <div
                           key={item.title}
                           style={{
-                            borderRadius: 22,
+                            display: "grid",
+                            gap: 8,
+                            borderRadius: 20,
                             border: `1px solid ${palette.line}`,
-                            background: "#FFFFFF",
-                            padding: 16,
-                            boxShadow: "0 6px 14px rgba(36,49,40,0.03)",
+                            background: "rgba(255,255,255,0.74)",
+                            padding: "14px 16px",
+                            boxShadow: "0 4px 10px rgba(36,49,40,0.02)",
                           }}
                         >
-                          <div
-                            style={{
-                              width: 10,
-                              height: 10,
-                              borderRadius: "50%",
-                              background: item.tone,
-                            }}
-                          />
-                          <div
-                            style={{
-                              marginTop: 14,
-                              fontSize: 16,
-                              lineHeight: 1.45,
-                              fontWeight: 600,
-                              color: palette.text,
-                            }}
-                          >
-                            {item.title}
+                          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                            <span
+                              style={{
+                                width: 9,
+                                height: 9,
+                                borderRadius: "50%",
+                                background: item.tone,
+                                flexShrink: 0,
+                              }}
+                            />
+                            <div
+                              style={{
+                                fontSize: 15,
+                                lineHeight: 1.35,
+                                fontWeight: 600,
+                                color: palette.text,
+                              }}
+                            >
+                              {item.title}
+                            </div>
                           </div>
                           <p
                             style={{
-                              margin: "10px 0 0",
                               fontSize: 13,
-                              lineHeight: 1.75,
+                              lineHeight: 1.7,
                               color: palette.textSoft,
+                              margin: 0,
                             }}
                           >
                             {item.desc}
