@@ -666,8 +666,8 @@ export default function App() {
 
         <main className="home-main">
           <section className="hero-section">
-            <Panel style={{ borderRadius: 46, boxShadow: "0 18px 44px rgba(36,49,40,0.05)", maxWidth: 1040, margin: "0 auto" }}>
-              <div className="hero-card home-hero-stage" style={{ padding: "clamp(30px, 4vw, 54px)" }}>
+            <Panel style={{ borderRadius: 46, boxShadow: "0 18px 44px rgba(36,49,40,0.05)", maxWidth: 1480, margin: "0 auto" }}>
+              <div className="hero-card home-hero-stage" style={{ padding: "clamp(32px, 4vw, 60px)" }}>
                 <div className="home-hero-identity">
                   <div style={{ fontSize: "clamp(30px, 2.4vw, 38px)", fontWeight: 600, lineHeight: 1.08, color: palette.text }}>陈衍年</div>
                   <div style={{ fontSize: "clamp(16px, 1vw, 18px)", fontWeight: 500, letterSpacing: "0.04em", color: palette.blue }}>
@@ -863,11 +863,11 @@ export default function App() {
           </section>
 
           <section className="section-block" style={{ paddingTop: 8 }}>
-            <Panel style={{ borderRadius: 40, boxShadow: "0 12px 28px rgba(36,49,40,0.035)", maxWidth: 1120, margin: "0 auto" }}>
+            <Panel style={{ borderRadius: 40, boxShadow: "0 12px 28px rgba(36,49,40,0.035)", maxWidth: 1480, margin: "0 auto" }}>
               <div
                 className="dashboard-wrap home-about-shell"
                 style={{
-                  padding: "clamp(28px, 3.8vw, 44px)",
+                  padding: "clamp(28px, 3.8vw, 52px)",
                   background: "linear-gradient(135deg, rgba(255,255,255,0.96), rgba(247,250,247,0.96) 50%, rgba(250,247,241,0.92))",
                   borderRadius: 40,
                 }}
