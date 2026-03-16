@@ -144,7 +144,7 @@ button {
 .hero-grid {
   display: grid;
   gap: 24px;
-  grid-template-columns: minmax(0, 1.24fr) minmax(300px, 0.76fr);
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
   align-items: start;
 }
 
@@ -176,9 +176,9 @@ button {
 
 .hero-title {
   margin: 32px 0 0;
-  max-width: 14ch;
-  font-size: clamp(44px, 5vw, 56px);
-  line-height: 1.18;
+  max-width: 13.2ch;
+  font-size: clamp(40px, 4.8vw, 52px);
+  line-height: 1.22;
   font-weight: 600;
   letter-spacing: -0.025em;
   text-wrap: balance;
@@ -232,6 +232,10 @@ button {
 .case-switch-grid {
   display: grid;
   gap: 16px;
+}
+
+.project-preview-grid {
+  align-content: start;
 }
 
 .section-block {
@@ -764,8 +768,8 @@ button {
   }
 
   .hero-title {
-    font-size: clamp(42px, 11vw, 52px);
-    line-height: 1.14;
+    font-size: clamp(32px, 8.8vw, 42px);
+    line-height: 1.2;
   }
 
   .detail-page-title {

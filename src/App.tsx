@@ -279,16 +279,25 @@ function Panel({ children, style = {} as React.CSSProperties }: { children: Reac
   );
 }
 
-function GeneratedCover({ project }: { project: Project }) {
+function GeneratedCover({ project, compact = false }: { project: Project; compact?: boolean }) {
   return (
-    <div className="generated-cover" style={{ background: project.accent }}>
+    <div className="generated-cover" style={{ background: project.accent, minHeight: compact ? 186 : undefined }}>
       <div className="generated-cover-glow" />
-      <div className="generated-cover-inner">
-        <div className="generated-cover-label">{project.subtitle}</div>
-        <div className="generated-cover-title">{project.title}</div>
-        <div className="generated-cover-tags">
+      <div className="generated-cover-inner" style={{ minHeight: compact ? 186 : undefined, padding: compact ? 20 : 24 }}>
+        <div className="generated-cover-label" style={compact ? { fontSize: 14 } : undefined}>
+          {project.subtitle}
+        </div>
+        <div
+          className="generated-cover-title"
+          style={compact ? { maxWidth: "9ch", fontSize: "clamp(24px, 3vw, 30px)", lineHeight: 1.14 } : undefined}
+        >
+          {project.title}
+        </div>
+        <div className="generated-cover-tags" style={compact ? { gap: 8 } : undefined}>
           {project.tags.map((tag) => (
-            <span key={tag}>{tag}</span>
+            <span key={tag} style={compact ? { padding: "5px 10px", fontSize: 14, background: "rgba(255,255,255,0.08)" } : undefined}>
+              {tag}
+            </span>
           ))}
         </div>
       </div>
@@ -656,13 +665,17 @@ export default function App() {
         </header>
 
         <main>
-          <section className="hero-section">
+          <section className="hero-section" style={{ paddingBottom: 28 }}>
             <div className="hero-grid">
               <Panel style={{ borderRadius: 40, boxShadow: "0 8px 20px rgba(36,49,40,0.03)" }}>
                 <div className="hero-card">
                   <div style={{ fontSize: 13, fontWeight: 500, letterSpacing: "0.08em", color: palette.blue }}>Selected Works</div>
                   <div className="pill">Images · Ideas · Things becoming real</div>
-                  <h1 className="hero-title">有一点想象力，也有一点把它变成现实的魔法。</h1>
+                  <h1 className="hero-title">
+                    有一点想象力，也有一点
+                    <br />
+                    把它变成现实的魔法。
+                  </h1>
                   <p className="hero-copy">影像、内容、策划和执行，都是把脑海里的东西一点点带到现实里的方式。</p>
                   <div className="hero-actions">
                     <a href="#work" className="primary-btn">
@@ -674,160 +687,54 @@ export default function App() {
                       <Download size={16} />
                     </a>
                   </div>
-
-                  <div
-                    style={{
-                      marginTop: 36,
-                      display: "grid",
-                      gap: 20,
-                      borderRadius: 28,
-                      border: `1px solid ${palette.line}`,
-                      background: "linear-gradient(135deg, rgba(255,255,255,0.96), rgba(250,247,241,0.92))",
-                      padding: 24,
-                      boxShadow: "0 10px 22px rgba(36,49,40,0.035)",
-                      maxWidth: 760,
-                    }}
-                  >
-                    <div>
-                      <div
-                        style={{
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: 8,
-                          borderRadius: 999,
-                          border: `1px solid ${palette.line}`,
-                          background: "rgba(255,255,255,0.8)",
-                          padding: "6px 12px",
-                          fontSize: 13,
-                          fontWeight: 500,
-                          letterSpacing: "0.08em",
-                          color: palette.blue,
-                        }}
-                      >
-                        PERSONAL INTRODUCTION
-                      </div>
-                      <h2
-                        style={{
-                          margin: "18px 0 0",
-                          maxWidth: 600,
-                          fontSize: "clamp(26px, 3.4vw, 36px)",
-                          lineHeight: 1.4,
-                          fontWeight: 600,
-                          color: palette.text,
-                        }}
-                      >
-                        一个有点子、也很会把事情做出来的人
-                      </h2>
-                      <p
-                        style={{
-                          margin: "16px 0 0",
-                          maxWidth: 520,
-                          fontSize: 17,
-                          lineHeight: 1.85,
-                          color: palette.textSoft,
-                        }}
-                      >
-                        会做内容，会推项目，也会认真回头看看——让好想法不只停在想法里。
-                      </p>
-                      <div
-                        style={{
-                          marginTop: 14,
-                          fontSize: 15,
-                          fontWeight: 500,
-                          lineHeight: 1.6,
-                          letterSpacing: "0.03em",
-                          color: "#8A958D",
-                          fontStyle: "italic",
-                        }}
-                      >
-                        Good ideas deserve to come true.
-                      </div>
-                    </div>
-
-                    <div
-                      style={{
-                        display: "grid",
-                        gap: 10,
-                        gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
-                      }}
-                    >
-                      {personalIntroNotes.map((item) => (
-                        <div
-                          key={item.title}
-                          style={{
-                            display: "grid",
-                            gap: 8,
-                            borderRadius: 20,
-                            border: `1px solid ${palette.line}`,
-                            background: "rgba(255,255,255,0.74)",
-                            padding: "14px 16px",
-                            boxShadow: "0 4px 10px rgba(36,49,40,0.02)",
-                          }}
-                        >
-                          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                            <span
-                              style={{
-                                width: 9,
-                                height: 9,
-                                borderRadius: "50%",
-                                background: item.tone,
-                                flexShrink: 0,
-                              }}
-                            />
-                            <div
-                              style={{
-                                fontSize: 18,
-                                lineHeight: 1.35,
-                                fontWeight: 600,
-                                color: palette.text,
-                              }}
-                            >
-                              {item.title}
-                            </div>
-                          </div>
-                          <p
-                            style={{
-                              fontSize: 15,
-                              lineHeight: 1.75,
-                              color: palette.textSoft,
-                              margin: 0,
-                            }}
-                          >
-                            {item.desc}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
                 </div>
               </Panel>
 
-              <div className="project-preview-grid">
+              <div className="project-preview-grid" style={{ gap: 18 }}>
                 {projects.map((item, idx) => {
                   const softs = ["#F7FBFF", "#F6FBF0", "#F6FBF6"];
                   const dots = [palette.blue, palette.apple, palette.moss];
+                  const [leadHighlight, supportingHighlight] = item.highlight.split(" / ");
+
                   return (
                     <button key={item.id} className="preview-card-btn" onClick={() => setSelectedProjectId(item.id)}>
                       <Panel style={{ borderRadius: 30, boxShadow: "0 6px 16px rgba(36,49,40,0.02)" }}>
                         <div style={{ borderRadius: 24, border: `1px solid ${palette.line}`, padding: 24, background: softs[idx], textAlign: "left" }}>
                           {item.coverType === "image" && item.cover ? (
-                            <div style={{ marginBottom: 16, overflow: "hidden", borderRadius: 18 }}>
-                              <img src={item.cover} alt={item.title} style={{ height: 144, width: "100%", objectFit: "cover", display: "block" }} />
+                            <div style={{ marginBottom: 18, overflow: "hidden", borderRadius: 18 }}>
+                              <img src={item.cover} alt={item.title} style={{ height: 132, width: "100%", objectFit: "cover", display: "block" }} />
                             </div>
                           ) : (
-                            <div style={{ marginBottom: 16 }}>
-                              <GeneratedCover project={item} />
+                            <div style={{ marginBottom: 18 }}>
+                              <GeneratedCover project={item} compact />
                             </div>
                           )}
                           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
                             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                               <span style={{ width: 12, height: 12, borderRadius: "50%", background: dots[idx], display: "inline-block" }} />
-                              <div style={{ fontSize: 13, fontWeight: 500, letterSpacing: "0.06em", color: palette.blue }}>{item.subtitle}</div>
+                              <div style={{ fontSize: 14, fontWeight: 600, letterSpacing: "0.04em", color: palette.blue }}>{item.subtitle}</div>
                             </div>
-                            <div style={{ fontSize: 13, fontWeight: 500, letterSpacing: "0.06em", color: palette.textSoft }}>0{idx + 1}</div>
+                            <div style={{ fontSize: 14, fontWeight: 600, letterSpacing: "0.04em", color: palette.textSoft }}>0{idx + 1}</div>
                           </div>
-                          <div style={{ marginTop: 20, fontSize: "clamp(24px, 2.6vw, 30px)", fontWeight: 550, lineHeight: 1.24, color: palette.text }}>{item.title}</div>
-                          <div style={{ marginTop: 14, fontSize: 16, lineHeight: 1.7, color: palette.textSoft }}>{item.highlight}</div>
+                          <div
+                            style={{
+                              marginTop: 18,
+                              fontSize: "clamp(27px, 2.6vw, 33px)",
+                              fontWeight: 600,
+                              lineHeight: 1.2,
+                              color: palette.text,
+                              textWrap: "balance",
+                            }}
+                          >
+                            {item.title}
+                          </div>
+                          <div style={{ marginTop: 16, display: "grid", gap: 8 }}>
+                            <div style={{ fontSize: 18, lineHeight: 1.45, fontWeight: 600, color: palette.text }}>{leadHighlight}</div>
+                            {supportingHighlight ? (
+                              <div style={{ fontSize: 15, lineHeight: 1.6, fontWeight: 500, color: dots[idx] }}>{supportingHighlight}</div>
+                            ) : null}
+                            <p style={{ margin: 0, fontSize: 15, lineHeight: 1.75, color: palette.textSoft }}>{item.summary}</p>
+                          </div>
                         </div>
                       </Panel>
                     </button>
@@ -835,6 +742,129 @@ export default function App() {
                 })}
               </div>
             </div>
+          </section>
+
+          <section className="section-block" style={{ paddingTop: 0 }}>
+            <Panel style={{ borderRadius: 36, boxShadow: "0 8px 20px rgba(36,49,40,0.03)" }}>
+              <div
+                className="dashboard-wrap two-col-grid"
+                style={{
+                  alignItems: "start",
+                  gap: 24,
+                  gridTemplateColumns: "minmax(0, 1.12fr) minmax(280px, 0.88fr)",
+                  background: "linear-gradient(135deg, rgba(255,255,255,0.96), rgba(250,247,241,0.92))",
+                  borderRadius: 36,
+                }}
+              >
+                <div>
+                  <div
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 8,
+                      borderRadius: 999,
+                      border: `1px solid ${palette.line}`,
+                      background: "rgba(255,255,255,0.8)",
+                      padding: "6px 12px",
+                      fontSize: 13,
+                      fontWeight: 500,
+                      letterSpacing: "0.08em",
+                      color: palette.blue,
+                    }}
+                  >
+                    PERSONAL INTRODUCTION
+                  </div>
+                  <h2
+                    style={{
+                      margin: "20px 0 0",
+                      maxWidth: 540,
+                      fontSize: "clamp(28px, 3vw, 34px)",
+                      lineHeight: 1.34,
+                      fontWeight: 600,
+                      color: palette.text,
+                      textWrap: "balance",
+                    }}
+                  >
+                    一个有点子、也很会
+                    <br />
+                    把事情做出来的人
+                  </h2>
+                  <p
+                    style={{
+                      margin: "16px 0 0",
+                      maxWidth: 620,
+                      fontSize: 17,
+                      lineHeight: 1.85,
+                      color: palette.textSoft,
+                    }}
+                  >
+                    会做内容，会推项目，也会认真回头看看——让好想法不只停在想法里。
+                  </p>
+                  <div
+                    style={{
+                      marginTop: 14,
+                      fontSize: 15,
+                      fontWeight: 500,
+                      lineHeight: 1.6,
+                      letterSpacing: "0.03em",
+                      color: "#8A958D",
+                      fontStyle: "italic",
+                    }}
+                  >
+                    Good ideas deserve to come true.
+                  </div>
+                </div>
+
+                <div style={{ display: "grid", gap: 12 }}>
+                  {personalIntroNotes.map((item) => (
+                    <div
+                      key={item.title}
+                      style={{
+                        display: "grid",
+                        gap: 8,
+                        borderRadius: 20,
+                        border: `1px solid ${palette.line}`,
+                        background: "rgba(255,255,255,0.78)",
+                        padding: "16px 18px",
+                        boxShadow: "0 4px 10px rgba(36,49,40,0.02)",
+                      }}
+                    >
+                      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                        <span
+                          style={{
+                            width: 9,
+                            height: 9,
+                            borderRadius: "50%",
+                            background: item.tone,
+                            flexShrink: 0,
+                          }}
+                        />
+                        <div
+                          style={{
+                            fontSize: 18,
+                            lineHeight: 1.35,
+                            fontWeight: 600,
+                            color: palette.text,
+                          }}
+                        >
+                          {item.title}
+                        </div>
+                      </div>
+                      <p
+                        style={{
+                          fontSize: 15,
+                          lineHeight: 1.75,
+                          color: palette.textSoft,
+                          margin: 0,
+                        }}
+                      >
+                        {item.desc}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Panel>
           </section>
 
           <section id="work" className="section-block">
