@@ -662,11 +662,7 @@ export default function App() {
                 <div className="hero-card">
                   <div style={{ fontSize: 13, fontWeight: 500, letterSpacing: "0.08em", color: palette.blue }}>Selected Works</div>
                   <div className="pill">Images · Ideas · Things becoming real</div>
-                  <h1 className="hero-title">
-                    有一点想象力，
-                    <br />
-                    也有一点把它变成现实的魔法。
-                  </h1>
+                  <h1 className="hero-title">有一点想象力，也有一点把它变成现实的魔法。</h1>
                   <p className="hero-copy">影像、内容、策划和执行，都是把脑海里的东西一点点带到现实里的方式。</p>
                   <div className="hero-actions">
                     <a href="#work" className="primary-btn">

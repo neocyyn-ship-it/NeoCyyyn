@@ -143,8 +143,8 @@ button {
 
 .hero-grid {
   display: grid;
-  gap: 32px;
-  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  gap: 24px;
+  grid-template-columns: minmax(0, 1.24fr) minmax(300px, 0.76fr);
   align-items: start;
 }
 
@@ -176,11 +176,12 @@ button {
 
 .hero-title {
   margin: 32px 0 0;
-  max-width: 10ch;
-  font-size: clamp(52px, 6vw, 64px);
-  line-height: 1.12;
+  max-width: 14ch;
+  font-size: clamp(44px, 5vw, 56px);
+  line-height: 1.18;
   font-weight: 600;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
 }
 
 .hero-copy,
@@ -204,6 +205,10 @@ button {
 .detail-page-intro,
 .contact-copy {
   max-width: 620px;
+}
+
+.hero-copy {
+  max-width: 680px;
 }
 
 .hero-actions {
