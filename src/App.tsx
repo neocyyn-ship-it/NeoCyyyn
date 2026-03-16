@@ -281,15 +281,15 @@ function Panel({ children, style = {} as React.CSSProperties }: { children: Reac
 
 function GeneratedCover({ project, compact = false }: { project: Project; compact?: boolean }) {
   return (
-    <div className="generated-cover" style={{ background: project.accent, minHeight: compact ? 186 : undefined }}>
+    <div className="generated-cover" style={{ background: project.accent, minHeight: compact ? 172 : undefined }}>
       <div className="generated-cover-glow" />
-      <div className="generated-cover-inner" style={{ minHeight: compact ? 186 : undefined, padding: compact ? 20 : 24 }}>
+      <div className="generated-cover-inner" style={{ minHeight: compact ? 172 : undefined, padding: compact ? 18 : 24 }}>
         <div className="generated-cover-label" style={compact ? { fontSize: 14 } : undefined}>
           {project.subtitle}
         </div>
         <div
           className="generated-cover-title"
-          style={compact ? { maxWidth: "9ch", fontSize: "clamp(24px, 3vw, 30px)", lineHeight: 1.14 } : undefined}
+          style={compact ? { maxWidth: "9.5ch", fontSize: "clamp(23px, 3vw, 28px)", lineHeight: 1.16 } : undefined}
         >
           {project.title}
         </div>
@@ -739,7 +739,7 @@ export default function App() {
 
                         {item.coverType === "image" && item.cover ? (
                           <div style={{ marginTop: 18, overflow: "hidden", borderRadius: 18 }}>
-                            <img src={item.cover} alt={item.title} style={{ height: 156, width: "100%", objectFit: "cover", display: "block" }} />
+                            <img src={item.cover} alt={item.title} style={{ height: 146, width: "100%", objectFit: "cover", display: "block" }} />
                           </div>
                         ) : (
                           <div style={{ marginTop: 18 }}>
@@ -760,10 +760,12 @@ export default function App() {
                           {item.title}
                         </div>
 
-                        <p style={{ margin: "16px 0 0", fontSize: 17, lineHeight: 1.7, color: palette.textSoft }}>
-                          <span style={{ fontWeight: 600, color: palette.text }}>{leadHighlight}</span>
-                          {supportingHighlight ? <span style={{ color: dots[idx] }}> · {supportingHighlight}</span> : null}
-                        </p>
+                        <div style={{ marginTop: "auto", paddingTop: 18, borderTop: `1px solid ${palette.line}` }}>
+                          <p style={{ margin: 0, fontSize: 17, lineHeight: 1.7, color: palette.textSoft }}>
+                            <span style={{ fontWeight: 600, color: palette.text }}>{leadHighlight}</span>
+                            {supportingHighlight ? <span style={{ color: dots[idx] }}> · {supportingHighlight}</span> : null}
+                          </p>
+                        </div>
                       </div>
                     </Panel>
                   </button>
@@ -786,7 +788,9 @@ export default function App() {
                   textWrap: "balance",
                 }}
               >
-                一个有点子、也很会把事情做出来的人。
+                一个有点子、也很会
+                <br />
+                把事情做出来的人。
               </h2>
               <p
                 style={{
