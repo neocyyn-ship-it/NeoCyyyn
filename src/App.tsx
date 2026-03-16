@@ -9,6 +9,12 @@ import documentaryMotherImage from "./assets/documentary-mother.jpg";
 import documentaryPartnerImage from "./assets/documentary-partner.jpg";
 import documentarySetImage from "./assets/documentary-set.jpg";
 import documentaryWalkImage from "./assets/documentary-walk.jpg";
+import bayerMallImage from "./assets/bayer-mall.jpg";
+import bayerPosterImage from "./assets/bayer-poster.png";
+import bayerProductsImage from "./assets/bayer-products.jpg";
+import bayerStageImage from "./assets/bayer-stage.jpg";
+import bayerVenueImage from "./assets/bayer-venue.jpg";
+import bayerVrImage from "./assets/bayer-vr.jpg";
 
 type ProjectId = "documentary" | "bilibili" | "bayer";
 
@@ -46,6 +52,8 @@ type EvidenceItem = { title: string; desc: string; src: string };
 type DocumentaryCapability = { label: string; title: string; detail: string; tone: string };
 type DocumentaryFrame = { title: string; desc: string; src: string };
 type DocumentaryPerson = { name: string; role: string; desc: string; src: string };
+type BayerStrategyCard = { label: string; title: string; detail: string; tone: string };
+type BayerPhase = { title: string; desc: string; src: string };
 
 const baseUrl = import.meta.env.BASE_URL;
 const documentaryCover = documentaryHeroImage;
@@ -111,20 +119,21 @@ const projects: Project[] = [
     id: "bayer",
     title: "拜耳 724 传播策划",
     subtitle: "PR Strategy Case",
-    role: "项目负责人 / 策略梳理 / 提案表达",
-    summary: "面向大学生公共关系策划创业大赛的传播方案项目，围绕 724 国际自我保健日进行整合传播设计。",
+    role: "项目负责人 / 洞察分析 / 提案表达",
+    summary: "大学生公共关系策划创业大赛提案项目，围绕“724 国际自我保健日”为拜耳健康消费品搭建整合传播方案。",
     highlight: "公关策划创业大赛三等奖",
     accent: "linear-gradient(135deg, #F3F6F3 0%, #9EBEED 55%, #94C000 100%)",
-    coverType: "generated",
-    tags: ["传播策划", "提案表达", "品牌项目"],
-    situation: "比赛要求围绕品牌议题提出针对年轻人的传播方案，既要有策略逻辑，也要能落地执行。",
-    action: "完成受众洞察、传播策略、提案结构与视觉表达设计，并输出完整项目方案和展示材料。",
-    result: "形成线上线下联动传播方案，并获得中国大学生公共关系策划创业大赛三等奖。",
-    detailIntro: "比起把一份方案写完整，更在意怎么让一个想法被理解、被相信，也真的有机会走到现实里。",
+    coverType: "image",
+    cover: bayerPosterImage,
+    tags: ["传播提案", "受众洞察", "竞赛项目"],
+    situation: "比赛要求围绕品牌议题提出一套面对年轻群体的公共关系方案。我把切口放在拜耳品牌认知模糊、科技优势不够被看见，以及 Z 世代健康盲区之间的连接上。",
+    action: "负责行业调研、SWOT 分析、目标人群拆解、传播路径设计、活动架构和提案视觉整理，把一套竞赛型方案做成能讲清逻辑也能看见画面的完整提案。",
+    result: "输出围绕 724 国际自我保健日的三段式传播提案，并获得第九届中国大学生公共关系策划创业大赛三等奖。",
+    detailIntro: "这是一个竞赛提案，但我不想只做空泛口号，而是尽量把问题、受众、媒介和现场体验都搭成一套能说服人的传播结构。",
     detailPoints: [
-      "先把人群、议题和传播路径想清楚，再去做创意。",
-      "提案要有逻辑，但也要让人愿意看下去。",
-      "好方案不只是“能讲”，还要有一点真的能发生的可能。"
+      "先把品牌问题拆成“科研认知弱、品牌定位混淆、公益影响力不足”三类，再决定策略主线。",
+      "围绕 Z 世代的信息获取习惯和健康误区搭建提案，不把年轻人只当流量入口，而是当真正的沟通对象。",
+      "把传播路径拆成预热、互动、主展演三段，让提案不只停在一页口号，而是能落到媒介排期和空间触点。"
     ]
   }
 ];
@@ -143,9 +152,10 @@ const caseTimelines: Record<ProjectId, TimelineItem[]> = {
     { date: "2024.05.09", title: "形成复盘结论", desc: "整理出高播放、高涨粉和高互动内容规律。" }
   ],
   bayer: [
-    { date: "前期", title: "受众洞察", desc: "梳理核心人群和传播问题。" },
-    { date: "中期", title: "搭建策略", desc: "完成传播路径、话题机制和执行节奏设计。" },
-    { date: "终期", title: "提案展示", desc: "输出整合方案并完成比赛路演。" }
+    { date: "调研阶段", title: "定义品牌问题", desc: "从行业、竞品和品牌现状切入，把传播问题先拆清楚。" },
+    { date: "洞察阶段", title: "锁定 Z 世代视角", desc: "围绕年轻人的健康盲区、社交表达和平台习惯确定核心沟通对象。" },
+    { date: "策划阶段", title: "搭建三段式提案", desc: "用 VR 体验展、互动展和 7.24 主展演串起完整传播路径。" },
+    { date: "答辩阶段", title: "完成提案路演", desc: "把策略逻辑、活动结构、媒介排期和预算整合成比赛展示方案。" }
   ]
 };
 
@@ -270,6 +280,51 @@ const documentaryPeople: DocumentaryPerson[] = [
   },
 ];
 
+const bayerStrategyCards: BayerStrategyCard[] = [
+  {
+    label: "Problem Definition",
+    title: "先把品牌认知问题拆清楚",
+    detail: "提案不是直接想活动，而是先把问题压缩成三件事：科研优势不够被看见、品牌定位混淆、公益影响力传播不足。",
+    tone: palette.blue,
+  },
+  {
+    label: "Audience Insight",
+    title: "把 Z 世代当成真正的沟通对象",
+    detail: "围绕信息过载、健康误区、社交表达和参与感需求来设计传播切口，而不是只把年轻人当作投放对象。",
+    tone: palette.teal,
+  },
+  {
+    label: "Campaign Structure",
+    title: "用三段活动把路径搭完整",
+    detail: "从 7 月上旬预热，到 7.15-7.16 互动展，再到 7.24 主展演，把“认知建立 - 参与互动 - 集中爆发”串成一条线。",
+    tone: palette.apple,
+  },
+  {
+    label: "Media Logic",
+    title: "线上线下一起发力",
+    detail: "把微博、抖音、B 站、小红书和线下空间、KOL 打卡、直播内容打通，让提案既能讲传播逻辑，也能看见落点。",
+    tone: palette.moss,
+  },
+];
+
+const bayerPhases: BayerPhase[] = [
+  {
+    title: "科技·Z 时代",
+    desc: "把产品教育转成可体验的 VR 场景，让“科技赋能健康”不再只是口号，而是能被年轻人进入和感知的第一现场。",
+    src: bayerVrImage,
+  },
+  {
+    title: "青春·Z 时代",
+    desc: "用商场互动展、游戏机制和打卡传播承接参与感，让品牌和人群之间真正发生接触。",
+    src: bayerMallImage,
+  },
+  {
+    title: "新势力·Z 时代",
+    desc: "把最终活动收束到 7.24 主展演，用舞台、产品展区和品牌叙事完成集中表达。",
+    src: bayerStageImage,
+  },
+];
+
 const createEvidenceSvg = (title: string, subtitle: string, note: string, toneA: string, toneB: string) =>
   "data:image/svg+xml;utf8," +
   encodeURIComponent(
@@ -300,6 +355,38 @@ const createEvidenceSvg = (title: string, subtitle: string, note: string, toneA:
     </svg>`
   );
 
+const createBayerAwardSvg = () =>
+  "data:image/svg+xml;utf8," +
+  encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#F2A35B" />
+          <stop offset="55%" stop-color="#C8CEDA" />
+          <stop offset="100%" stop-color="#5DA7E6" />
+        </linearGradient>
+        <linearGradient id="seal" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#D0E449" />
+          <stop offset="100%" stop-color="#4E90F5" />
+        </linearGradient>
+      </defs>
+      <rect width="1200" height="760" rx="36" fill="url(#bg)"/>
+      <rect x="44" y="44" width="1112" height="672" rx="28" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.35)"/>
+      <text x="84" y="138" font-size="54" fill="#ffffff" font-family="Arial, sans-serif">第九届中国大学生</text>
+      <text x="84" y="204" font-size="54" fill="#ffffff" font-family="Arial, sans-serif">公共关系策划创业大赛</text>
+      <text x="84" y="266" font-size="28" fill="rgba(255,255,255,0.92)" font-family="Arial, sans-serif">THE 9th CHINA UNIVERSITY STUDENTS PR PLAN CONTEST</text>
+      <circle cx="960" cy="182" r="118" fill="url(#seal)" stroke="rgba(255,255,255,0.45)" stroke-width="16"/>
+      <text x="960" y="166" text-anchor="middle" font-size="38" fill="#ffffff" font-family="Arial, sans-serif">团队获奖</text>
+      <text x="960" y="222" text-anchor="middle" font-size="86" fill="#ffffff" font-family="Arial, sans-serif" font-weight="700">三等奖</text>
+      <rect x="84" y="328" width="610" height="246" rx="26" fill="rgba(255,255,255,0.22)" stroke="rgba(255,255,255,0.28)"/>
+      <text x="120" y="392" font-size="28" fill="#144B96" font-family="Arial, sans-serif">策划主题：Z时代的健康指南</text>
+      <text x="120" y="454" font-size="26" fill="#144B96" font-family="Arial, sans-serif">参赛项目：拜耳“724国际自我保健日”传播提案</text>
+      <text x="120" y="516" font-size="26" fill="#144B96" font-family="Arial, sans-serif">获奖说明：第九届中国大学生公关策划创业大赛获奖证书</text>
+      <text x="120" y="578" font-size="26" fill="#144B96" font-family="Arial, sans-serif">证书编号：NO.KJ2230903067</text>
+      <text x="84" y="664" font-size="24" fill="rgba(255,255,255,0.92)" font-family="Arial, sans-serif">China International Public Relations Association / CUSPRPC</text>
+    </svg>`
+  );
+
 const bilibiliEvidenceWall: EvidenceItem[] = [
   { title: "后台总览截图", desc: "保留累计播放、点赞、评论、收藏、投币等核心结果。", src: createEvidenceSvg("运营总览", "累计指标与账号数据", "98.7 万播放 / 1.59 万点赞", "#4E90F5", "#9EBEED") },
   { title: "近期稿件对比", desc: "展示不同视频在播放、互动率和涨粉上的差异。", src: createEvidenceSvg("稿件对比", "高播放与高互动稿件", "涨粉最高 / 互动最高", "#94C000", "#4B6B03") },
@@ -309,24 +396,23 @@ const bilibiliEvidenceWall: EvidenceItem[] = [
   { title: "海报与题材基调", desc: "用影片主视觉帮助招聘方理解内容语境与风格。", src: createEvidenceSvg("影片主视觉", "大反派 / Super Villain", "喜剧宣发语境", "#D96C3E", "#B53B2F") },
 ];
 
+const bayerEvidenceWall: EvidenceItem[] = [
+  { title: "获奖证明", desc: "第九届中国大学生公共关系策划创业大赛三等奖。", src: createBayerAwardSvg() },
+  { title: "项目主 KV", desc: "围绕“寻找健康人生 / 724 国际自我保健日”的主视觉方向。", src: bayerPosterImage },
+  { title: "产品展示想象", desc: "把品牌沟通落到可见的产品与消费场景，不让提案停在抽象口号。", src: bayerProductsImage },
+  { title: "场馆与空间", desc: "从商场互动展到会展中心主场馆，提案里把不同阶段的空间触点一起考虑。", src: bayerVenueImage },
+];
+
 const bayerVisuals: VisualItem[] = [
   {
-    title: "手绘动画页",
-    desc: "答辩 PPT 中的动画视觉页。",
-    src:
-      "data:image/svg+xml;utf8," +
-      encodeURIComponent(
-        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500"><rect width="800" height="500" fill="#EAF4FB"/><circle cx="220" cy="180" r="90" fill="#4E90F5" fill-opacity="0.18"/><circle cx="560" cy="290" r="120" fill="#94C000" fill-opacity="0.16"/><text x="80" y="120" font-size="42" fill="#243128" font-family="Arial">Bayer 724</text><text x="80" y="190" font-size="72" fill="#243128" font-family="Arial">Animation Visual</text></svg>'
-      )
+    title: "主 KV 海报",
+    desc: "比赛提案中的主视觉方向，用“寻找健康人生”统一整套活动语气。",
+    src: bayerPosterImage,
   },
   {
-    title: "角色插画页",
-    desc: "PPT 中提取的角色表达页。",
-    src:
-      "data:image/svg+xml;utf8," +
-      encodeURIComponent(
-        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500"><rect width="800" height="500" fill="#F7FBFF"/><rect x="60" y="60" width="220" height="320" rx="28" fill="#9EBEED"/><rect x="300" y="100" width="180" height="260" rx="28" fill="#4E90F5"/><rect x="500" y="140" width="240" height="220" rx="28" fill="#94C000"/><text x="68" y="430" font-size="54" fill="#243128" font-family="Arial">Character Boards</text></svg>'
-      )
+    title: "主展演舞台",
+    desc: "7.24 主展演的舞台设想图，把“科技感”真正落实到空间表达里。",
+    src: bayerStageImage,
   }
 ];
 
@@ -638,6 +724,77 @@ function DocumentaryDetailModule() {
   );
 }
 
+function BayerDetailModule() {
+  return (
+    <div className="bayer-stack">
+      <div className="bayer-overview-grid">
+        <div>
+          <div style={{ fontSize: 15, fontWeight: 500, letterSpacing: "0.08em", color: palette.blue }}>Planning Lens / PR Competition</div>
+          <h3 className="bayer-title">这是一次竞赛提案，但我想做的不是空泛口号，而是一套真的能把问题、受众和传播路径讲清楚的方案。</h3>
+          <p className="ops-card-copy">
+            拜耳这个项目更能体现我做策略时的工作方式。先从品牌问题和行业环境里拆出传播矛盾，再把 Z 世代洞察、媒介路径、活动节奏和现场体验收成一套完整提案。
+          </p>
+        </div>
+
+        <div className="bayer-summary-card">
+          <div className="bayer-summary-label">提案范围</div>
+          <div className="bayer-summary-value">3 段线下活动 + 4 个平台联动</div>
+          <p className="ops-card-copy">围绕 7.24 国际自我保健日，把预热、互动、主展演做成三段式结构，同时补足媒介排期、预算和视觉设想。</p>
+          <div className="bayer-summary-meta">竞赛提案总预算：98.7 万</div>
+        </div>
+      </div>
+
+      <div className="bayer-strategy-grid">
+        {bayerStrategyCards.map((item) => (
+          <div key={item.title} className="bayer-strategy-card">
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
+              <div className="bayer-strategy-label">{item.label}</div>
+              <span style={{ width: 10, height: 10, borderRadius: "50%", background: item.tone, flexShrink: 0 }} />
+            </div>
+            <div className="bayer-strategy-title">{item.title}</div>
+            <p className="bayer-strategy-copy">{item.detail}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="bayer-phase-grid">
+        {bayerPhases.map((item) => (
+          <div key={item.title} className="bayer-phase-card">
+            <div className="bayer-phase-media">
+              <img src={item.src} alt={item.title} />
+            </div>
+            <div className="bayer-phase-body">
+              <div className="bayer-phase-title">{item.title}</div>
+              <p className="bayer-phase-copy">{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div>
+        <div className="evidence-head">
+          <div className="detail-card-label">Proposal Evidence</div>
+          <h3 className="evidence-heading">证据图 / Award + Key Visuals</h3>
+          <p className="ops-card-copy">这里放的不是执行数据，而是这次比赛方案真正能说明问题的证据：获奖证明、主视觉、产品表达和空间设想。</p>
+        </div>
+        <div className="evidence-grid">
+          {bayerEvidenceWall.map((item) => (
+            <div key={item.title} className="evidence-card">
+              <div className="evidence-media">
+                <img src={item.src} alt={item.title} />
+              </div>
+              <div className="evidence-body">
+                <div className="evidence-title">{item.title}</div>
+                <p className="evidence-copy">{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function DetailPage({
   project,
   onBack,
@@ -652,7 +809,7 @@ function DetailPage({
   nextProject: Project;
 }) {
   const timeline = caseTimelines[project.id];
-  const closingSectionNumber = project.id === "bilibili" ? "06" : project.id === "documentary" ? "05" : "04";
+  const closingSectionNumber = project.id === "bilibili" ? "06" : project.id === "documentary" || project.id === "bayer" ? "05" : "04";
 
   return (
     <div className="detail-page">
@@ -752,6 +909,17 @@ function DetailPage({
               <Panel style={{ borderRadius: 36 }}>
                 <div className="dashboard-wrap">
                   <DocumentaryDetailModule />
+                </div>
+              </Panel>
+            </section>
+          ) : null}
+
+          {project.id === "bayer" ? (
+            <section className="section-block">
+              <SectionLabel number="04" title="Strategy Evidence" />
+              <Panel style={{ borderRadius: 36 }}>
+                <div className="dashboard-wrap">
+                  <BayerDetailModule />
                 </div>
               </Panel>
             </section>
@@ -1272,6 +1440,9 @@ const sanityChecks = [
   documentaryCapabilities.length === 3,
   documentaryFrames.length === 6,
   documentaryPeople.length === 3,
+  bayerStrategyCards.length === 4,
+  bayerPhases.length === 3,
+  bayerEvidenceWall.length === 4,
 ].every(Boolean);
 
 if (!sanityChecks) {

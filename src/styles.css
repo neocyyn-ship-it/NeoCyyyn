@@ -920,6 +920,123 @@ button {
   color: #4e90f5;
 }
 
+.bayer-stack {
+  display: grid;
+  gap: 24px;
+}
+
+.bayer-overview-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: minmax(0, 1.02fr) minmax(320px, 0.98fr);
+  align-items: start;
+}
+
+.bayer-title {
+  margin: 18px 0 0;
+  font-size: clamp(32px, 3.8vw, 44px);
+  line-height: 1.22;
+  font-weight: 600;
+  color: #243128;
+}
+
+.bayer-summary-card,
+.bayer-strategy-card,
+.bayer-phase-card {
+  border-radius: 28px;
+  border: 1px solid #dce7de;
+  background: #fff;
+  box-shadow: 0 6px 16px rgba(36, 49, 40, 0.02);
+}
+
+.bayer-summary-card {
+  padding: 28px;
+  background: linear-gradient(135deg, #fff6ed 0%, #edf4ff 100%);
+}
+
+.bayer-summary-label,
+.bayer-strategy-label {
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.bayer-summary-label {
+  color: #4e90f5;
+}
+
+.bayer-summary-value {
+  margin-top: 16px;
+  font-size: clamp(28px, 3vw, 36px);
+  line-height: 1.22;
+  font-weight: 600;
+  color: #243128;
+}
+
+.bayer-summary-meta {
+  margin-top: 14px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #4d5b53;
+}
+
+.bayer-strategy-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.bayer-strategy-card {
+  padding: 28px;
+}
+
+.bayer-strategy-label {
+  color: #4d5b53;
+}
+
+.bayer-strategy-title,
+.bayer-phase-title {
+  margin-top: 14px;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #243128;
+}
+
+.bayer-strategy-copy,
+.bayer-phase-copy {
+  margin: 12px 0 0;
+  font-size: 17px;
+  line-height: 1.78;
+  color: #4d5b53;
+}
+
+.bayer-phase-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.bayer-phase-card {
+  overflow: hidden;
+}
+
+.bayer-phase-media {
+  aspect-ratio: 16 / 10;
+  background: #f7fbff;
+}
+
+.bayer-phase-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.bayer-phase-body {
+  padding: 22px;
+}
+
 .case-switch-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -1040,6 +1157,7 @@ button {
   .ops-split-grid,
   .documentary-overview-grid,
   .documentary-frame-grid,
+  .bayer-overview-grid,
   .contact-grid,
   .evidence-grid,
   .case-switch-grid,
@@ -1053,7 +1171,9 @@ button {
   .ops-metric-grid,
   .documentary-capability-grid,
   .documentary-people-grid,
-  .documentary-frame-side {
+  .documentary-frame-side,
+  .bayer-strategy-grid,
+  .bayer-phase-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1241,14 +1361,19 @@ button {
 
   .documentary-capability-grid,
   .documentary-people-grid,
-  .documentary-frame-side {
+  .documentary-frame-side,
+  .bayer-strategy-grid,
+  .bayer-phase-grid {
     grid-template-columns: 1fr;
   }
 
   .documentary-watch-card,
   .documentary-capability-card,
   .documentary-frame-body,
-  .documentary-person-body {
+  .documentary-person-body,
+  .bayer-summary-card,
+  .bayer-strategy-card,
+  .bayer-phase-body {
     padding: 20px;
   }
 
