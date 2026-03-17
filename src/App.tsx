@@ -47,7 +47,14 @@ type OpsMetric = { label: string; value: string; note: string; tone: string };
 type BreakoutMetric = { label: string; value: string; note: string };
 type OpsInsight = { title: string; detail: string };
 type VisualItem = { title: string; desc: string; src: string };
-type ExperienceItem = { title: string; desc: string };
+type ExperienceLink = { label: string; href: string; meta: string };
+type ExperienceItem = {
+  title: string;
+  desc: string;
+  links?: ExperienceLink[];
+  note?: string;
+  featured?: boolean;
+};
 type EvidenceItem = { title: string; desc: string; src: string };
 type DocumentaryCapability = { label: string; title: string; detail: string; tone: string };
 type DocumentaryFrame = { title: string; desc: string; src: string };
@@ -194,7 +201,21 @@ const operationsInsights: OpsInsight[] = [
 ];
 
 const additionalWorks: ExperienceItem[] = [
-  { title: "新华社内容协作", desc: "采访、编稿、拍摄、剪辑——在真实的新闻流程里练习怎么把内容做得更准确，也更完整。" },
+  {
+    title: "新华社实习作品集",
+    desc: "把实习期间参与的新华社融媒作品和网页稿件集中放在这里，方便直接打开查看成品页面。",
+    featured: true,
+    note: "共整理 7 个作品链接；原始列表里的重复网页稿件已去重。",
+    links: [
+      { label: "融媒作品 01", href: "https://h.xinhuaxmt.com/vh512/share/11567023?d=134b1e2&channel=weixin", meta: "h.xinhuaxmt.com" },
+      { label: "融媒作品 02", href: "https://h.xinhuaxmt.com/vh512/share/11581193?d=134b232&channel=weixin", meta: "h.xinhuaxmt.com" },
+      { label: "融媒作品 03", href: "https://h.xinhuaxmt.com/vh512/share/11593645?d=134b23a&channel=weixin", meta: "h.xinhuaxmt.com" },
+      { label: "融媒作品 04", href: "https://h.xinhuaxmt.com/vh512/share/11614388?d=134b249&channel=weixin", meta: "h.xinhuaxmt.com" },
+      { label: "融媒作品 05", href: "https://h.xinhuaxmt.com/vh512/share/11619493?d=134b291&channel=weixin", meta: "h.xinhuaxmt.com" },
+      { label: "融媒作品 06", href: "https://h.xinhuaxmt.com/vh512/share/11641855?d=134b2a1&channel=weixin", meta: "h.xinhuaxmt.com" },
+      { label: "网页报道", href: "http://sh.news.cn/20230912/35d5d91126f34a3596fc4118459d4450/c.html", meta: "sh.news.cn" },
+    ],
+  },
   { title: "新闻摄影《旅人》组照", desc: "喜欢用镜头去看人和空间之间那些安静但很有情绪的瞬间。" },
   { title: "沉船逃生互动视频项目", desc: "从脚本到互动叙事，试着让内容不只是被看见，也能被“进入”。" }
 ];
@@ -1365,9 +1386,23 @@ export default function App() {
                   </h2>
                   <div className="three-col-grid">
                     {additionalWorks.map((item) => (
-                      <div key={item.title} className="experience-card">
+                      <div key={item.title} className={`experience-card${item.featured ? " experience-card-featured" : ""}`}>
                         <div className="experience-title">{item.title}</div>
                         <p className="experience-copy">{item.desc}</p>
+                        {item.links ? (
+                          <div className="experience-links">
+                            {item.links.map((link) => (
+                              <a key={link.href} className="experience-link" href={link.href} target="_blank" rel="noreferrer">
+                                <div className="experience-link-copy">
+                                  <span className="experience-link-label">{link.label}</span>
+                                  <span className="experience-link-meta">{link.meta}</span>
+                                </div>
+                                <ArrowRight size={16} />
+                              </a>
+                            ))}
+                          </div>
+                        ) : null}
+                        {item.note ? <p className="experience-note">{item.note}</p> : null}
                       </div>
                     ))}
                   </div>
