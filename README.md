@@ -1,4 +1,4 @@
-# Chen Yannian Portfolio
+# 陈衍年作品集
 
 This is a personal portfolio built with `Vite + React + TypeScript`.
 
@@ -19,7 +19,7 @@ npm run build
 
 This project is already prepared for GitHub Pages:
 
-- `vite.config.ts` uses `base: "./"`.
+- `vite.config.ts` uses `base: "/NeoCyyyn/"`.
 - `.github/workflows/deploy.yml` builds and deploys on pushes to `main`.
 - The workflow can also be triggered manually from the GitHub Actions page.
 
