@@ -4097,3 +4097,275 @@ button {
     padding: 22px;
   }
 }
+
+/* Pastel palette override */
+:root {
+  --play-coral: #F38181;
+  --play-butter: #FCE38A;
+  --play-cream: #EAFFD0;
+  --play-mint: #95E1D3;
+  --play-text: #33434A;
+  --play-muted: #607178;
+  --play-border: rgba(149, 225, 211, 0.42);
+  --play-border-strong: rgba(243, 129, 129, 0.48);
+}
+
+html,
+body,
+#root {
+  background: #f8fff1;
+  color: var(--play-text);
+}
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(243, 129, 129, 0.18), transparent 28%),
+    radial-gradient(circle at top right, rgba(149, 225, 211, 0.22), transparent 24%),
+    linear-gradient(180deg, #f9fff3 0%, #f4ffe7 100%);
+}
+
+.portfolio-shell {
+  background:
+    radial-gradient(circle at 12% 8%, rgba(243, 129, 129, 0.18), transparent 22%),
+    radial-gradient(circle at 84% 14%, rgba(149, 225, 211, 0.22), transparent 20%),
+    linear-gradient(180deg, #f9fff2 0%, #efffd9 52%, #f7ffec 100%);
+}
+
+.portfolio-shell .portfolio-backdrop {
+  background:
+    radial-gradient(circle at 18% 24%, rgba(243, 129, 129, 0.14), transparent 34%),
+    radial-gradient(circle at 78% 30%, rgba(252, 227, 138, 0.2), transparent 30%),
+    radial-gradient(circle at 70% 82%, rgba(149, 225, 211, 0.16), transparent 30%);
+}
+
+.portfolio-shell .portfolio-nav,
+.portfolio-shell .section-rail-panel,
+.portfolio-shell .project-rail-panel {
+  background: rgba(255, 255, 255, 0.76);
+  border-color: var(--play-border);
+  box-shadow: 0 20px 48px rgba(118, 162, 143, 0.16);
+}
+
+.portfolio-shell .portfolio-brand-name,
+.portfolio-shell .section-title,
+.portfolio-shell .hero-headline,
+.portfolio-shell .project-bento-title,
+.portfolio-shell .project-focus-title,
+.portfolio-shell .xinhua-detail-title,
+.portfolio-shell .xinhua-card-title,
+.portfolio-shell .about-panel-title,
+.portfolio-shell .experience-highlight-title,
+.portfolio-shell .contact-card-row a {
+  color: var(--play-text);
+}
+
+.portfolio-shell .portfolio-brand-tag,
+.portfolio-shell .section-cue,
+.portfolio-shell .hero-summary,
+.portfolio-shell .section-summary,
+.portfolio-shell .project-bento-summary,
+.portfolio-shell .project-focus-summary,
+.portfolio-shell .about-bio-copy,
+.portfolio-shell .about-panel-copy,
+.portfolio-shell .experience-highlight-copy,
+.portfolio-shell .contact-card-label,
+.portfolio-shell .xinhua-practice-copy,
+.portfolio-shell .xinhua-support-copy,
+.portfolio-shell .hero-ledger-label {
+  color: var(--play-muted);
+}
+
+.portfolio-shell .section-index,
+.portfolio-shell .section-kicker,
+.portfolio-shell .hero-note,
+.portfolio-shell .xinhua-eyebrow,
+.portfolio-shell .about-panel-label,
+.portfolio-shell .project-focus-eyebrow,
+.portfolio-shell .experience-highlight-label,
+.portfolio-shell .hero-overlay-label {
+  color: var(--play-coral);
+}
+
+.portfolio-shell .section-index {
+  background: rgba(243, 129, 129, 0.14);
+}
+
+.portfolio-shell .portfolio-nav-link,
+.portfolio-shell .portfolio-nav-cta,
+.portfolio-shell .section-rail-item,
+.portfolio-shell .project-nav-btn,
+.portfolio-shell .hero-secondary-btn,
+.portfolio-shell .project-pagination-item,
+.portfolio-shell .project-rail-dot,
+.portfolio-shell .xinhua-dot,
+.portfolio-shell .project-inline-link,
+.portfolio-shell .about-chip,
+.portfolio-shell .scroll-hint {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: var(--play-border);
+  color: var(--play-text);
+}
+
+.portfolio-shell .portfolio-nav-link:hover,
+.portfolio-shell .portfolio-nav-link.is-active,
+.portfolio-shell .section-rail-item:hover,
+.portfolio-shell .section-rail-item.is-active,
+.portfolio-shell .project-nav-btn:hover,
+.portfolio-shell .project-pagination-item:hover,
+.portfolio-shell .project-pagination-item.is-active,
+.portfolio-shell .project-rail-dot:hover,
+.portfolio-shell .project-rail-dot.is-active,
+.portfolio-shell .xinhua-dot:hover,
+.portfolio-shell .xinhua-dot.is-active,
+.portfolio-shell .project-inline-link:hover,
+.portfolio-shell .about-chip:hover,
+.portfolio-shell .scroll-hint:hover {
+  background: rgba(149, 225, 211, 0.24);
+  border-color: var(--play-border-strong);
+  color: var(--play-text);
+}
+
+.portfolio-shell .portfolio-nav-link:focus-visible,
+.portfolio-shell .portfolio-nav-cta:focus-visible,
+.portfolio-shell .section-rail-item:focus-visible,
+.portfolio-shell .project-nav-btn:focus-visible,
+.portfolio-shell .hero-primary-btn:focus-visible,
+.portfolio-shell .hero-secondary-btn:focus-visible,
+.portfolio-shell .project-pagination-item:focus-visible,
+.portfolio-shell .xinhua-dot:focus-visible,
+.portfolio-shell .project-inline-link:focus-visible,
+.portfolio-shell .project-bento-card:focus-visible {
+  outline: 2px solid rgba(243, 129, 129, 0.62);
+}
+
+.portfolio-shell .portfolio-nav-cta,
+.portfolio-shell .hero-primary-btn {
+  background: linear-gradient(135deg, #F38181 0%, #F59A86 100%);
+  color: #ffffff;
+  box-shadow: 0 14px 28px rgba(243, 129, 129, 0.28);
+}
+
+.portfolio-shell .hero-primary-btn svg,
+.portfolio-shell .portfolio-nav-cta svg {
+  color: #ffffff;
+}
+
+.portfolio-shell .hero-secondary-btn {
+  background: linear-gradient(135deg, rgba(252, 227, 138, 0.42), rgba(149, 225, 211, 0.38));
+}
+
+.portfolio-shell .section-frame,
+.portfolio-shell .about-bio-sheet,
+.portfolio-shell .about-panel-card,
+.portfolio-shell .about-quote-card,
+.portfolio-shell .project-bento-card,
+.portfolio-shell .project-focus-panel,
+.portfolio-shell .hero-ledger-item,
+.portfolio-shell .experience-highlight-card,
+.portfolio-shell .xinhua-meta-card,
+.portfolio-shell .xinhua-detail-shell,
+.portfolio-shell .xinhua-practice-card,
+.portfolio-shell .xinhua-support-card,
+.portfolio-shell .contact-panel-shell {
+  background: rgba(255, 255, 255, 0.78);
+  border-color: rgba(149, 225, 211, 0.48);
+  box-shadow: 0 24px 54px rgba(149, 225, 211, 0.18);
+}
+
+.portfolio-shell .section-frame {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.34), transparent 30%),
+    linear-gradient(145deg, rgba(252, 227, 138, 0.3), rgba(234, 255, 208, 0.62) 54%, rgba(149, 225, 211, 0.34) 100%);
+}
+
+.portfolio-shell .section-frame::before {
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.24), transparent 44%),
+    linear-gradient(320deg, rgba(243, 129, 129, 0.1), transparent 34%);
+}
+
+.portfolio-shell .hero-visual-media-luxe,
+.portfolio-shell .project-showcase-media.is-compact {
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(149, 225, 211, 0.5);
+}
+
+.portfolio-shell .hero-visual-media-luxe img {
+  filter: saturate(1.04) contrast(1.02) brightness(1);
+}
+
+.portfolio-shell .hero-overlay-card {
+  background: rgba(255, 255, 255, 0.72);
+  border-color: rgba(243, 129, 129, 0.22);
+}
+
+.portfolio-shell .hero-ledger-value,
+.portfolio-shell .about-bio-title {
+  color: var(--play-text);
+}
+
+.portfolio-shell .hero-marquee span,
+.portfolio-shell .contact-capability-strip span {
+  background: rgba(255, 255, 255, 0.72);
+  border-color: rgba(149, 225, 211, 0.48);
+  color: var(--play-text);
+}
+
+.portfolio-shell .project-bento-card:hover,
+.portfolio-shell .project-bento-card.is-active {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(243, 129, 129, 0.44);
+  box-shadow: 0 24px 54px rgba(243, 129, 129, 0.16);
+}
+
+.portfolio-shell .project-focus-highlight,
+.portfolio-shell .contact-card-row a:hover {
+  color: var(--play-coral);
+}
+
+.portfolio-shell .project-highlight-card,
+.portfolio-shell .project-tag,
+.portfolio-shell .project-role-chip,
+.portfolio-shell .project-subtitle,
+.portfolio-shell .xinhua-detail-index,
+.portfolio-shell .xinhua-detail-tag {
+  background: rgba(234, 255, 208, 0.72);
+  border: 1px solid rgba(149, 225, 211, 0.44);
+  color: var(--play-text);
+}
+
+.portfolio-shell .project-highlight-dot {
+  background: var(--play-coral);
+}
+
+.portfolio-shell .xinhua-carousel-stage {
+  background:
+    radial-gradient(circle at center, rgba(252, 227, 138, 0.3), transparent 40%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(234, 255, 208, 0.76));
+  border-color: rgba(149, 225, 211, 0.48);
+}
+
+.portfolio-shell .xinhua-carousel-stage::before {
+  border-color: rgba(243, 129, 129, 0.18);
+  box-shadow: inset 0 0 120px rgba(149, 225, 211, 0.12);
+}
+
+.portfolio-shell .xinhua-rotary-card {
+  box-shadow: 0 24px 44px rgba(147, 193, 181, 0.24);
+}
+
+.portfolio-shell .xinhua-rotary-card:hover,
+.portfolio-shell .xinhua-rotary-card.is-active {
+  box-shadow: 0 32px 58px rgba(243, 129, 129, 0.18);
+}
+
+.portfolio-shell .project-bento-index,
+.portfolio-shell .project-nav-status,
+.portfolio-shell .project-pagination-index,
+.portfolio-shell .project-pagination-title,
+.portfolio-shell .xinhua-progress-copy,
+.portfolio-shell .xinhua-card-topline,
+.portfolio-shell .xinhua-card-footer,
+.portfolio-shell .xinhua-pending-chip {
+  color: var(--play-muted);
+}
