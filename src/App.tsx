@@ -95,6 +95,9 @@ const palette = {
   teal: "#2D6F70",
 };
 
+const PROJECT_AUTOPLAY_MS = 4200;
+const XINHUA_AUTOPLAY_MS = 3800;
+
 const projects: Project[] = [
   {
     id: "documentary",
@@ -1366,7 +1369,7 @@ export default function App() {
 
     const timer = window.setInterval(() => {
       setActiveProjectIndex((current) => (current + 1) % projects.length);
-    }, 4200);
+    }, PROJECT_AUTOPLAY_MS);
 
     return () => window.clearInterval(timer);
   }, [activeSection, isDesktop, selectedProjectId]);
@@ -1376,7 +1379,7 @@ export default function App() {
 
     const timer = window.setInterval(() => {
       setActiveXinhuaIndex((current) => (current + 1) % xinhuaWorks.length);
-    }, 3800);
+    }, XINHUA_AUTOPLAY_MS);
 
     return () => window.clearInterval(timer);
   }, [activeSection, isDesktop, selectedProjectId]);
@@ -1529,38 +1532,6 @@ export default function App() {
         </a>
       </header>
 
-      <aside className="section-rail" aria-label="Section indicator">
-        <div className="section-rail-panel">
-          {siteSections.map((section) => (
-            <button
-              key={section.id}
-              type="button"
-              className={`section-rail-item${activeSection === section.id ? " is-active" : ""}`}
-              onClick={() => scrollToSection(section.id)}
-            >
-              <span className="section-rail-index">{section.index}</span>
-              <span className="section-rail-copy">
-                <span className="section-rail-label">{section.label}</span>
-                <span className="section-rail-cue">{section.cue}</span>
-              </span>
-            </button>
-          ))}
-        </div>
-
-        <div className={`project-rail-panel${activeSection === "projects" ? " is-visible" : ""}`}>
-          {projects.map((project, index) => (
-            <button
-              key={project.id}
-              type="button"
-              className={`project-rail-dot${activeProjectIndex === index ? " is-active" : ""}`}
-              onClick={() => setActiveProjectIndex(index)}
-            >
-              <span>{`0${index + 1}`}</span>
-            </button>
-          ))}
-        </div>
-      </aside>
-
       <main ref={mainRef} className={`portfolio-main${isDesktop ? " is-desktop" : ""}`}>
         <section id="home" ref={setSectionRef("home")} className="snap-section">
           <div className="section-frame hero-frame">
@@ -1675,7 +1646,16 @@ export default function App() {
                 <button type="button" className="project-nav-btn" onClick={() => cycleProject(-1)} aria-label="Previous project">
                   <ChevronLeft size={18} />
                 </button>
-                <div className="project-nav-status">{`0${activeProjectIndex + 1} / 0${projects.length}`}</div>
+                <div className="project-nav-meter">
+                  <div className="project-nav-status">{`0${activeProjectIndex + 1} / 0${projects.length}`}</div>
+                  <div className="project-nav-track" aria-hidden="true">
+                    <span
+                      key={activeProject.id}
+                      className="project-nav-fill"
+                      style={{ animationDuration: `${PROJECT_AUTOPLAY_MS}ms` }}
+                    />
+                  </div>
+                </div>
                 <button type="button" className="project-nav-btn" onClick={() => cycleProject(1)} aria-label="Next project">
                   <ChevronRight size={18} />
                 </button>
@@ -1684,7 +1664,7 @@ export default function App() {
 
             {isDesktop ? (
               <div className="project-browser" onWheel={handleProjectWheel}>
-                <div className="project-browser-copy">
+                <div key={`${activeProject.id}-copy`} className="project-browser-copy project-panel-animate">
                   <div className="project-browser-meta">
                     <span className="project-subtitle">{activeProject.subtitle}</span>
                     <span className="project-role-chip">{activeProject.role}</span>
@@ -1742,7 +1722,7 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="project-browser-visual">
+                <div key={`${activeProject.id}-visual`} className="project-browser-visual project-panel-animate">
                   <ProjectShowcaseMedia project={activeProject} />
 
                   <div className="project-browser-footer">
@@ -1878,9 +1858,18 @@ export default function App() {
                     <button type="button" className="project-nav-btn" onClick={() => stepXinhua(-1)} aria-label="Previous report">
                       <ChevronLeft size={18} />
                     </button>
-                    <div className="xinhua-progress-copy">{`${String(activeXinhuaIndex + 1).padStart(2, "0")} / ${String(
-                      xinhuaWorks.length
-                    ).padStart(2, "0")}`}</div>
+                    <div className="xinhua-progress-meter">
+                      <div className="xinhua-progress-copy">{`${String(activeXinhuaIndex + 1).padStart(2, "0")} / ${String(
+                        xinhuaWorks.length
+                      ).padStart(2, "0")}`}</div>
+                      <div className="xinhua-progress-track" aria-hidden="true">
+                        <span
+                          key={activeXinhuaWork.id}
+                          className="xinhua-progress-fill"
+                          style={{ animationDuration: `${XINHUA_AUTOPLAY_MS}ms` }}
+                        />
+                      </div>
+                    </div>
                     <button type="button" className="project-nav-btn" onClick={() => stepXinhua(1)} aria-label="Next report">
                       <ChevronRight size={18} />
                     </button>
