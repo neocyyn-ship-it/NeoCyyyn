@@ -80,16 +80,16 @@ const resumeFile = `${baseUrl}assets/chen-yannian-resume.pdf`;
 const documentaryWatchLink = "https://pan.baidu.com/s/15sMVeJ_CkSf2tGbXJz0EXw?pwd=rajy";
 
 const palette = {
-  bg: "#EAFFD0",
+  bg: "#FFFFF2",
   panel: "#FFFDF7",
-  text: "#33434A",
-  textSoft: "#607178",
-  line: "#D7EBC9",
-  blue: "#F38181",
-  sky: "#FCE38A",
-  apple: "#EAFFD0",
-  moss: "#95E1D3",
-  teal: "#95E1D3",
+  text: "#111111",
+  textSoft: "#67645E",
+  line: "#E9E1D5",
+  blue: "#111111",
+  sky: "#D6CBB9",
+  apple: "#B6C0B0",
+  moss: "#7C857B",
+  teal: "#5D6972",
 };
 
 const projects: Project[] = [
@@ -100,7 +100,7 @@ const projects: Project[] = [
     role: "编导 / 摄像 / 后期结构梳理",
     summary: "以视障女性创业者为核心人物的毕业设计纪录片，完成长期跟拍、采访组织与后期叙事结构搭建。",
     highlight: "15 分钟成片 / EKA 天物创意奖二等奖",
-    accent: "linear-gradient(145deg, #F38181 0%, #FCE38A 52%, #95E1D3 100%)",
+    accent: "linear-gradient(145deg, #111111 0%, #3B4347 45%, #F0E9DE 100%)",
     coverType: "image",
     cover: documentaryCover,
     tags: ["纪录片", "长期跟拍", "编导判断"],
@@ -121,7 +121,7 @@ const projects: Project[] = [
     role: "内容策划 / 文案撰写 / 平台运营",
     summary: "围绕电影《大反派》上映窗口完成 B 站内容发布、标题优化与数据复盘。",
     highlight: "累计播放 98.7 万 / 4 条视频破 10 万",
-    accent: "linear-gradient(145deg, #95E1D3 0%, #EAFFD0 48%, #F38181 100%)",
+    accent: "linear-gradient(145deg, #2D2C29 0%, #72695D 42%, #F4EBDC 100%)",
     coverType: "generated",
     tags: ["影视宣发", "B 站运营", "内容复盘"],
     situation: "电影上映期需要在 B 站持续输出短视频内容，提升讨论度、拉动播放，并尽可能承接角色与剧情热度。",
@@ -141,7 +141,7 @@ const projects: Project[] = [
     role: "项目负责人 / 洞察分析 / 提案表达",
     summary: "大学生公共关系策划创业大赛提案项目，围绕“724 国际自我保健日”为拜耳健康消费品搭建整合传播方案。",
     highlight: "公关策划创业大赛三等奖",
-    accent: "linear-gradient(145deg, #FCE38A 0%, #F38181 50%, #95E1D3 100%)",
+    accent: "linear-gradient(145deg, #3A433D 0%, #707A73 44%, #F1E8DC 100%)",
     coverType: "image",
     cover: bayerPosterImage,
     tags: ["传播提案", "受众洞察", "竞赛项目"],
@@ -599,10 +599,10 @@ const experienceHighlights = [
 ];
 
 const xinhuaCardGradients = [
-  "linear-gradient(160deg, #F38181 0%, #F59A86 42%, #FCE38A 100%)",
-  "linear-gradient(160deg, #FCE38A 0%, #F7D774 46%, #95E1D3 100%)",
-  "linear-gradient(160deg, #95E1D3 0%, #AEE9D8 48%, #EAFFD0 100%)",
-  "linear-gradient(160deg, #EAFFD0 0%, #CFF5C6 50%, #F38181 100%)",
+  "linear-gradient(160deg, #173A63 0%, #214F84 48%, #E8DCC7 100%)",
+  "linear-gradient(160deg, #52463E 0%, #8F6F57 55%, #EFE3D1 100%)",
+  "linear-gradient(160deg, #395A4C 0%, #5D7C6D 55%, #ECE3D5 100%)",
+  "linear-gradient(160deg, #38496A 0%, #6178A0 58%, #ECE5D9 100%)",
 ];
 
 const projectSpotlights: Record<ProjectId, string[]> = {
