@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { ArrowLeft, ArrowRight, Download, Mail, Phone, Play } from "lucide-react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, ChevronDown, ChevronLeft, ChevronRight, Download, Mail, Phone, Play } from "lucide-react";
 import documentaryHeroImage from "./assets/documentary-hero.jpg";
 import documentaryInterviewImage from "./assets/documentary-interview.jpg";
 import documentaryMarketTouchImage from "./assets/documentary-market-touch.jpg";
@@ -61,6 +61,18 @@ type DocumentaryFrame = { title: string; desc: string; src: string };
 type DocumentaryPerson = { name: string; role: string; desc: string; src: string };
 type BayerStrategyCard = { label: string; title: string; detail: string; tone: string };
 type BayerPhase = { title: string; desc: string; src: string };
+type SiteSectionId = "home" | "about" | "projects" | "experience" | "contact";
+type SiteSection = { id: SiteSectionId; label: string; cue: string; index: string };
+type XinhuaSectionData = { label: string; title: string; intro: string; meta: string[] };
+type XinhuaWork = {
+  id: string;
+  title: string;
+  tag: string;
+  year: string;
+  link: string;
+  summary: string;
+  role: string;
+};
 
 const baseUrl = import.meta.env.BASE_URL;
 const documentaryCover = documentaryHeroImage;
@@ -68,16 +80,16 @@ const resumeFile = `${baseUrl}assets/chen-yannian-resume.pdf`;
 const documentaryWatchLink = "https://pan.baidu.com/s/15sMVeJ_CkSf2tGbXJz0EXw?pwd=rajy";
 
 const palette = {
-  bg: "#F3F6F3",
-  panel: "#FFFFFF",
-  text: "#243128",
-  textSoft: "#4C5A52",
-  line: "#DCE7DE",
-  blue: "#4E90F5",
-  sky: "#9EBEED",
-  apple: "#94C000",
-  moss: "#4B6B03",
-  teal: "#1C9AA0",
+  bg: "#EFE9DE",
+  panel: "#FBF8F2",
+  text: "#181716",
+  textSoft: "#5C564D",
+  line: "#D8D0C5",
+  blue: "#1F4F8F",
+  sky: "#95ADC9",
+  apple: "#7B8F4D",
+  moss: "#475A31",
+  teal: "#2D6F70",
 };
 
 const projects: Project[] = [
@@ -436,6 +448,116 @@ const bayerVisuals: VisualItem[] = [
     src: bayerStageImage,
   }
 ];
+
+const siteSections: SiteSection[] = [
+  { id: "home", label: "Home", cue: "Introduction", index: "01" },
+  { id: "about", label: "About", cue: "Positioning", index: "02" },
+  { id: "projects", label: "Projects", cue: "Case browser", index: "03" },
+  { id: "experience", label: "Experience", cue: "Practice", index: "04" },
+  { id: "contact", label: "Contact", cue: "Reach out", index: "05" },
+];
+
+const xinhuaSection: XinhuaSectionData = {
+  label: "XINHUA SHANGHAI / INTERNSHIP",
+  title: "新华社上海分社实习报道",
+  intro:
+    "2023 年 6 月至 12 月，我在新华社上海分社音视频采编部参与新闻内容实践，工作覆盖热点观察、实地调研、采访拍摄、脚本撰写、视频剪辑等，报道方向涉及心理健康、民生科普、城市观察、消费报道和乡村振兴。",
+  meta: ["2023.06 — 2023.12", "Audio / Video / Reporting", "08 Works"],
+};
+
+const xinhuaWorks: XinhuaWork[] = [
+  {
+    id: "xinhua-01",
+    title: "“600号”来信｜国际禁毒日，我们来说说“成瘾”",
+    tag: "心理健康 / 公共议题",
+    year: "2023",
+    link: "https://h.xinhuaxmt.com/vh512/share/11567023?d=134b1e2&channel=weixin",
+    summary: "围绕国际禁毒日话题，讨论毒品成瘾、酒精成瘾及网络、游戏、手机等行为成瘾，强调成瘾背后的心理机制，以及及时寻求专业帮助的重要性。",
+    role: "Video / Reporting",
+  },
+  {
+    id: "xinhua-02",
+    title: "“600号”来信｜钢琴家孔祥东：我如何走出抑郁阴霾",
+    tag: "人物故事 / 心理健康",
+    year: "2023",
+    link: "https://h.xinhuaxmt.com/vh512/share/11581193?d=134b232&channel=weixin",
+    summary: "通过孔祥东的亲身经历，讲述其在事业高峰期陷入抑郁、接受治疗，并借由音乐重新找回快乐与价值的过程。",
+    role: "Video / Storytelling",
+  },
+  {
+    id: "xinhua-03",
+    title: "“三伏天晒背”火了，医生提醒不要盲目跟风",
+    tag: "民生科普",
+    year: "2023",
+    link: "https://h.xinhuaxmt.com/vh512/share/11593645?d=134b23a&channel=weixin",
+    summary: "聚焦“三伏天晒背”热潮，从医生视角解释其适用边界与风险，提醒大众不要盲目跟风，以免引发晒伤或中暑等问题。",
+    role: "Reporting / Public Health",
+  },
+  {
+    id: "xinhua-04",
+    title: "上海崇明：高标准推进世界级生态岛建设",
+    tag: "城市发展 / 乡村振兴",
+    year: "2023",
+    link: "https://h.xinhuaxmt.com/vh512/share/11614388?d=134b249&channel=weixin",
+    summary: "围绕崇明生态岛建设，呈现生态保护、绿色农业、科技创新、交通建设与乡村振兴等多个维度的发展图景。",
+    role: "Reporting / City Observation",
+  },
+  {
+    id: "xinhua-05",
+    title: "上海：土特产“抱团”闯市场 在潮流地标遇见“崇明好物”",
+    tag: "消费观察 / 乡村振兴",
+    year: "2023",
+    link: "https://h.xinhuaxmt.com/vh512/share/11619493?d=134b291&channel=weixin",
+    summary: "以“崇明好物”旗舰店为切口，讲述崇明如何通过品牌化、标准化和渠道建设，推动区域土特产与文创产品走向更广阔的消费市场。",
+    role: "Reporting / Feature",
+  },
+  {
+    id: "xinhua-06",
+    title: "上海：月饼销售渐入旺季 老字号飘出“创新味”",
+    tag: "消费报道",
+    year: "2023",
+    link: "https://h.xinhuaxmt.com/vh512/share/11641855?d=134b2a1&channel=weixin",
+    summary: "观察上海中秋消费市场，聚焦老字号月饼品牌如何通过新口味与新包装吸引年轻群体，体现节令消费与城市商业活力。",
+    role: "Reporting / Consumer",
+  },
+  {
+    id: "xinhua-07",
+    title: "上海：焙烤能手同台竞技 创意碰撞美味对决",
+    tag: "赛事报道 / 行业观察",
+    year: "2023",
+    link: "http://sh.news.cn/20230912/35d5d91126f34a3596fc4118459d4450/c.html",
+    summary: "报道焙烤职业技能竞赛上海赛区选拔赛，呈现烘焙技艺展示、创意月饼比拼和行业工匠精神。",
+    role: "Reporting / Event",
+  },
+  {
+    id: "xinhua-08",
+    title: "在上海·圆桌派｜上海自贸区十年再出发",
+    tag: "专题报道",
+    year: "2023",
+    link: "",
+    summary: "Details pending.",
+    role: "Pending",
+  },
+];
+
+const xinhuaPracticeNotes = [
+  { label: "工作流程", text: "热点观察、实地调研、采访拍摄、采访提纲、脚本撰写、视频剪辑。" },
+  { label: "报道方向", text: "心理健康、民生科普、城市观察、消费报道和乡村振兴等多类题材。" },
+  { label: "成长路径", text: "从协作参与，逐步成长到能独立完成部分采访和视频编辑。" },
+];
+
+const xinhuaCardGradients = [
+  "linear-gradient(160deg, #173a63 0%, #214f84 48%, #e8dcc7 100%)",
+  "linear-gradient(160deg, #52463e 0%, #8f6f57 55%, #efe3d1 100%)",
+  "linear-gradient(160deg, #395a4c 0%, #5d7c6d 55%, #ece3d5 100%)",
+  "linear-gradient(160deg, #38496a 0%, #6178a0 58%, #ece5d9 100%)",
+];
+
+const projectSpotlights: Record<ProjectId, string[]> = {
+  documentary: ["15 分钟人物纪录片", "长期跟拍与采访组织", "导演 / 摄影 / 后期叙事结构", "2025 EKA 天物创意奖二等奖"],
+  bilibili: ["累计播放 98.7 万", "4 条视频突破 10 万", "内容节奏与标题优化", "宣发窗口内快速复盘迭代"],
+  bayer: ["公关策略提案项目", "品牌问题拆解与受众洞察", "线下展演与媒介路径设计", "中国大学生公共关系策划创业大赛三等奖"],
+};
 
 const sectionLabelStyle: React.CSSProperties = {
   marginBottom: 36,
@@ -996,18 +1118,188 @@ function DetailPage({
   );
 }
 
+function ProjectShowcaseMedia({ project }: { project: Project }) {
+  return (
+    <div className="project-showcase-media">
+      {project.coverType === "image" && project.cover ? (
+        <img src={project.cover} alt={project.title} />
+      ) : (
+        <GeneratedCover project={project} />
+      )}
+    </div>
+  );
+}
+
 export default function App() {
   const [selectedProjectId, setSelectedProjectId] = useState<ProjectId | null>(null);
+  const [activeSection, setActiveSection] = useState<SiteSectionId>("home");
+  const [activeProjectIndex, setActiveProjectIndex] = useState(0);
+  const [activeXinhuaIndex, setActiveXinhuaIndex] = useState(0);
+  const [isDesktop, setIsDesktop] = useState(false);
   const selectedProject = useMemo(() => projects.find((item) => item.id === selectedProjectId) ?? null, [selectedProjectId]);
   const selectedIndex = useMemo(() => projects.findIndex((item) => item.id === selectedProjectId), [selectedProjectId]);
   const prevProject = selectedIndex >= 0 ? projects[(selectedIndex + projects.length - 1) % projects.length] : projects[0];
   const nextProject = selectedIndex >= 0 ? projects[(selectedIndex + 1) % projects.length] : projects[1];
+  const activeProject = projects[activeProjectIndex];
+  const activeXinhuaWork = xinhuaWorks[activeXinhuaIndex];
+  const heroMetrics = [
+    { label: "Selected Cases", value: "03" },
+    { label: "Internship Links", value: String(additionalWorks[0].links?.length ?? 0).padStart(2, "0") },
+    { label: "Work Mode", value: "Content + Strategy" },
+  ];
+  const featuredExperience = additionalWorks.find((item) => item.featured) ?? additionalWorks[0];
+  const supportingExperienceWorks = additionalWorks.filter((item) => item.title !== featuredExperience.title);
+  const mainRef = useRef<HTMLElement | null>(null);
+  const projectWheelLockRef = useRef(0);
+  const sectionRefs = useRef<Record<SiteSectionId, HTMLElement | null>>({
+    home: null,
+    about: null,
+    projects: null,
+    experience: null,
+    contact: null,
+  });
+
+  const setSectionRef =
+    (id: SiteSectionId) =>
+    (node: HTMLElement | null): void => {
+      sectionRefs.current[id] = node;
+    };
+
+  const scrollToSection = (id: SiteSectionId) => {
+    const target = sectionRefs.current[id];
+    if (!target) return;
+    setActiveSection(id);
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const goToSectionStep = (direction: 1 | -1) => {
+    const currentIndex = siteSections.findIndex((section) => section.id === activeSection);
+    const target = siteSections[currentIndex + direction];
+    if (target) {
+      scrollToSection(target.id);
+    }
+  };
+
+  const stepProject = (direction: 1 | -1) => {
+    setActiveProjectIndex((current) => {
+      const nextIndex = current + direction;
+
+      if (nextIndex < 0) {
+        scrollToSection("about");
+        return 0;
+      }
+
+      if (nextIndex >= projects.length) {
+        scrollToSection("experience");
+        return current;
+      }
+
+      return nextIndex;
+    });
+  };
+
+  const stepXinhua = (direction: 1 | -1) => {
+    setActiveXinhuaIndex((current) => (current + direction + xinhuaWorks.length) % xinhuaWorks.length);
+  };
 
   useEffect(() => {
     if (selectedProjectId) {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, [selectedProjectId]);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 1024px)");
+    const syncMedia = () => setIsDesktop(mediaQuery.matches);
+
+    syncMedia();
+
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener("change", syncMedia);
+      return () => mediaQuery.removeEventListener("change", syncMedia);
+    }
+
+    mediaQuery.addListener(syncMedia);
+    return () => mediaQuery.removeListener(syncMedia);
+  }, []);
+
+  useEffect(() => {
+    const observedSections = siteSections
+      .map((section) => sectionRefs.current[section.id])
+      .filter(Boolean) as HTMLElement[];
+
+    if (!observedSections.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntry = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((left, right) => right.intersectionRatio - left.intersectionRatio)[0];
+
+        if (visibleEntry) {
+          setActiveSection(visibleEntry.target.id as SiteSectionId);
+        }
+      },
+      {
+        root: isDesktop ? mainRef.current : null,
+        threshold: [0.45, 0.62, 0.8],
+      }
+    );
+
+    observedSections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, [isDesktop]);
+
+  useEffect(() => {
+    if (!isDesktop || selectedProjectId) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement | null;
+      const targetTag = target?.tagName ?? "";
+
+      if (["INPUT", "TEXTAREA", "SELECT"].includes(targetTag) || event.metaKey || event.ctrlKey || event.altKey) {
+        return;
+      }
+
+      if (activeSection === "projects" && (event.key === "ArrowDown" || event.key === "ArrowRight")) {
+        event.preventDefault();
+        stepProject(1);
+        return;
+      }
+
+      if (activeSection === "projects" && (event.key === "ArrowUp" || event.key === "ArrowLeft")) {
+        event.preventDefault();
+        stepProject(-1);
+        return;
+      }
+
+      if (activeSection === "experience" && event.key === "ArrowRight") {
+        event.preventDefault();
+        stepXinhua(1);
+        return;
+      }
+
+      if (activeSection === "experience" && event.key === "ArrowLeft") {
+        event.preventDefault();
+        stepXinhua(-1);
+        return;
+      }
+
+      if (event.key === "ArrowDown" || event.key === "PageDown") {
+        event.preventDefault();
+        goToSectionStep(1);
+      }
+
+      if (event.key === "ArrowUp" || event.key === "PageUp") {
+        event.preventDefault();
+        goToSectionStep(-1);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activeSection, isDesktop, selectedProjectId]);
 
   if (selectedProject) {
     return (
@@ -1021,6 +1313,527 @@ export default function App() {
     );
   }
 
+  const handleProjectWheel: React.WheelEventHandler<HTMLDivElement> = (event) => {
+    if (!isDesktop) return;
+
+    event.preventDefault();
+
+    if (Math.abs(event.deltaY) < 18) return;
+
+    const now = Date.now();
+    if (now - projectWheelLockRef.current < 650) return;
+
+    projectWheelLockRef.current = now;
+    stepProject(event.deltaY > 0 ? 1 : -1);
+  };
+
+  return (
+    <div className={`portfolio-shell${isDesktop ? " desktop-mode" : " mobile-mode"}`} style={{ background: palette.bg, color: palette.text }}>
+      <div className="portfolio-backdrop" />
+
+      <header className="portfolio-nav">
+        <div className="portfolio-brand">
+          <div className="portfolio-brand-name">陈妍年</div>
+          <div className="portfolio-brand-tag">Content, visual storytelling, and execution</div>
+        </div>
+
+        <nav className="portfolio-nav-links" aria-label="Primary">
+          {siteSections.map((section) => (
+            <button
+              key={section.id}
+              type="button"
+              className={`portfolio-nav-link${activeSection === section.id ? " is-active" : ""}`}
+              onClick={() => scrollToSection(section.id)}
+            >
+              {section.label}
+            </button>
+          ))}
+        </nav>
+
+        <a className="portfolio-nav-cta" href={resumeFile} download="chen-yannian-resume.pdf">
+          Resume
+          <Download size={16} />
+        </a>
+      </header>
+
+      <aside className="section-rail" aria-label="Section indicator">
+        <div className="section-rail-panel">
+          {siteSections.map((section) => (
+            <button
+              key={section.id}
+              type="button"
+              className={`section-rail-item${activeSection === section.id ? " is-active" : ""}`}
+              onClick={() => scrollToSection(section.id)}
+            >
+              <span className="section-rail-index">{section.index}</span>
+              <span className="section-rail-copy">
+                <span className="section-rail-label">{section.label}</span>
+                <span className="section-rail-cue">{section.cue}</span>
+              </span>
+            </button>
+          ))}
+        </div>
+
+        <div className={`project-rail-panel${activeSection === "projects" ? " is-visible" : ""}`}>
+          {projects.map((project, index) => (
+            <button
+              key={project.id}
+              type="button"
+              className={`project-rail-dot${activeProjectIndex === index ? " is-active" : ""}`}
+              onClick={() => setActiveProjectIndex(index)}
+            >
+              <span>{`0${index + 1}`}</span>
+            </button>
+          ))}
+        </div>
+      </aside>
+
+      <main ref={mainRef} className={`portfolio-main${isDesktop ? " is-desktop" : ""}`}>
+        <section id="home" ref={setSectionRef("home")} className="snap-section">
+          <div className="section-frame hero-frame">
+            <div className="section-intro">
+              <span className="section-index">01</span>
+              <div>
+                <div className="section-kicker">Personal Brand Portfolio</div>
+                <div className="section-cue">A chapter-based portfolio experience</div>
+              </div>
+            </div>
+
+            <div className="hero-layout">
+              <div className="hero-copy-block">
+                <div className="hero-note">Content / Image / Strategy / Delivery</div>
+                <h1 className="hero-headline display-title">
+                  把想法做成
+                  <br />
+                  能被看见、被记住、也能真正落地的内容。
+                </h1>
+                <p className="hero-summary">
+                  陈妍年，内容策划、影像创作与项目执行。擅长把内容逻辑、视觉表达和落地节奏接在一起，做成完整、可靠、可呈现的作品体验。
+                </p>
+
+                <div className="hero-actions">
+                  <button type="button" className="hero-primary-btn" onClick={() => scrollToSection("projects")}>
+                    View Projects
+                    <ArrowRight size={18} />
+                  </button>
+                  <a className="hero-secondary-btn" href={resumeFile} download="chen-yannian-resume.pdf">
+                    Download Resume
+                    <Download size={18} />
+                  </a>
+                </div>
+
+                <button type="button" className="scroll-hint" onClick={() => scrollToSection("about")}>
+                  Scroll to enter
+                  <ChevronDown size={16} />
+                </button>
+              </div>
+
+              <div className="hero-visual">
+                <div className="hero-visual-media">
+                  <img src={documentaryHeroImage} alt="Chen Yannian portfolio cover" />
+                </div>
+
+                <div className="hero-metrics">
+                  {heroMetrics.map((metric) => (
+                    <div key={metric.label} className="hero-metric-card">
+                      <div className="hero-metric-value">{metric.value}</div>
+                      <div className="hero-metric-label">{metric.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="about" ref={setSectionRef("about")} className="snap-section">
+          <div className="section-frame about-frame">
+            <div className="section-intro">
+              <span className="section-index">02</span>
+              <div>
+                <div className="section-kicker">About</div>
+                <div className="section-cue">What kind of collaborator I am</div>
+              </div>
+            </div>
+
+            <div className="section-heading-row">
+              <div>
+                <h2 className="section-title display-title">不是只会想点子，也会把节奏、表达和落地一起顾好的那种人。</h2>
+                <p className="section-summary">
+                  我喜欢把内容做得更准确，把画面做得更有情绪，把项目推进得更稳。对我来说，作品不只是结果，也包括前期判断、中途调整和最后能否真正成立。
+                </p>
+              </div>
+
+              <div className="about-quote-card">
+                <div className="about-quote-label">Working Principle</div>
+                <div className="about-quote-text">Good ideas deserve structure, rhythm, and a reliable way to land.</div>
+              </div>
+            </div>
+
+            <div className="about-card-grid">
+              {personalIntroNotes.map((item) => (
+                <div key={item.title} className="about-card">
+                  <div className="about-card-dot" style={{ background: item.tone }} />
+                  <div className="about-card-title">{item.title}</div>
+                  <p className="about-card-copy">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="projects" ref={setSectionRef("projects")} className="snap-section">
+          <div className="section-frame project-frame">
+            <div className="section-intro">
+              <span className="section-index">03</span>
+              <div>
+                <div className="section-kicker">Projects</div>
+                <div className="section-cue">One project, one screen</div>
+              </div>
+            </div>
+
+            <div className="section-heading-row project-heading-row">
+              <div>
+                <h2 className="section-title display-title">每次切换，只看一个项目。</h2>
+                <p className="section-summary">
+                  这一屏只保留项目最重要的判断、亮点和入口。想继续深读时，再进入对应 case detail。
+                </p>
+              </div>
+
+              <div className="project-nav-controls">
+                <button type="button" className="project-nav-btn" onClick={() => stepProject(-1)} aria-label="Previous project">
+                  <ChevronLeft size={18} />
+                </button>
+                <div className="project-nav-status">{`0${activeProjectIndex + 1} / 0${projects.length}`}</div>
+                <button type="button" className="project-nav-btn" onClick={() => stepProject(1)} aria-label="Next project">
+                  <ChevronRight size={18} />
+                </button>
+              </div>
+            </div>
+
+            {isDesktop ? (
+              <div className="project-browser" onWheel={handleProjectWheel}>
+                <div className="project-browser-copy">
+                  <div className="project-browser-meta">
+                    <span className="project-subtitle">{activeProject.subtitle}</span>
+                    <span className="project-role-chip">{activeProject.role}</span>
+                  </div>
+
+                  <h3 className="project-browser-title display-title">{activeProject.title}</h3>
+                  <p className="project-browser-summary">{activeProject.summary}</p>
+
+                  <div className="project-highlight-grid">
+                    {projectSpotlights[activeProject.id].map((item) => (
+                      <div key={item} className="project-highlight-card">
+                        <span className="project-highlight-dot" />
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="project-tag-row">
+                    {activeProject.tags.map((tag) => (
+                      <span key={tag} className="project-tag">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="project-browser-actions">
+                    <button type="button" className="hero-primary-btn" onClick={() => setSelectedProjectId(activeProject.id)}>
+                      View Case Detail
+                      <ArrowUpRight size={18} />
+                    </button>
+                    {activeProject.id === "documentary" ? (
+                      <a className="hero-secondary-btn" href={documentaryWatchLink} target="_blank" rel="noreferrer">
+                        Watch Film
+                        <Play size={18} />
+                      </a>
+                    ) : (
+                      <button type="button" className="hero-secondary-btn" onClick={() => scrollToSection("contact")}>
+                        Discuss Similar Work
+                        <ArrowRight size={18} />
+                      </button>
+                    )}
+                  </div>
+
+                  <div className="project-browser-hint">
+                    {activeProjectIndex === projects.length - 1 ? "继续滚动将进入 Experience。" : "滚动、方向键、分页点或箭头按钮都可以切换项目。"}
+                  </div>
+                </div>
+
+                <div className="project-browser-visual">
+                  <ProjectShowcaseMedia project={activeProject} />
+
+                  <div className="project-browser-footer">
+                    <div className="project-browser-highlight">{activeProject.highlight}</div>
+                    <div className="project-browser-pagination">
+                      {projects.map((project, index) => (
+                        <button
+                          key={project.id}
+                          type="button"
+                          className={`project-pagination-item${activeProjectIndex === index ? " is-active" : ""}`}
+                          onClick={() => setActiveProjectIndex(index)}
+                        >
+                          <span className="project-pagination-index">{`0${index + 1}`}</span>
+                          <span className="project-pagination-title">{project.title}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="project-mobile-list">
+                {projects.map((project, index) => (
+                  <Panel key={project.id} style={{ borderRadius: 30, boxShadow: "0 14px 36px rgba(24,23,22,0.06)" }}>
+                    <div className="project-mobile-card">
+                      <div className="project-mobile-header">
+                        <span className="project-subtitle">{project.subtitle}</span>
+                        <span className="project-nav-status">{`0${index + 1}`}</span>
+                      </div>
+                      <ProjectShowcaseMedia project={project} />
+                      <h3 className="project-mobile-title display-title">{project.title}</h3>
+                      <p className="project-browser-summary">{project.summary}</p>
+                      <div className="project-highlight-grid">
+                        {projectSpotlights[project.id].map((item) => (
+                          <div key={item} className="project-highlight-card">
+                            <span className="project-highlight-dot" />
+                            <span>{item}</span>
+                          </div>
+                        ))}
+                      </div>
+                      <button type="button" className="hero-primary-btn project-mobile-btn" onClick={() => setSelectedProjectId(project.id)}>
+                        View Case Detail
+                        <ArrowUpRight size={18} />
+                      </button>
+                    </div>
+                  </Panel>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+
+        <section id="experience" ref={setSectionRef("experience")} className="snap-section">
+          <div className="section-frame experience-frame">
+            <div className="section-intro">
+              <span className="section-index">04</span>
+              <div>
+                <div className="section-kicker">Experience</div>
+                <div className="section-cue">Editorial internship and media reporting practice</div>
+              </div>
+            </div>
+
+            <div className="xinhua-section-head">
+              <div className="xinhua-heading-copy">
+                <div className="xinhua-eyebrow">{xinhuaSection.label}</div>
+                <h2 className="section-title display-title">{xinhuaSection.title}</h2>
+                <p className="section-summary xinhua-summary">{xinhuaSection.intro}</p>
+              </div>
+
+              <div className="xinhua-meta-grid">
+                {xinhuaSection.meta.map((item) => (
+                  <div key={item} className="xinhua-meta-card">
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="xinhua-showcase">
+              <div className="xinhua-carousel-column">
+                <div className="xinhua-carousel-shell">
+                  <div className="xinhua-carousel-stage">
+                    {xinhuaWorks.map((work, index) => {
+                      let delta = index - activeXinhuaIndex;
+                      if (delta > xinhuaWorks.length / 2) delta -= xinhuaWorks.length;
+                      if (delta < -xinhuaWorks.length / 2) delta += xinhuaWorks.length;
+
+                      const arcX = Math.sin(delta * 0.62) * 250;
+                      const arcZ = (Math.cos(delta * 0.62) - 1) * 330;
+                      const absDelta = Math.abs(delta);
+                      const scale = Math.max(0.58, 1 - absDelta * 0.14);
+                      const opacity = absDelta > 3 ? 0 : Math.max(0.14, 1 - absDelta * 0.22);
+                      const blur = absDelta * 1.4;
+                      const rotation = delta * 30;
+
+                      return (
+                        <button
+                          key={work.id}
+                          type="button"
+                          className={`xinhua-rotary-card${index === activeXinhuaIndex ? " is-active" : ""}`}
+                          onClick={() => setActiveXinhuaIndex(index)}
+                          style={
+                            {
+                              "--xinhua-x": `${arcX}px`,
+                              "--xinhua-z": `${arcZ}px`,
+                              "--xinhua-rotate": `${rotation}deg`,
+                              "--xinhua-scale": scale,
+                              "--xinhua-opacity": opacity,
+                              "--xinhua-blur": `${blur}px`,
+                              "--xinhua-order": 20 - absDelta,
+                              "--xinhua-gradient": xinhuaCardGradients[index % xinhuaCardGradients.length],
+                            } as React.CSSProperties
+                          }
+                        >
+                          <div className="xinhua-card-topline">
+                            <span>{work.tag}</span>
+                            <span>{work.year}</span>
+                          </div>
+                          <div className="xinhua-card-title">{work.title}</div>
+                          <p className="xinhua-card-summary">{work.summary}</p>
+                          <div className="xinhua-card-footer">
+                            <span>{`0${index + 1}`}</span>
+                            <span>{work.link ? "查看原文" : "Details Pending"}</span>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  <div className="xinhua-carousel-controls">
+                    <button type="button" className="project-nav-btn" onClick={() => stepXinhua(-1)} aria-label="Previous report">
+                      <ChevronLeft size={18} />
+                    </button>
+                    <div className="xinhua-progress-copy">{`${String(activeXinhuaIndex + 1).padStart(2, "0")} / ${String(
+                      xinhuaWorks.length
+                    ).padStart(2, "0")}`}</div>
+                    <button type="button" className="project-nav-btn" onClick={() => stepXinhua(1)} aria-label="Next report">
+                      <ChevronRight size={18} />
+                    </button>
+                  </div>
+
+                  <div className="xinhua-dot-row">
+                    {xinhuaWorks.map((work, index) => (
+                      <button
+                        key={work.id}
+                        type="button"
+                        className={`xinhua-dot${index === activeXinhuaIndex ? " is-active" : ""}`}
+                        onClick={() => setActiveXinhuaIndex(index)}
+                        aria-label={work.title}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="xinhua-detail-column">
+                <Panel key={activeXinhuaWork.id} style={{ borderRadius: 32, boxShadow: "0 14px 36px rgba(24,23,22,0.06)" }}>
+                  <div className="xinhua-detail-shell xinhua-detail-animate">
+                    <div className="xinhua-detail-meta">
+                      <span className="xinhua-detail-index">{`${String(activeXinhuaIndex + 1).padStart(2, "0")} / ${String(
+                        xinhuaWorks.length
+                      ).padStart(2, "0")}`}</span>
+                      <span className="project-role-chip">{activeXinhuaWork.role}</span>
+                    </div>
+
+                    <div className="xinhua-detail-tag">{activeXinhuaWork.tag}</div>
+                    <h3 className="xinhua-detail-title display-title">{activeXinhuaWork.title}</h3>
+                    <p className="xinhua-detail-summary">{activeXinhuaWork.summary}</p>
+
+                    <div className="xinhua-detail-actions">
+                      {activeXinhuaWork.link ? (
+                        <a className="hero-primary-btn" href={activeXinhuaWork.link} target="_blank" rel="noreferrer">
+                          查看原文
+                          <ArrowUpRight size={18} />
+                        </a>
+                      ) : (
+                        <div className="xinhua-pending-chip">Details pending</div>
+                      )}
+                    </div>
+
+                    <div className="xinhua-practice-grid">
+                      {xinhuaPracticeNotes.map((item) => (
+                        <div key={item.label} className="xinhua-practice-card">
+                          <div className="xinhua-practice-label">{item.label}</div>
+                          <p className="xinhua-practice-copy">{item.text}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </Panel>
+
+                <div className="xinhua-support-strip">
+                  {supportingExperienceWorks.map((item) => (
+                    <div key={item.title} className="xinhua-support-card">
+                      <div className="xinhua-support-label">Outside The Newsroom</div>
+                      <div className="xinhua-support-title">{item.title}</div>
+                      <p className="xinhua-support-copy">{item.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" ref={setSectionRef("contact")} className="snap-section">
+          <div className="section-frame contact-frame">
+            <div className="section-intro">
+              <span className="section-index">05</span>
+              <div>
+                <div className="section-kicker">Contact</div>
+                <div className="section-cue">Let&apos;s build something tangible</div>
+              </div>
+            </div>
+
+            <div className="contact-layout-shell">
+              <div className="contact-copy-shell">
+                <h2 className="section-title display-title">如果你也想把一个想法做成真正站得住的项目，我们可以聊聊。</h2>
+                <p className="section-summary">
+                  无论是内容策划、影像表达、项目推进，还是一个还在发光的创意雏形，我都愿意一起把它理清、做实、推进下去。
+                </p>
+
+                <div className="contact-actions">
+                  <a className="hero-primary-btn" href="mailto:NeoCyyyn@163.com">
+                    Send Email
+                    <Mail size={18} />
+                  </a>
+                  <button type="button" className="hero-secondary-btn" onClick={() => scrollToSection("home")}>
+                    Back to Top
+                    <ArrowRight size={18} />
+                  </button>
+                </div>
+              </div>
+
+              <Panel style={{ borderRadius: 34, boxShadow: "0 14px 36px rgba(24,23,22,0.06)" }}>
+                <div className="contact-panel-shell">
+                  <div className="contact-card-row">
+                    <span className="contact-card-label">Email</span>
+                    <a href="mailto:NeoCyyyn@163.com">NeoCyyyn@163.com</a>
+                  </div>
+                  <div className="contact-card-row">
+                    <span className="contact-card-label">Phone</span>
+                    <a href="tel:19283287512">192-8328-7512</a>
+                  </div>
+                  <div className="contact-card-row">
+                    <span className="contact-card-label">Bilibili</span>
+                    <a href="https://space.bilibili.com/1099530248?spm_id_from=333.1007.0.0" target="_blank" rel="noreferrer">
+                      账号主页
+                    </a>
+                  </div>
+
+                  <div className="contact-panel-actions">
+                    <a className="hero-secondary-btn" href={resumeFile} download="chen-yannian-resume.pdf">
+                      Download Resume
+                      <Download size={18} />
+                    </a>
+                    <button type="button" className="hero-secondary-btn" onClick={() => scrollToSection("projects")}>
+                      View Projects Again
+                      <ArrowRight size={18} />
+                    </button>
+                  </div>
+                </div>
+              </Panel>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  );
+
+  /*
   return (
     <div style={{ minHeight: "100vh", background: palette.bg, color: palette.text }}>
       <div className="page-shell">
@@ -1461,11 +2274,13 @@ export default function App() {
       </div>
     </div>
   );
+  */
 }
 
 const sanityChecks = [
   projects.length === 3,
   additionalWorks.length === 3,
+  xinhuaWorks.length === 8,
   bilibiliStats.length === 4,
   operationsMetrics.length === 8,
   breakoutMetrics.length === 6,
