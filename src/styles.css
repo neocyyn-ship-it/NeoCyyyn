@@ -781,6 +781,11 @@ button {
   font-size: clamp(38px, 7vw, 52px);
 }
 
+.project-title-line {
+  display: block;
+  white-space: nowrap;
+}
+
 .project-browser-summary {
   margin: 18px 0 0;
   max-width: 42ch;

@@ -21,6 +21,7 @@ type ProjectId = "documentary" | "sinkingShip" | "bilibili" | "bayer";
 type Project = {
   id: ProjectId;
   title: string;
+  titleLines?: string[];
   subtitle: string;
   role: string;
   summary: string;
@@ -98,6 +99,7 @@ const projects: Project[] = [
   {
     id: "documentary",
     title: "纪录片《视界之外》",
+    titleLines: ["纪录片", "《视界之外》"],
     subtitle: "Documentary Project",
     role: "编导 / 摄像 / 后期结构梳理",
     summary: "以视障女性创业者为核心人物的毕业设计纪录片，完成长期跟拍、采访组织与后期叙事结构搭建。",
@@ -119,6 +121,7 @@ const projects: Project[] = [
   {
     id: "bilibili",
     title: "《大反派》B 站宣发运营",
+    titleLines: ["《大反派》", "B站运营宣发"],
     subtitle: "Bilibili Campaign",
     role: "内容策划 / 文案撰写 / 平台运营",
     summary: "围绕电影《大反派》上映窗口完成 B 站内容发布、标题优化与数据复盘。",
@@ -160,6 +163,7 @@ const projects: Project[] = [
   {
     id: "sinkingShip",
     title: "沉船逃生互动视频项目",
+    titleLines: ["沉船逃生", "互动视频"],
     subtitle: "Interactive Video Case",
     role: "策划 / 剧情树梳理 / 剪辑执行",
     summary: "基于真实沉船事故改编的 B 站互动视频课程项目，用学生、乘客、船员三条身份线和 23 个结局，让观众在选择中进入灾难现场。",
@@ -312,9 +316,9 @@ const personalIntroNotes = [
 ];
 
 const heroOverviewItems = [
+  { label: "Home", desc: "第一屏先告诉你我做什么、这个网站怎么浏览。" },
   { label: "Projects", desc: "4 个主项目，逐个进入 case detail 看清问题、方法和结果。" },
   { label: "Experience", desc: "新华社实习与编辑/报道实践，集中放在一屏里浏览。" },
-  { label: "About", desc: "用更轻的方式补充我怎么工作、怎么判断和怎么协作。" },
   { label: "Contact", desc: "最后一屏放简历、联系方式和继续聊项目的入口。" },
 ];
 
@@ -531,10 +535,9 @@ const bayerVisuals: VisualItem[] = [
 
 const siteSections: SiteSection[] = [
   { id: "home", label: "Home", cue: "Introduction", index: "01" },
-  { id: "about", label: "About", cue: "Positioning", index: "02" },
-  { id: "projects", label: "Projects", cue: "Case browser", index: "03" },
-  { id: "experience", label: "Experience", cue: "Practice", index: "04" },
-  { id: "contact", label: "Contact", cue: "Reach out", index: "05" },
+  { id: "projects", label: "Projects", cue: "Case browser", index: "02" },
+  { id: "experience", label: "Experience", cue: "Practice", index: "03" },
+  { id: "contact", label: "Contact", cue: "Reach out", index: "04" },
 ];
 
 const xinhuaSection: XinhuaSectionData = {
@@ -679,6 +682,20 @@ function Panel({ children, style = {} as React.CSSProperties }: { children: Reac
   );
 }
 
+function ProjectTitleLines({ project }: { project: Project }) {
+  const lines = project.titleLines ?? [project.title];
+
+  return (
+    <>
+      {lines.map((line) => (
+        <span key={line} className="project-title-line">
+          {line}
+        </span>
+      ))}
+    </>
+  );
+}
+
 function GeneratedCover({ project, compact = false }: { project: Project; compact?: boolean }) {
   return (
     <div className="generated-cover" style={{ background: project.accent, minHeight: compact ? 236 : undefined }}>
@@ -691,7 +708,7 @@ function GeneratedCover({ project, compact = false }: { project: Project; compac
           className="generated-cover-title"
           style={compact ? { maxWidth: "10ch", fontSize: "clamp(30px, 2.7vw, 38px)", lineHeight: 1.08 } : undefined}
         >
-          {project.title}
+          <ProjectTitleLines project={project} />
         </div>
         <div className="generated-cover-tags" style={compact ? { gap: 8 } : undefined}>
           {project.tags.map((tag) => (
@@ -1328,7 +1345,7 @@ export default function App() {
       const nextIndex = current + direction;
 
       if (nextIndex < 0) {
-        scrollToSection("about");
+        scrollToSection("home");
         return 0;
       }
 
@@ -1565,8 +1582,8 @@ export default function App() {
                   </a>
                 </div>
 
-                <button type="button" className="scroll-hint" onClick={() => scrollToSection("about")}>
-                  Scroll to enter
+                <button type="button" className="scroll-hint" onClick={() => scrollToSection("projects")}>
+                  Scroll to projects
                   <ChevronDown size={16} />
                 </button>
               </div>
@@ -1615,7 +1632,7 @@ export default function App() {
           </div>
         </section>
 
-        <section id="about" ref={setSectionRef("about")} className="snap-section">
+        {false ? <section id="about" ref={setSectionRef("about")} className="snap-section">
           <div className="section-frame about-frame">
             <div className="section-intro">
               <span className="section-index">02</span>
@@ -1649,12 +1666,12 @@ export default function App() {
               ))}
             </div>
           </div>
-        </section>
+        </section> : null}
 
         <section id="projects" ref={setSectionRef("projects")} className="snap-section">
           <div className="section-frame project-frame">
             <div className="section-intro">
-              <span className="section-index">03</span>
+              <span className="section-index">02</span>
               <div>
                 <div className="section-kicker">Projects</div>
                 <div className="section-cue">One project, one screen</div>
@@ -1688,7 +1705,9 @@ export default function App() {
                     <span className="project-role-chip">{activeProject.role}</span>
                   </div>
 
-                  <h3 className="project-browser-title display-title">{activeProject.title}</h3>
+                  <h3 className="project-browser-title display-title">
+                    <ProjectTitleLines project={activeProject} />
+                  </h3>
                   <p className="project-browser-summary">{activeProject.summary}</p>
 
                   <div className="project-highlight-grid">
@@ -1767,7 +1786,9 @@ export default function App() {
                         <span className="project-nav-status">{`0${index + 1}`}</span>
                       </div>
                       <ProjectShowcaseMedia project={project} />
-                      <h3 className="project-mobile-title display-title">{project.title}</h3>
+                      <h3 className="project-mobile-title display-title">
+                        <ProjectTitleLines project={project} />
+                      </h3>
                       <p className="project-browser-summary">{project.summary}</p>
                       <div className="project-highlight-grid">
                         {projectSpotlights[project.id].map((item) => (
@@ -1792,7 +1813,7 @@ export default function App() {
         <section id="experience" ref={setSectionRef("experience")} className="snap-section">
           <div className="section-frame experience-frame">
             <div className="section-intro">
-              <span className="section-index">04</span>
+              <span className="section-index">03</span>
               <div>
                 <div className="section-kicker">Experience</div>
                 <div className="section-cue">Editorial internship and media reporting practice</div>
@@ -1959,7 +1980,7 @@ export default function App() {
         <section id="contact" ref={setSectionRef("contact")} className="snap-section">
           <div className="section-frame contact-frame">
             <div className="section-intro">
-              <span className="section-index">05</span>
+              <span className="section-index">04</span>
               <div>
                 <div className="section-kicker">Contact</div>
                 <div className="section-cue">Let&apos;s build something tangible</div>
