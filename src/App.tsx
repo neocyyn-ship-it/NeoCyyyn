@@ -316,13 +316,6 @@ const personalIntroNotes = [
   { title: "会回头看", desc: "做完也会留一点时间给复盘和整理", tone: palette.teal },
 ];
 
-const heroOverviewItems = [
-  { label: "Home", desc: "第一屏先告诉你我做什么、这个网站怎么浏览。" },
-  { label: "Projects", desc: "4 个主项目，逐个进入 case detail 看清问题、方法和结果。" },
-  { label: "Experience", desc: "新华社实习与编辑/报道实践，集中放在一屏里浏览。" },
-  { label: "Contact", desc: "最后一屏放简历、联系方式和继续聊项目的入口。" },
-];
-
 const documentaryCapabilities: DocumentaryCapability[] = [
   {
     label: "Topic Choice",
@@ -1303,11 +1296,6 @@ export default function App() {
   const nextProject = selectedIndex >= 0 ? projects[(selectedIndex + 1) % projects.length] : projects[1];
   const activeProject = projects[activeProjectIndex];
   const activeXinhuaWork = xinhuaWorks[activeXinhuaIndex];
-  const heroMetrics = [
-    { label: "Selected Cases", value: String(projects.length).padStart(2, "0") },
-    { label: "Internship Links", value: String(additionalWorks[0].links?.length ?? 0).padStart(2, "0") },
-    { label: "Work Mode", value: "Content + Strategy" },
-  ];
   const featuredExperience = additionalWorks.find((item) => item.featured) ?? additionalWorks[0];
   const supportingExperienceWorks = additionalWorks.filter((item) => item.title !== featuredExperience.title);
   const mainRef = useRef<HTMLElement | null>(null);
@@ -1600,34 +1588,6 @@ export default function App() {
                   ))}
                 </div>
 
-                <div className="hero-overview-card">
-                  <div className="hero-overview-label">This Site At A Glance</div>
-                  <h2 className="hero-overview-title">先看作品，再看经历和方法。</h2>
-                  <p className="hero-overview-copy">
-                    这个网站主要分成项目、经历、关于我和联系入口几部分，先帮你快速建立判断，再决定要不要往下看具体细节。
-                  </p>
-
-                  <div className="hero-outline-list">
-                    {heroOverviewItems.map((item, index) => (
-                      <div key={item.label} className="hero-outline-item">
-                        <div className="hero-outline-index">{`0${index + 1}`}</div>
-                        <div className="hero-outline-copy">
-                          <div className="hero-outline-name">{item.label}</div>
-                          <p className="hero-outline-desc">{item.desc}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="hero-metrics">
-                    {heroMetrics.map((metric) => (
-                      <div key={metric.label} className="hero-metric-card">
-                        <div className="hero-metric-value">{metric.value}</div>
-                        <div className="hero-metric-label">{metric.label}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
               </div>
             </div>
           </div>
