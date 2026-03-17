@@ -117,26 +117,6 @@ const projects: Project[] = [
     ]
   },
   {
-    id: "sinkingShip",
-    title: "沉船逃生互动视频项目",
-    subtitle: "Interactive Video Case",
-    role: "策划 / 剧情树梳理 / 剪辑执行",
-    summary: "基于真实沉船事故改编的 B 站互动视频课程项目，用学生、乘客、船员三条身份线和 23 个结局，让观众在选择中进入灾难现场。",
-    highlight: "23 个结局 / 3 条角色线 / 23:57 互动视频",
-    accent: "linear-gradient(135deg, #EAF1F8 0%, #9EB6C9 50%, #3C4F67 100%)",
-    coverType: "generated",
-    tags: ["互动视频", "叙事设计", "剪辑执行"],
-    situation: "课程希望尝试融合新闻和互动视频的表达方式，我们最终没有把它做成单纯追求刺激的“逃生游戏”，而是想让观众在选择里感受到灾难现场的信息误判、时间压力和求生判断。",
-    action: "我负责提出视频设想并编写策划案，整理资料和事故时间线，把学生、乘客、船员三条线梳理成剧情树，同时承担船员线、乘客线剪辑，以及片头和“真相”部分制作。",
-    result: "最终完成一支总时长 23:57 的 B 站互动视频，设置 23 个结局和三条身份线，让项目既能被进入，也能在结尾重新回到真实事故本身。",
-    detailIntro: "这不是把灾难题材做成刺激性的互动闯关，而是希望观众在一次次选择里，更具体地感受到事故过程、判断失误和失去是怎样发生的。",
-    detailPoints: [
-      "从设想到策划案，先把互动视频的方向、资料来源和真实事件框架搭起来。",
-      "把学生、乘客、船员三条身份线整理成完整剧情树，让分支选择和时间推进保持清楚的逻辑。",
-      "负责船员线、乘客线剪辑，以及片头和“真相”部分制作，让互动体验最终回到真实事件的反思。"
-    ]
-  },
-  {
     id: "bilibili",
     title: "《大反派》B 站宣发运营",
     subtitle: "Bilibili Campaign",
@@ -175,6 +155,26 @@ const projects: Project[] = [
       "先把品牌问题拆成“科研认知弱、品牌定位混淆、公益影响力不足”三类，再决定策略主线。",
       "围绕 Z 世代的信息获取习惯和健康误区搭建提案，不把年轻人只当流量入口，而是当真正的沟通对象。",
       "把传播路径拆成预热、互动、主展演三段，让提案不只停在一页口号，而是能落到媒介排期和空间触点。"
+    ]
+  },
+  {
+    id: "sinkingShip",
+    title: "沉船逃生互动视频项目",
+    subtitle: "Interactive Video Case",
+    role: "策划 / 剧情树梳理 / 剪辑执行",
+    summary: "基于真实沉船事故改编的 B 站互动视频课程项目，用学生、乘客、船员三条身份线和 23 个结局，让观众在选择中进入灾难现场。",
+    highlight: "23 个结局 / 3 条角色线 / 23:57 互动视频",
+    accent: "linear-gradient(135deg, #EAF1F8 0%, #9EB6C9 50%, #3C4F67 100%)",
+    coverType: "generated",
+    tags: ["互动视频", "叙事设计", "剪辑执行"],
+    situation: "课程希望尝试融合新闻和互动视频的表达方式，我们最终没有把它做成单纯追求刺激的“逃生游戏”，而是想让观众在选择里感受到灾难现场的信息误判、时间压力和求生判断。",
+    action: "我负责提出视频设想并编写策划案，整理资料和事故时间线，把学生、乘客、船员三条线梳理成剧情树，同时承担船员线、乘客线剪辑，以及片头和“真相”部分制作。",
+    result: "最终完成一支总时长 23:57 的 B 站互动视频，设置 23 个结局和三条身份线，让项目既能被进入，也能在结尾重新回到真实事故本身。",
+    detailIntro: "这不是把灾难题材做成刺激性的互动闯关，而是希望观众在一次次选择里，更具体地感受到事故过程、判断失误和失去是怎样发生的。",
+    detailPoints: [
+      "从设想到策划案，先把互动视频的方向、资料来源和真实事件框架搭起来。",
+      "把学生、乘客、船员三条身份线整理成完整剧情树，让分支选择和时间推进保持清楚的逻辑。",
+      "负责船员线、乘客线剪辑，以及片头和“真相”部分制作，让互动体验最终回到真实事件的反思。"
     ]
   }
 ];
@@ -309,6 +309,13 @@ const personalIntroNotes = [
   { title: "有点子", desc: "喜欢把灵感变成具体表达", tone: palette.blue },
   { title: "不掉线", desc: "事情接到手里就会认真推进", tone: palette.apple },
   { title: "会回头看", desc: "做完也会留一点时间给复盘和整理", tone: palette.teal },
+];
+
+const heroOverviewItems = [
+  { label: "Projects", desc: "4 个主项目，逐个进入 case detail 看清问题、方法和结果。" },
+  { label: "Experience", desc: "新华社实习与编辑/报道实践，集中放在一屏里浏览。" },
+  { label: "About", desc: "用更轻的方式补充我怎么工作、怎么判断和怎么协作。" },
+  { label: "Contact", desc: "最后一屏放简历、联系方式和继续聊项目的入口。" },
 ];
 
 const documentaryCapabilities: DocumentaryCapability[] = [
@@ -1564,18 +1571,44 @@ export default function App() {
                 </button>
               </div>
 
-              <div className="hero-visual">
-                <div className="hero-visual-media">
-                  <img src={documentaryHeroImage} alt="Chen Yannian portfolio cover" />
-                </div>
-
-                <div className="hero-metrics">
-                  {heroMetrics.map((metric) => (
-                    <div key={metric.label} className="hero-metric-card">
-                      <div className="hero-metric-value">{metric.value}</div>
-                      <div className="hero-metric-label">{metric.label}</div>
+              <div className="hero-side-panel">
+                <div className="hero-note-stack">
+                  {personalIntroNotes.map((item) => (
+                    <div key={item.title} className="hero-note-card">
+                      <div className="hero-note-card-dot" style={{ background: item.tone }} />
+                      <div className="hero-note-card-title">{item.title}</div>
+                      <p className="hero-note-card-copy">{item.desc}</p>
                     </div>
                   ))}
+                </div>
+
+                <div className="hero-overview-card">
+                  <div className="hero-overview-label">This Site At A Glance</div>
+                  <h2 className="hero-overview-title">先看作品，再看经历和方法。</h2>
+                  <p className="hero-overview-copy">
+                    这个网站主要分成项目、经历、关于我和联系入口几部分，先帮你快速建立判断，再决定要不要往下看具体细节。
+                  </p>
+
+                  <div className="hero-outline-list">
+                    {heroOverviewItems.map((item, index) => (
+                      <div key={item.label} className="hero-outline-item">
+                        <div className="hero-outline-index">{`0${index + 1}`}</div>
+                        <div className="hero-outline-copy">
+                          <div className="hero-outline-name">{item.label}</div>
+                          <p className="hero-outline-desc">{item.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="hero-metrics">
+                    {heroMetrics.map((metric) => (
+                      <div key={metric.label} className="hero-metric-card">
+                        <div className="hero-metric-value">{metric.value}</div>
+                        <div className="hero-metric-label">{metric.label}</div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
