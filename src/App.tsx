@@ -450,7 +450,7 @@ const bayerVisuals: VisualItem[] = [
 ];
 
 const siteSections: SiteSection[] = [
-  { id: "intro", label: "Intro", cue: "Opening chapter", index: "01" },
+  { id: "intro", label: "Home", cue: "About + opening chapter", index: "01" },
   { id: "projects", label: "Projects", cue: "Selected cases", index: "02" },
   { id: "experience", label: "Experience", cue: "Practice archive", index: "03" },
   { id: "contact", label: "Contact", cue: "Reach out", index: "04" },
@@ -1343,8 +1343,8 @@ export default function App() {
             <div className="section-intro">
               <span className="section-index">01</span>
               <div>
-                <div className="section-kicker">Intro</div>
-                <div className="section-cue">Opening chapter, profile, and curated previews</div>
+                <div className="section-kicker">Home</div>
+                <div className="section-cue">Home, about, and curated previews in one chapter</div>
               </div>
             </div>
 
@@ -1425,7 +1425,7 @@ export default function App() {
 
             <div className="intro-preview-grid">
               <article className="about-bio-sheet intro-preview-card intro-profile-card">
-                <div className="about-panel-label">Working Approach</div>
+                <div className="about-panel-label">About</div>
                 <div className="about-bio-title">不是只会想点子，也会把结构、判断和执行一起做稳的人。</div>
                 <p className="about-bio-copy">
                   我更在意一件作品是否成立，而不只是它是否好看。无论是新闻报道、纪录片、内容运营还是传播提案，我都会先判断核心问题，再组织表达方式，最后把执行节奏推进到位。
@@ -1775,7 +1775,7 @@ export default function App() {
                     <Mail size={18} />
                   </a>
                   <button type="button" className="hero-secondary-btn" onClick={() => scrollToSection("intro")}>
-                    Back to Intro
+                    Back to Home
                     <ArrowRight size={18} />
                   </button>
                 </div>
@@ -2049,7 +2049,7 @@ export default function App() {
                 }}
               >
                 <div className="home-about-copy">
-                  <div style={{ fontSize: 15, fontWeight: 500, letterSpacing: "0.08em", color: palette.blue }}>About Me</div>
+                  <div style={{ fontSize: 15, fontWeight: 500, letterSpacing: "0.08em", color: palette.blue }}>About</div>
                   <h2
                     style={{
                       margin: "20px 0 0",
