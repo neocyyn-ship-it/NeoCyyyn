@@ -80,16 +80,16 @@ const resumeFile = `${baseUrl}assets/chen-yannian-resume.pdf`;
 const documentaryWatchLink = "https://pan.baidu.com/s/15sMVeJ_CkSf2tGbXJz0EXw?pwd=rajy";
 
 const palette = {
-  bg: "#FFFFF2",
-  panel: "#FFFDF7",
-  text: "#111111",
-  textSoft: "#67645E",
-  line: "#E9E1D5",
-  blue: "#111111",
-  sky: "#D6CBB9",
-  apple: "#B6C0B0",
-  moss: "#7C857B",
-  teal: "#5D6972",
+  bg: "#FBF9F3",
+  panel: "#FFFDF8",
+  text: "#171716",
+  textSoft: "#68625B",
+  line: "#E6E0D6",
+  blue: "#4D5A50",
+  sky: "#D7D0C4",
+  apple: "#BBB3A7",
+  moss: "#7D8578",
+  teal: "#4D5A50",
 };
 
 const projects: Project[] = [
