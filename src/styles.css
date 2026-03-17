@@ -2,8 +2,8 @@
   font-family: "Avenir Next", "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", sans-serif;
   line-height: 1.6;
   font-weight: 400;
-  color: #181716;
-  background: #efe9de;
+  color: #eeeeee;
+  background: #222831;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -12,16 +12,16 @@
 
 /* Prada-inspired dark refresh */
 :root {
-  --lux-bg: #0b0b0a;
-  --lux-panel: rgba(19, 18, 16, 0.88);
-  --lux-panel-strong: rgba(24, 22, 20, 0.94);
+  --lux-bg: #222831;
+  --lux-panel: rgba(57, 62, 70, 0.82);
+  --lux-panel-strong: rgba(57, 62, 70, 0.94);
   --lux-surface: rgba(255, 255, 255, 0.05);
   --lux-surface-strong: rgba(255, 255, 255, 0.08);
-  --lux-border: rgba(215, 196, 167, 0.16);
-  --lux-border-strong: rgba(215, 196, 167, 0.28);
-  --lux-text: #f5f0e8;
-  --lux-muted: #a59b8d;
-  --lux-accent: #d7c4a7;
+  --lux-border: rgba(0, 173, 181, 0.18);
+  --lux-border-strong: rgba(0, 173, 181, 0.38);
+  --lux-text: #eeeeee;
+  --lux-muted: #b8c0c6;
+  --lux-accent: #00adb5;
   --lux-shadow: 0 28px 72px rgba(0, 0, 0, 0.3);
 }
 
@@ -43,13 +43,13 @@ body {
 
 .portfolio-shell {
   background:
-    radial-gradient(circle at top, rgba(215, 196, 167, 0.08), transparent 22%),
-    linear-gradient(180deg, #0b0b0a 0%, #0d0d0c 42%, #090908 100%);
+    radial-gradient(circle at top, rgba(0, 173, 181, 0.12), transparent 24%),
+    linear-gradient(180deg, #222831 0%, #2a3038 42%, #1f252d 100%);
 }
 
 .portfolio-backdrop {
   background:
-    radial-gradient(circle at 16% 18%, rgba(215, 196, 167, 0.09), transparent 0, transparent 36%),
+    radial-gradient(circle at 16% 18%, rgba(0, 173, 181, 0.13), transparent 0, transparent 36%),
     radial-gradient(circle at 82% 32%, rgba(255, 255, 255, 0.04), transparent 0, transparent 34%);
   transform: translateY(calc(var(--parallax-shift, 0px) * -0.04));
   opacity: 0.95;
@@ -60,7 +60,7 @@ body {
   left: 24px;
   right: 24px;
   border: 1px solid var(--lux-border);
-  background: rgba(11, 11, 10, 0.72);
+  background: rgba(34, 40, 49, 0.74);
   backdrop-filter: blur(18px);
   box-shadow: 0 18px 42px rgba(0, 0, 0, 0.22);
 }
@@ -135,7 +135,7 @@ body {
 .about-chip:hover,
 .scroll-hint:hover {
   border-color: var(--lux-border-strong);
-  background: rgba(215, 196, 167, 0.1);
+  background: rgba(0, 173, 181, 0.12);
   color: var(--lux-text);
 }
 
@@ -161,20 +161,20 @@ body {
 .xinhua-dot:focus-visible,
 .project-inline-link:focus-visible,
 .project-bento-card:focus-visible {
-  outline: 2px solid rgba(215, 196, 167, 0.7);
+  outline: 2px solid rgba(0, 173, 181, 0.7);
   outline-offset: 2px;
 }
 
 .portfolio-nav-cta,
 .hero-primary-btn {
   background: var(--lux-accent);
-  color: #12110f;
+  color: #eeeeee;
   border-color: transparent;
 }
 
 .hero-primary-btn svg,
 .portfolio-nav-cta svg {
-  color: #12110f;
+  color: #eeeeee;
 }
 
 .hero-secondary-btn {
@@ -211,14 +211,14 @@ body {
 .section-frame {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 28%),
-    linear-gradient(145deg, rgba(215, 196, 167, 0.06), rgba(11, 11, 10, 0.12) 58%);
+    linear-gradient(145deg, rgba(0, 173, 181, 0.08), rgba(34, 40, 49, 0.18) 58%);
   box-shadow: 0 24px 68px rgba(0, 0, 0, 0.26);
 }
 
 .section-frame::before {
   background:
     linear-gradient(145deg, rgba(255, 255, 255, 0.06), transparent 42%),
-    linear-gradient(320deg, rgba(215, 196, 167, 0.05), transparent 34%);
+    linear-gradient(320deg, rgba(0, 173, 181, 0.06), transparent 34%);
 }
 
 .section-index,
@@ -233,7 +233,7 @@ body {
 }
 
 .section-index {
-  background: rgba(215, 196, 167, 0.09);
+  background: rgba(0, 173, 181, 0.12);
 }
 
 .section-title,
@@ -640,13 +640,13 @@ body {
 
 .xinhua-carousel-stage {
   background:
-    radial-gradient(circle at center, rgba(215, 196, 167, 0.08), transparent 42%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(14, 13, 12, 0.82));
+    radial-gradient(circle at center, rgba(0, 173, 181, 0.12), transparent 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(34, 40, 49, 0.82));
   border-color: var(--lux-border);
 }
 
 .xinhua-carousel-stage::before {
-  border-color: rgba(215, 196, 167, 0.12);
+  border-color: rgba(0, 173, 181, 0.12);
   box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.18);
 }
 
@@ -3628,13 +3628,13 @@ button {
 /* Final overrides for portfolio redesign */
 .portfolio-shell {
   background:
-    radial-gradient(circle at top, rgba(215, 196, 167, 0.08), transparent 22%),
-    linear-gradient(180deg, #0b0b0a 0%, #0d0d0c 42%, #090908 100%);
+    radial-gradient(circle at top, rgba(0, 173, 181, 0.12), transparent 24%),
+    linear-gradient(180deg, #222831 0%, #2a3038 42%, #1f252d 100%);
 }
 
 .portfolio-shell .portfolio-backdrop {
   background:
-    radial-gradient(circle at 16% 18%, rgba(215, 196, 167, 0.09), transparent 36%),
+    radial-gradient(circle at 16% 18%, rgba(0, 173, 181, 0.13), transparent 36%),
     radial-gradient(circle at 82% 32%, rgba(255, 255, 255, 0.04), transparent 34%);
   transform: translateY(calc(var(--parallax-shift, 0px) * -0.04));
 }
@@ -3642,8 +3642,8 @@ button {
 .portfolio-shell .portfolio-nav,
 .portfolio-shell .section-rail-panel,
 .portfolio-shell .project-rail-panel {
-  background: rgba(11, 11, 10, 0.72);
-  border-color: rgba(215, 196, 167, 0.16);
+  background: rgba(34, 40, 49, 0.74);
+  border-color: rgba(0, 173, 181, 0.18);
   backdrop-filter: blur(18px);
   box-shadow: 0 18px 42px rgba(0, 0, 0, 0.22);
 }
@@ -3659,9 +3659,9 @@ button {
 .portfolio-shell .project-inline-link,
 .portfolio-shell .about-chip,
 .portfolio-shell .scroll-hint {
-  border-color: rgba(215, 196, 167, 0.16);
+  border-color: rgba(0, 173, 181, 0.18);
   background: rgba(255, 255, 255, 0.02);
-  color: #f5f0e8;
+  color: #eeeeee;
 }
 
 .portfolio-shell .portfolio-nav-link:hover,
@@ -3678,21 +3678,21 @@ button {
 .portfolio-shell .project-inline-link:hover,
 .portfolio-shell .about-chip:hover,
 .portfolio-shell .scroll-hint:hover {
-  background: rgba(215, 196, 167, 0.1);
-  border-color: rgba(215, 196, 167, 0.28);
-  color: #f5f0e8;
+  background: rgba(0, 173, 181, 0.12);
+  border-color: rgba(0, 173, 181, 0.38);
+  color: #eeeeee;
 }
 
 .portfolio-shell .portfolio-nav-cta,
 .portfolio-shell .hero-primary-btn {
-  background: #d7c4a7;
-  color: #12110f;
+  background: #00adb5;
+  color: #eeeeee;
   border-color: transparent;
 }
 
 .portfolio-shell .hero-primary-btn svg,
 .portfolio-shell .portfolio-nav-cta svg {
-  color: #12110f;
+  color: #eeeeee;
 }
 
 .portfolio-shell .section-frame,
@@ -3708,21 +3708,21 @@ button {
 .portfolio-shell .xinhua-practice-card,
 .portfolio-shell .xinhua-support-card,
 .portfolio-shell .contact-panel-shell {
-  background: rgba(19, 18, 16, 0.88);
-  border-color: rgba(215, 196, 167, 0.16);
+  background: rgba(57, 62, 70, 0.82);
+  border-color: rgba(0, 173, 181, 0.18);
   box-shadow: 0 28px 72px rgba(0, 0, 0, 0.3);
 }
 
 .portfolio-shell .section-frame {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 28%),
-    linear-gradient(145deg, rgba(215, 196, 167, 0.06), rgba(11, 11, 10, 0.12) 58%);
+    linear-gradient(145deg, rgba(0, 173, 181, 0.08), rgba(34, 40, 49, 0.18) 58%);
 }
 
 .portfolio-shell .section-frame::before {
   background:
     linear-gradient(145deg, rgba(255, 255, 255, 0.06), transparent 42%),
-    linear-gradient(320deg, rgba(215, 196, 167, 0.05), transparent 34%);
+    linear-gradient(320deg, rgba(0, 173, 181, 0.06), transparent 34%);
 }
 
 .portfolio-shell .display-title,
@@ -3741,7 +3741,7 @@ button {
 .portfolio-shell .experience-highlight-title,
 .portfolio-shell .contact-card-row a,
 .portfolio-shell .portfolio-brand-name {
-  color: #f5f0e8;
+  color: #eeeeee;
 }
 
 .portfolio-shell .section-cue,
@@ -3757,7 +3757,7 @@ button {
 .portfolio-shell .contact-card-label,
 .portfolio-shell .xinhua-practice-copy,
 .portfolio-shell .xinhua-support-copy {
-  color: #a59b8d;
+  color: #b8c0c6;
 }
 
 .portfolio-shell .section-index,
@@ -3768,7 +3768,7 @@ button {
 .portfolio-shell .project-focus-eyebrow,
 .portfolio-shell .experience-highlight-label,
 .portfolio-shell .hero-overlay-label {
-  color: #d7c4a7;
+  color: #00adb5;
 }
 
 .portfolio-shell .hero-layout-luxe {
@@ -3787,8 +3787,8 @@ button {
 .portfolio-shell .hero-visual-media-luxe {
   min-height: 540px;
   border-radius: 34px;
-  border: 1px solid rgba(215, 196, 167, 0.16);
-  background: #11100f;
+  border: 1px solid rgba(0, 173, 181, 0.18);
+  background: #222831;
 }
 
 .portfolio-shell .hero-visual-media-luxe img {
@@ -3825,7 +3825,7 @@ button {
   font-size: clamp(22px, 2.1vw, 34px);
   line-height: 1;
   font-weight: 700;
-  color: #f5f0e8;
+  color: #eeeeee;
 }
 
 .portfolio-shell .hero-marquee,
@@ -3842,7 +3842,7 @@ button {
   min-height: 36px;
   padding: 0 14px;
   border-radius: 999px;
-  border: 1px solid rgba(215, 196, 167, 0.16);
+  border: 1px solid rgba(0, 173, 181, 0.18);
   background: rgba(255, 255, 255, 0.02);
   font-size: 13px;
   font-weight: 600;
@@ -3866,7 +3866,7 @@ button {
   margin-top: 18px;
   font-size: clamp(30px, 2.8vw, 44px);
   line-height: 1.12;
-  color: #f5f0e8;
+  color: #eeeeee;
 }
 
 .portfolio-shell .about-panel-stack {
@@ -3918,8 +3918,8 @@ button {
 
 .portfolio-shell .project-bento-card:hover,
 .portfolio-shell .project-bento-card.is-active {
-  background: rgba(24, 22, 20, 0.94);
-  border-color: rgba(215, 196, 167, 0.28);
+  background: rgba(57, 62, 70, 0.96);
+  border-color: rgba(0, 173, 181, 0.38);
 }
 
 .portfolio-shell .project-bento-documentary {
@@ -3960,7 +3960,7 @@ button {
 .portfolio-shell .xinhua-card-topline,
 .portfolio-shell .xinhua-card-footer,
 .portfolio-shell .xinhua-pending-chip {
-  color: #a59b8d;
+  color: #b8c0c6;
 }
 
 .portfolio-shell .project-focus-panel {
@@ -3980,7 +3980,7 @@ button {
 .portfolio-shell .project-focus-highlight {
   font-size: clamp(22px, 2vw, 30px);
   line-height: 1.35;
-  color: #d7c4a7;
+  color: #00adb5;
 }
 
 .portfolio-shell .project-browser-pagination {
@@ -3998,12 +3998,12 @@ button {
 .portfolio-shell .xinhua-detail-index,
 .portfolio-shell .xinhua-detail-tag {
   background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(215, 196, 167, 0.16);
-  color: #f5f0e8;
+  border: 1px solid rgba(0, 173, 181, 0.18);
+  color: #eeeeee;
 }
 
 .portfolio-shell .project-highlight-dot {
-  background: #d7c4a7;
+  background: #00adb5;
 }
 
 .portfolio-shell .experience-hero-row {
@@ -4027,7 +4027,7 @@ button {
 .portfolio-shell .xinhua-detail-shell,
 .portfolio-shell .xinhua-practice-card,
 .portfolio-shell .xinhua-support-card {
-  background: rgba(24, 22, 20, 0.94);
+  background: rgba(57, 62, 70, 0.94);
 }
 
 .portfolio-shell .xinhua-carousel-shell {
@@ -4036,13 +4036,13 @@ button {
 
 .portfolio-shell .xinhua-carousel-stage {
   background:
-    radial-gradient(circle at center, rgba(215, 196, 167, 0.08), transparent 42%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(14, 13, 12, 0.82));
-  border-color: rgba(215, 196, 167, 0.16);
+    radial-gradient(circle at center, rgba(0, 173, 181, 0.12), transparent 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(34, 40, 49, 0.82));
+  border-color: rgba(0, 173, 181, 0.18);
 }
 
 .portfolio-shell .xinhua-carousel-stage::before {
-  border-color: rgba(215, 196, 167, 0.12);
+  border-color: rgba(0, 173, 181, 0.12);
   box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.18);
 }
 
@@ -4056,7 +4056,7 @@ button {
 }
 
 .portfolio-shell .contact-card-row a:hover {
-  color: #d7c4a7;
+  color: #00adb5;
 }
 
 @media (max-width: 1023px) {

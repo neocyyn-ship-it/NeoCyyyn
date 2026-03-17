@@ -80,16 +80,16 @@ const resumeFile = `${baseUrl}assets/chen-yannian-resume.pdf`;
 const documentaryWatchLink = "https://pan.baidu.com/s/15sMVeJ_CkSf2tGbXJz0EXw?pwd=rajy";
 
 const palette = {
-  bg: "#0B0B0A",
-  panel: "#131210",
-  text: "#F5F0E8",
-  textSoft: "#A59B8D",
-  line: "#2D2A25",
-  blue: "#D7C4A7",
-  sky: "#7D817A",
-  apple: "#8E9277",
-  moss: "#5E6458",
-  teal: "#7A8D89",
+  bg: "#222831",
+  panel: "#393E46",
+  text: "#EEEEEE",
+  textSoft: "#B8C0C6",
+  line: "#4B535C",
+  blue: "#00ADB5",
+  sky: "#5F6A75",
+  apple: "#4E7E84",
+  moss: "#2F8F96",
+  teal: "#00ADB5",
 };
 
 const projects: Project[] = [
@@ -100,7 +100,7 @@ const projects: Project[] = [
     role: "编导 / 摄像 / 后期结构梳理",
     summary: "以视障女性创业者为核心人物的毕业设计纪录片，完成长期跟拍、采访组织与后期叙事结构搭建。",
     highlight: "15 分钟成片 / EKA 天物创意奖二等奖",
-    accent: "linear-gradient(145deg, #181614 0%, #2E2B28 38%, #8C826F 100%)",
+    accent: "linear-gradient(145deg, #222831 0%, #393E46 42%, #00ADB5 100%)",
     coverType: "image",
     cover: documentaryCover,
     tags: ["纪录片", "长期跟拍", "编导判断"],
@@ -121,7 +121,7 @@ const projects: Project[] = [
     role: "内容策划 / 文案撰写 / 平台运营",
     summary: "围绕电影《大反派》上映窗口完成 B 站内容发布、标题优化与数据复盘。",
     highlight: "累计播放 98.7 万 / 4 条视频破 10 万",
-    accent: "linear-gradient(145deg, #121614 0%, #2D312B 40%, #8B9076 100%)",
+    accent: "linear-gradient(145deg, #1B232B 0%, #393E46 45%, #00ADB5 100%)",
     coverType: "generated",
     tags: ["影视宣发", "B 站运营", "内容复盘"],
     situation: "电影上映期需要在 B 站持续输出短视频内容，提升讨论度、拉动播放，并尽可能承接角色与剧情热度。",
@@ -141,7 +141,7 @@ const projects: Project[] = [
     role: "项目负责人 / 洞察分析 / 提案表达",
     summary: "大学生公共关系策划创业大赛提案项目，围绕“724 国际自我保健日”为拜耳健康消费品搭建整合传播方案。",
     highlight: "公关策划创业大赛三等奖",
-    accent: "linear-gradient(145deg, #161514 0%, #2B2A27 38%, #897B67 100%)",
+    accent: "linear-gradient(145deg, #20262E 0%, #393E46 42%, #00ADB5 100%)",
     coverType: "image",
     cover: bayerPosterImage,
     tags: ["传播提案", "受众洞察", "竞赛项目"],
@@ -1393,7 +1393,7 @@ export default function App() {
 
       <header className="portfolio-nav">
         <div className="portfolio-brand">
-          <div className="portfolio-brand-name">陈妍年</div>
+          <div className="portfolio-brand-name">陈衍年</div>
           <div className="portfolio-brand-tag">Content, visual storytelling, and execution</div>
         </div>
 
@@ -1468,7 +1468,7 @@ export default function App() {
                   做更有分量的作品呈现。
                 </h1>
                 <p className="hero-summary">
-                  陈妍年，内容策划、影像创作与项目执行。我的工作方式不是把页面堆满，而是把主题、镜头、节奏和落地路径一起整理成一个成熟的作品体验。
+                  陈衍年，内容策划、影像创作与项目执行。我的工作方式不是把页面堆满，而是把主题、镜头、节奏和落地路径一起整理成一个成熟的作品体验。
                 </p>
 
                 <div className="hero-actions">
