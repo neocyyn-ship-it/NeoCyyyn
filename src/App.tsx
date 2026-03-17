@@ -1289,7 +1289,6 @@ export default function App() {
   const [activeSection, setActiveSection] = useState<SiteSectionId>("home");
   const [activeProjectIndex, setActiveProjectIndex] = useState(0);
   const [activeXinhuaIndex, setActiveXinhuaIndex] = useState(0);
-  const [isProjectAutoplayPaused, setIsProjectAutoplayPaused] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
   const selectedProject = useMemo(() => projects.find((item) => item.id === selectedProjectId) ?? null, [selectedProjectId]);
   const selectedIndex = useMemo(() => projects.findIndex((item) => item.id === selectedProjectId), [selectedProjectId]);
@@ -1363,14 +1362,24 @@ export default function App() {
   }, [selectedProjectId]);
 
   useEffect(() => {
-    if (!isDesktop || selectedProjectId || activeSection !== "projects" || isProjectAutoplayPaused) return;
+    if (!isDesktop || selectedProjectId || activeSection !== "projects") return;
 
     const timer = window.setInterval(() => {
       setActiveProjectIndex((current) => (current + 1) % projects.length);
-    }, 4600);
+    }, 4200);
 
     return () => window.clearInterval(timer);
-  }, [activeProjectIndex, activeSection, isDesktop, isProjectAutoplayPaused, selectedProjectId]);
+  }, [activeSection, isDesktop, selectedProjectId]);
+
+  useEffect(() => {
+    if (!isDesktop || selectedProjectId || activeSection !== "experience") return;
+
+    const timer = window.setInterval(() => {
+      setActiveXinhuaIndex((current) => (current + 1) % xinhuaWorks.length);
+    }, 3800);
+
+    return () => window.clearInterval(timer);
+  }, [activeSection, isDesktop, selectedProjectId]);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width: 1024px)");
@@ -1674,12 +1683,7 @@ export default function App() {
             </div>
 
             {isDesktop ? (
-              <div
-                className="project-browser"
-                onWheel={handleProjectWheel}
-                onMouseEnter={() => setIsProjectAutoplayPaused(true)}
-                onMouseLeave={() => setIsProjectAutoplayPaused(false)}
-              >
+              <div className="project-browser" onWheel={handleProjectWheel}>
                 <div className="project-browser-copy">
                   <div className="project-browser-meta">
                     <span className="project-subtitle">{activeProject.subtitle}</span>
@@ -1732,7 +1736,9 @@ export default function App() {
                   </div>
 
                   <div className="project-browser-hint">
-                    {activeProjectIndex === projects.length - 1 ? "继续滚动将进入 Experience。" : "滚动、方向键、分页点或箭头按钮都可以切换项目。"}
+                    {activeProjectIndex === projects.length - 1
+                      ? "项目会自动循环播放，继续滚动可进入 Experience。"
+                      : "项目会自动循环播放，也可以用方向键、分页点或箭头手动切换。"}
                   </div>
                 </div>
 
