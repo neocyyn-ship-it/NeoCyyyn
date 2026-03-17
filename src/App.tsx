@@ -142,6 +142,7 @@ const projects: Project[] = [
   {
     id: "bayer",
     title: "拜耳 724 传播策划",
+    titleLines: ["拜耳724", "传播策划"],
     subtitle: "PR Strategy Case",
     role: "项目负责人 / 洞察分析 / 提案表达",
     summary: "大学生公共关系策划创业大赛提案项目，围绕“724 国际自我保健日”为拜耳健康消费品搭建整合传播方案。",

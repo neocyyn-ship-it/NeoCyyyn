@@ -1010,24 +1010,14 @@ button {
 .xinhua-carousel-stage {
   position: relative;
   min-height: 500px;
-  border-radius: 34px;
-  border: 1px solid rgba(216, 208, 197, 0.92);
-  background:
-    radial-gradient(circle at center, rgba(31, 79, 143, 0.08), transparent 42%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.58), rgba(244, 239, 231, 0.72));
-  overflow: hidden;
+  background: transparent;
+  overflow: visible;
   perspective: 1800px;
   transform-style: preserve-3d;
 }
 
 .xinhua-carousel-stage::before {
-  content: "";
-  position: absolute;
-  inset: 10% 12%;
-  border-radius: 40px;
-  border: 1px solid rgba(216, 208, 197, 0.46);
-  box-shadow: inset 0 0 120px rgba(24, 23, 22, 0.06);
-  pointer-events: none;
+  display: none;
 }
 
 .xinhua-rotary-card {
