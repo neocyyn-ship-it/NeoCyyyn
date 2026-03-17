@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { ArrowLeft, ArrowRight, ArrowUpRight, ChevronDown, ChevronLeft, ChevronRight, Download, Mail, Phone, Play } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Download, Mail, Phone, Play } from "lucide-react";
 import documentaryHeroImage from "./assets/documentary-hero.jpg";
 import documentaryInterviewImage from "./assets/documentary-interview.jpg";
 import documentaryMarketTouchImage from "./assets/documentary-market-touch.jpg";
@@ -61,7 +61,7 @@ type DocumentaryFrame = { title: string; desc: string; src: string };
 type DocumentaryPerson = { name: string; role: string; desc: string; src: string };
 type BayerStrategyCard = { label: string; title: string; detail: string; tone: string };
 type BayerPhase = { title: string; desc: string; src: string };
-type SiteSectionId = "home" | "about" | "projects" | "experience" | "contact";
+type SiteSectionId = "home" | "work" | "projects" | "experience" | "about" | "contact";
 type SiteSection = { id: SiteSectionId; label: string; cue: string; index: string };
 type XinhuaSectionData = { label: string; title: string; intro: string; meta: string[] };
 type XinhuaWork = {
@@ -450,11 +450,11 @@ const bayerVisuals: VisualItem[] = [
 ];
 
 const siteSections: SiteSection[] = [
-  { id: "home", label: "Home", cue: "Introduction", index: "01" },
-  { id: "about", label: "About", cue: "Positioning", index: "02" },
-  { id: "projects", label: "Projects", cue: "Case browser", index: "03" },
-  { id: "experience", label: "Experience", cue: "Practice", index: "04" },
-  { id: "contact", label: "Contact", cue: "Reach out", index: "05" },
+  { id: "home", label: "Home", cue: "First impression", index: "01" },
+  { id: "work", label: "Work", cue: "Featured outcomes", index: "02" },
+  { id: "experience", label: "Experience", cue: "Internships / practice", index: "03" },
+  { id: "about", label: "About", cue: "Method / perspective", index: "04" },
+  { id: "contact", label: "Contact", cue: "Action", index: "05" },
 ];
 
 const xinhuaSection: XinhuaSectionData = {
@@ -1130,32 +1130,122 @@ function ProjectShowcaseMedia({ project }: { project: Project }) {
   );
 }
 
+function HomeProjectCard({ project, onOpen }: { project: Project; onOpen: (id: ProjectId) => void }) {
+  return (
+    <article className="home-preview-card">
+      <div className="home-preview-media">
+        <ProjectShowcaseMedia project={project} />
+      </div>
+      <div className="home-preview-body">
+        <div className="home-preview-meta">
+          <span>{project.subtitle}</span>
+          <span>{project.role}</span>
+        </div>
+        <h3 className="home-preview-title display-title">{project.title}</h3>
+        <p className="home-preview-copy">{project.summary}</p>
+        <button type="button" className="project-inline-link" onClick={() => onOpen(project.id)}>
+          Open Case
+          <ArrowUpRight size={16} />
+        </button>
+      </div>
+    </article>
+  );
+}
+
+function FeaturedProjectCard({ project, onOpen }: { project: Project; onOpen: (id: ProjectId) => void }) {
+  return (
+    <article className="work-feature-card">
+      <div className="work-feature-media">
+        <ProjectShowcaseMedia project={project} />
+      </div>
+      <div className="work-feature-copy">
+        <div className="work-feature-topline">
+          <span className="project-subtitle">{project.subtitle}</span>
+          <span className="work-feature-highlight">{project.highlight}</span>
+        </div>
+        <h3 className="work-feature-title display-title">{project.title}</h3>
+        <p className="work-feature-role">{project.role}</p>
+        <p className="work-feature-summary">{project.summary}</p>
+        <div className="project-tag-row">
+          {project.tags.map((tag) => (
+            <span key={tag} className="project-tag">
+              {tag}
+            </span>
+          ))}
+        </div>
+        <div className="work-feature-points">
+          {projectSpotlights[project.id].slice(0, 3).map((item) => (
+            <div key={item} className="work-feature-point">
+              <span className="project-highlight-dot" />
+              <span>{item}</span>
+            </div>
+          ))}
+        </div>
+        <button type="button" className="hero-primary-btn" onClick={() => onOpen(project.id)}>
+          View Case Detail
+          <ArrowUpRight size={18} />
+        </button>
+      </div>
+    </article>
+  );
+}
+
+function AdditionalWorkCard({ item }: { item: ExperienceItem }) {
+  return (
+    <article className="lab-card">
+      <div className="lab-card-label">Additional Work</div>
+      <h3 className="lab-card-title display-title">{item.title}</h3>
+      <p className="lab-card-copy">{item.desc}</p>
+      {item.note ? <p className="lab-card-note">{item.note}</p> : null}
+    </article>
+  );
+}
+
+function ExperienceLinkCard({ work }: { work: XinhuaWork }) {
+  return (
+    <article className="experience-link-card">
+      <div className="experience-link-topline">
+        <span>{work.tag}</span>
+        <span>{work.year}</span>
+      </div>
+      <h3 className="experience-link-title">{work.title}</h3>
+      <p className="experience-link-copy">{work.summary}</p>
+      <div className="experience-link-footer">
+        <span className="experience-link-role">{work.role}</span>
+        {work.link ? (
+          <a className="project-inline-link" href={work.link} target="_blank" rel="noreferrer">
+            Open Piece
+            <ArrowUpRight size={16} />
+          </a>
+        ) : (
+          <span className="xinhua-pending-chip">Details pending</span>
+        )}
+      </div>
+    </article>
+  );
+}
+
 export default function App() {
   const [selectedProjectId, setSelectedProjectId] = useState<ProjectId | null>(null);
   const [activeSection, setActiveSection] = useState<SiteSectionId>("home");
-  const [activeProjectIndex, setActiveProjectIndex] = useState(0);
-  const [activeXinhuaIndex, setActiveXinhuaIndex] = useState(0);
-  const [isDesktop, setIsDesktop] = useState(false);
   const selectedProject = useMemo(() => projects.find((item) => item.id === selectedProjectId) ?? null, [selectedProjectId]);
   const selectedIndex = useMemo(() => projects.findIndex((item) => item.id === selectedProjectId), [selectedProjectId]);
   const prevProject = selectedIndex >= 0 ? projects[(selectedIndex + projects.length - 1) % projects.length] : projects[0];
   const nextProject = selectedIndex >= 0 ? projects[(selectedIndex + 1) % projects.length] : projects[1];
-  const activeProject = projects[activeProjectIndex];
-  const activeXinhuaWork = xinhuaWorks[activeXinhuaIndex];
-  const heroMetrics = [
-    { label: "Selected Cases", value: "03" },
-    { label: "Internship Links", value: String(additionalWorks[0].links?.length ?? 0).padStart(2, "0") },
-    { label: "Work Mode", value: "Content + Strategy" },
-  ];
   const featuredExperience = additionalWorks.find((item) => item.featured) ?? additionalWorks[0];
-  const supportingExperienceWorks = additionalWorks.filter((item) => item.title !== featuredExperience.title);
-  const mainRef = useRef<HTMLElement | null>(null);
-  const projectWheelLockRef = useRef(0);
+  const labWorks = additionalWorks.filter((item) => !item.featured);
+  const homeProofPoints = [
+    { label: "Featured projects", value: String(projects.length).padStart(2, "0") },
+    { label: "Published newsroom works", value: String(xinhuaWorks.length).padStart(2, "0") },
+    { label: "Working mode", value: "Content + Strategy" },
+  ];
+  const futureWorkTracks = ["AI-made websites", "Video editing projects", "Creative / digital work"];
   const sectionRefs = useRef<Record<SiteSectionId, HTMLElement | null>>({
     home: null,
-    about: null,
+    work: null,
     projects: null,
     experience: null,
+    about: null,
     contact: null,
   });
 
@@ -1172,56 +1262,11 @@ export default function App() {
     target.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const goToSectionStep = (direction: 1 | -1) => {
-    const currentIndex = siteSections.findIndex((section) => section.id === activeSection);
-    const target = siteSections[currentIndex + direction];
-    if (target) {
-      scrollToSection(target.id);
-    }
-  };
-
-  const stepProject = (direction: 1 | -1) => {
-    setActiveProjectIndex((current) => {
-      const nextIndex = current + direction;
-
-      if (nextIndex < 0) {
-        scrollToSection("about");
-        return 0;
-      }
-
-      if (nextIndex >= projects.length) {
-        scrollToSection("experience");
-        return current;
-      }
-
-      return nextIndex;
-    });
-  };
-
-  const stepXinhua = (direction: 1 | -1) => {
-    setActiveXinhuaIndex((current) => (current + direction + xinhuaWorks.length) % xinhuaWorks.length);
-  };
-
   useEffect(() => {
     if (selectedProjectId) {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, [selectedProjectId]);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(min-width: 1024px)");
-    const syncMedia = () => setIsDesktop(mediaQuery.matches);
-
-    syncMedia();
-
-    if (mediaQuery.addEventListener) {
-      mediaQuery.addEventListener("change", syncMedia);
-      return () => mediaQuery.removeEventListener("change", syncMedia);
-    }
-
-    mediaQuery.addListener(syncMedia);
-    return () => mediaQuery.removeListener(syncMedia);
-  }, []);
 
   useEffect(() => {
     const observedSections = siteSections
@@ -1241,65 +1286,14 @@ export default function App() {
         }
       },
       {
-        root: isDesktop ? mainRef.current : null,
-        threshold: [0.45, 0.62, 0.8],
+        threshold: [0.24, 0.42, 0.62],
+        rootMargin: "-18% 0px -48% 0px",
       }
     );
 
     observedSections.forEach((section) => observer.observe(section));
-
     return () => observer.disconnect();
-  }, [isDesktop]);
-
-  useEffect(() => {
-    if (!isDesktop || selectedProjectId) return;
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      const target = event.target as HTMLElement | null;
-      const targetTag = target?.tagName ?? "";
-
-      if (["INPUT", "TEXTAREA", "SELECT"].includes(targetTag) || event.metaKey || event.ctrlKey || event.altKey) {
-        return;
-      }
-
-      if (activeSection === "projects" && (event.key === "ArrowDown" || event.key === "ArrowRight")) {
-        event.preventDefault();
-        stepProject(1);
-        return;
-      }
-
-      if (activeSection === "projects" && (event.key === "ArrowUp" || event.key === "ArrowLeft")) {
-        event.preventDefault();
-        stepProject(-1);
-        return;
-      }
-
-      if (activeSection === "experience" && event.key === "ArrowRight") {
-        event.preventDefault();
-        stepXinhua(1);
-        return;
-      }
-
-      if (activeSection === "experience" && event.key === "ArrowLeft") {
-        event.preventDefault();
-        stepXinhua(-1);
-        return;
-      }
-
-      if (event.key === "ArrowDown" || event.key === "PageDown") {
-        event.preventDefault();
-        goToSectionStep(1);
-      }
-
-      if (event.key === "ArrowUp" || event.key === "PageUp") {
-        event.preventDefault();
-        goToSectionStep(-1);
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [activeSection, isDesktop, selectedProjectId]);
+  }, []);
 
   if (selectedProject) {
     return (
@@ -1313,22 +1307,8 @@ export default function App() {
     );
   }
 
-  const handleProjectWheel: React.WheelEventHandler<HTMLDivElement> = (event) => {
-    if (!isDesktop) return;
-
-    event.preventDefault();
-
-    if (Math.abs(event.deltaY) < 18) return;
-
-    const now = Date.now();
-    if (now - projectWheelLockRef.current < 650) return;
-
-    projectWheelLockRef.current = now;
-    stepProject(event.deltaY > 0 ? 1 : -1);
-  };
-
   return (
-    <div className={`portfolio-shell${isDesktop ? " desktop-mode" : " mobile-mode"}`} style={{ background: palette.bg, color: palette.text }}>
+    <div className="portfolio-shell" style={{ background: palette.bg, color: palette.text }}>
       <div className="portfolio-backdrop" />
 
       <header className="portfolio-nav">
@@ -1356,64 +1336,32 @@ export default function App() {
         </a>
       </header>
 
-      <aside className="section-rail" aria-label="Section indicator">
-        <div className="section-rail-panel">
-          {siteSections.map((section) => (
-            <button
-              key={section.id}
-              type="button"
-              className={`section-rail-item${activeSection === section.id ? " is-active" : ""}`}
-              onClick={() => scrollToSection(section.id)}
-            >
-              <span className="section-rail-index">{section.index}</span>
-              <span className="section-rail-copy">
-                <span className="section-rail-label">{section.label}</span>
-                <span className="section-rail-cue">{section.cue}</span>
-              </span>
-            </button>
-          ))}
-        </div>
-
-        <div className={`project-rail-panel${activeSection === "projects" ? " is-visible" : ""}`}>
-          {projects.map((project, index) => (
-            <button
-              key={project.id}
-              type="button"
-              className={`project-rail-dot${activeProjectIndex === index ? " is-active" : ""}`}
-              onClick={() => setActiveProjectIndex(index)}
-            >
-              <span>{`0${index + 1}`}</span>
-            </button>
-          ))}
-        </div>
-      </aside>
-
-      <main ref={mainRef} className={`portfolio-main${isDesktop ? " is-desktop" : ""}`}>
+      <main className="portfolio-main">
         <section id="home" ref={setSectionRef("home")} className="snap-section">
-          <div className="section-frame hero-frame">
+          <div className="section-frame hero-frame home-frame">
             <div className="section-intro">
               <span className="section-index">01</span>
               <div>
-                <div className="section-kicker">Personal Brand Portfolio</div>
-                <div className="section-cue">A chapter-based portfolio experience</div>
+                <div className="section-kicker">Home</div>
+                <div className="section-cue">Immediate understanding, then selected proof</div>
               </div>
             </div>
 
-            <div className="hero-layout">
-              <div className="hero-copy-block">
+            <div className="home-hero-grid">
+              <div className="hero-copy-block home-hero-copy">
                 <div className="hero-note">Content / Image / Strategy / Delivery</div>
-                <h1 className="hero-headline display-title">
+                <h1 className="hero-headline display-title home-hero-title">
                   把想法做成
                   <br />
                   能被看见、被记住、也能真正落地的内容。
                 </h1>
-                <p className="hero-summary">
+                <p className="hero-summary home-hero-summary">
                   陈衍年，内容策划、影像创作与项目执行。擅长把内容逻辑、视觉表达和落地节奏接在一起，做成完整、可靠、可呈现的作品体验。
                 </p>
 
                 <div className="hero-actions">
-                  <button type="button" className="hero-primary-btn" onClick={() => scrollToSection("projects")}>
-                    View Projects
+                  <button type="button" className="hero-primary-btn" onClick={() => scrollToSection("work")}>
+                    View Work
                     <ArrowRight size={18} />
                   </button>
                   <a className="hero-secondary-btn" href={resumeFile} download="chen-yannian-resume.pdf">
@@ -1421,46 +1369,192 @@ export default function App() {
                     <Download size={18} />
                   </a>
                 </div>
+              </div>
 
-                <button type="button" className="scroll-hint" onClick={() => scrollToSection("about")}>
-                  Scroll to enter
-                  <ChevronDown size={16} />
+              <div className="hero-visual home-hero-visual">
+                <div className="hero-visual-media home-hero-media">
+                  <img src={documentaryHeroImage} alt="Chen Yannian portfolio cover" />
+                </div>
+              </div>
+            </div>
+
+            <div className="home-proof-grid">
+              {homeProofPoints.map((item) => (
+                <div key={item.label} className="home-proof-card">
+                  <div className="home-proof-value">{item.value}</div>
+                  <div className="home-proof-label">{item.label}</div>
+                </div>
+              ))}
+            </div>
+
+            <div className="home-subsection">
+              <div className="subsection-head">
+                <div>
+                  <div className="subsection-kicker">Selected Work Preview</div>
+                  <h2 className="subsection-title display-title">先看代表性项目，再决定想深入哪一部分。</h2>
+                </div>
+                <button type="button" className="project-inline-link" onClick={() => scrollToSection("work")}>
+                  Browse all work
+                  <ArrowRight size={16} />
                 </button>
               </div>
 
-              <div className="hero-visual">
-                <div className="hero-visual-media">
-                  <img src={documentaryHeroImage} alt="Chen Yannian portfolio cover" />
-                </div>
-
-                <div className="hero-metrics">
-                  {heroMetrics.map((metric) => (
-                    <div key={metric.label} className="hero-metric-card">
-                      <div className="hero-metric-value">{metric.value}</div>
-                      <div className="hero-metric-label">{metric.label}</div>
-                    </div>
-                  ))}
-                </div>
+              <div className="home-preview-grid">
+                {projects.map((project) => (
+                  <HomeProjectCard key={project.id} project={project} onOpen={setSelectedProjectId} />
+                ))}
               </div>
+            </div>
+
+            <div className="home-capability-grid">
+              {personalIntroNotes.map((item) => (
+                <div key={item.title} className="capability-preview-card">
+                  <span className="capability-preview-dot" style={{ background: item.tone }} />
+                  <div className="capability-preview-title">{item.title}</div>
+                  <p className="capability-preview-copy">{item.desc}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
 
-        <section id="about" ref={setSectionRef("about")} className="snap-section">
-          <div className="section-frame about-frame">
+        <section id="work" ref={setSectionRef("work")} className="snap-section">
+          <div className="section-frame work-frame">
             <div className="section-intro">
               <span className="section-index">02</span>
               <div>
-                <div className="section-kicker">About</div>
-                <div className="section-cue">What kind of collaborator I am</div>
+                <div className="section-kicker">Work</div>
+                <div className="section-cue">Featured case studies first, expandable buckets next</div>
               </div>
             </div>
 
             <div className="section-heading-row">
               <div>
+                <h2 className="section-title display-title">项目按成果看，扩展内容按类型放。</h2>
+                <p className="section-summary">
+                  这里先看最能代表判断、执行和结果的项目。以后新增 AI 网站、剪辑项目或其他数字作品，也可以继续沿着这个结构往下扩，不会再把重要信息打散。
+                </p>
+              </div>
+            </div>
+
+            <div className="work-feature-grid">
+              {projects.map((project) => (
+                <FeaturedProjectCard key={project.id} project={project} onOpen={setSelectedProjectId} />
+              ))}
+            </div>
+
+            <div className="work-support-grid">
+              <div className="work-support-block">
+                <div className="subsection-head">
+                  <div>
+                    <div className="subsection-kicker">Additional Work / Experiments</div>
+                    <h3 className="subsection-title display-title">把补充项目单独成组，后续加内容也不乱。</h3>
+                  </div>
+                </div>
+
+                <div className="lab-grid">
+                  {labWorks.map((item) => (
+                    <AdditionalWorkCard key={item.title} item={item} />
+                  ))}
+                </div>
+              </div>
+
+              <Panel style={{ borderRadius: 30, boxShadow: "0 12px 28px rgba(24,23,22,0.05)" }}>
+                <div className="future-track-card">
+                  <div className="lab-card-label">Ready For Expansion</div>
+                  <h3 className="lab-card-title display-title">未来内容可以继续往这几个桶里扩。</h3>
+                  <p className="lab-card-copy">
+                    现在先把结构留清楚。以后继续加 AI-made websites、video editing projects 或其他 creative / digital work，也可以直接接在这里。
+                  </p>
+                  <div className="future-track-list">
+                    {futureWorkTracks.map((item) => (
+                      <span key={item} className="future-track-pill">
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </Panel>
+            </div>
+          </div>
+        </section>
+
+        <section id="experience" ref={setSectionRef("experience")} className="snap-section">
+          <div className="section-frame experience-frame experience-clean-frame">
+            <div className="section-intro">
+              <span className="section-index">03</span>
+              <div>
+                <div className="section-kicker">Experience</div>
+                <div className="section-cue">Institutional background, editorial practice, and newsroom work</div>
+              </div>
+            </div>
+
+            <div className="section-heading-row experience-heading-row">
+              <div>
+                <div className="xinhua-eyebrow">{xinhuaSection.label}</div>
+                <h2 className="section-title display-title experience-title">{xinhuaSection.title}</h2>
+                <p className="section-summary xinhua-summary">{xinhuaSection.intro}</p>
+              </div>
+
+              <div className="xinhua-meta-grid experience-meta-grid">
+                {xinhuaSection.meta.map((item) => (
+                  <div key={item} className="xinhua-meta-card">
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="experience-overview-grid">
+              <Panel style={{ borderRadius: 30, boxShadow: "0 12px 28px rgba(24,23,22,0.05)" }}>
+                <div className="experience-overview-card">
+                  <div className="experience-feature-label">Internship Overview</div>
+                  <h3 className="experience-overview-title display-title">{featuredExperience.title}</h3>
+                  <p className="experience-overview-copy">{featuredExperience.desc}</p>
+                  {featuredExperience.note ? <p className="experience-overview-note">{featuredExperience.note}</p> : null}
+                </div>
+              </Panel>
+
+              <div className="experience-practice-grid">
+                {xinhuaPracticeNotes.map((item) => (
+                  <div key={item.label} className="experience-practice-card">
+                    <div className="xinhua-practice-label">{item.label}</div>
+                    <p className="xinhua-practice-copy">{item.text}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="subsection-head">
+              <div>
+                <div className="subsection-kicker">Published / Practice Links</div>
+                <h3 className="subsection-title display-title">把 newsroom work 直接摊开，更快看清经历广度。</h3>
+              </div>
+            </div>
+
+            <div className="experience-link-grid">
+              {xinhuaWorks.map((work) => (
+                <ExperienceLinkCard key={work.id} work={work} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="about" ref={setSectionRef("about")} className="snap-section">
+          <div className="section-frame about-frame about-light-frame">
+            <div className="section-intro">
+              <span className="section-index">04</span>
+              <div>
+                <div className="section-kicker">About</div>
+                <div className="section-cue">Supportive context, not a second hero</div>
+              </div>
+            </div>
+
+            <div className="about-support-grid">
+              <div>
                 <h2 className="section-title display-title">不是只会想点子，也会把节奏、表达和落地一起顾好的那种人。</h2>
                 <p className="section-summary">
-                  我喜欢把内容做得更准确，把画面做得更有情绪，把项目推进得更稳。对我来说，作品不只是结果，也包括前期判断、中途调整和最后能否真正成立。
+                  我喜欢把内容做得更准确，把画面做得更有情绪，把项目推进得更稳。对我来说，作品不只是一种结果，也包括前期判断、中途调整和最后能否真正成立。
                 </p>
               </div>
 
@@ -1482,299 +1576,13 @@ export default function App() {
           </div>
         </section>
 
-        <section id="projects" ref={setSectionRef("projects")} className="snap-section">
-          <div className="section-frame project-frame">
-            <div className="section-intro">
-              <span className="section-index">03</span>
-              <div>
-                <div className="section-kicker">Projects</div>
-                <div className="section-cue">One project, one screen</div>
-              </div>
-            </div>
-
-            <div className="section-heading-row project-heading-row">
-              <div>
-                <h2 className="section-title display-title">每次切换，只看一个项目。</h2>
-                <p className="section-summary">
-                  这一屏只保留项目最重要的判断、亮点和入口。想继续深读时，再进入对应 case detail。
-                </p>
-              </div>
-
-              <div className="project-nav-controls">
-                <button type="button" className="project-nav-btn" onClick={() => stepProject(-1)} aria-label="Previous project">
-                  <ChevronLeft size={18} />
-                </button>
-                <div className="project-nav-status">{`0${activeProjectIndex + 1} / 0${projects.length}`}</div>
-                <button type="button" className="project-nav-btn" onClick={() => stepProject(1)} aria-label="Next project">
-                  <ChevronRight size={18} />
-                </button>
-              </div>
-            </div>
-
-            {isDesktop ? (
-              <div className="project-browser" onWheel={handleProjectWheel}>
-                <div className="project-browser-copy">
-                  <div className="project-browser-meta">
-                    <span className="project-subtitle">{activeProject.subtitle}</span>
-                    <span className="project-role-chip">{activeProject.role}</span>
-                  </div>
-
-                  <h3 className="project-browser-title display-title">{activeProject.title}</h3>
-                  <p className="project-browser-summary">{activeProject.summary}</p>
-
-                  <div className="project-highlight-grid">
-                    {projectSpotlights[activeProject.id].map((item) => (
-                      <div key={item} className="project-highlight-card">
-                        <span className="project-highlight-dot" />
-                        <span>{item}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="project-tag-row">
-                    {activeProject.tags.map((tag) => (
-                      <span key={tag} className="project-tag">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="project-browser-actions">
-                    <button type="button" className="hero-primary-btn" onClick={() => setSelectedProjectId(activeProject.id)}>
-                      View Case Detail
-                      <ArrowUpRight size={18} />
-                    </button>
-                    {activeProject.id === "documentary" ? (
-                      <a className="hero-secondary-btn" href={documentaryWatchLink} target="_blank" rel="noreferrer">
-                        Watch Film
-                        <Play size={18} />
-                      </a>
-                    ) : (
-                      <button type="button" className="hero-secondary-btn" onClick={() => scrollToSection("contact")}>
-                        Discuss Similar Work
-                        <ArrowRight size={18} />
-                      </button>
-                    )}
-                  </div>
-
-                  <div className="project-browser-hint">
-                    {activeProjectIndex === projects.length - 1 ? "继续滚动将进入 Experience。" : "滚动、方向键、分页点或箭头按钮都可以切换项目。"}
-                  </div>
-                </div>
-
-                <div className="project-browser-visual">
-                  <ProjectShowcaseMedia project={activeProject} />
-
-                  <div className="project-browser-footer">
-                    <div className="project-browser-highlight">{activeProject.highlight}</div>
-                    <div className="project-browser-pagination">
-                      {projects.map((project, index) => (
-                        <button
-                          key={project.id}
-                          type="button"
-                          className={`project-pagination-item${activeProjectIndex === index ? " is-active" : ""}`}
-                          onClick={() => setActiveProjectIndex(index)}
-                        >
-                          <span className="project-pagination-index">{`0${index + 1}`}</span>
-                          <span className="project-pagination-title">{project.title}</span>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="project-mobile-list">
-                {projects.map((project, index) => (
-                  <Panel key={project.id} style={{ borderRadius: 30, boxShadow: "0 14px 36px rgba(24,23,22,0.06)" }}>
-                    <div className="project-mobile-card">
-                      <div className="project-mobile-header">
-                        <span className="project-subtitle">{project.subtitle}</span>
-                        <span className="project-nav-status">{`0${index + 1}`}</span>
-                      </div>
-                      <ProjectShowcaseMedia project={project} />
-                      <h3 className="project-mobile-title display-title">{project.title}</h3>
-                      <p className="project-browser-summary">{project.summary}</p>
-                      <div className="project-highlight-grid">
-                        {projectSpotlights[project.id].map((item) => (
-                          <div key={item} className="project-highlight-card">
-                            <span className="project-highlight-dot" />
-                            <span>{item}</span>
-                          </div>
-                        ))}
-                      </div>
-                      <button type="button" className="hero-primary-btn project-mobile-btn" onClick={() => setSelectedProjectId(project.id)}>
-                        View Case Detail
-                        <ArrowUpRight size={18} />
-                      </button>
-                    </div>
-                  </Panel>
-                ))}
-              </div>
-            )}
-          </div>
-        </section>
-
-        <section id="experience" ref={setSectionRef("experience")} className="snap-section">
-          <div className="section-frame experience-frame">
-            <div className="section-intro">
-              <span className="section-index">04</span>
-              <div>
-                <div className="section-kicker">Experience</div>
-                <div className="section-cue">Editorial internship and media reporting practice</div>
-              </div>
-            </div>
-
-            <div className="xinhua-section-head">
-              <div className="xinhua-heading-copy">
-                <div className="xinhua-eyebrow">{xinhuaSection.label}</div>
-                <h2 className="section-title display-title">{xinhuaSection.title}</h2>
-                <p className="section-summary xinhua-summary">{xinhuaSection.intro}</p>
-              </div>
-
-              <div className="xinhua-meta-grid">
-                {xinhuaSection.meta.map((item) => (
-                  <div key={item} className="xinhua-meta-card">
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="xinhua-showcase">
-              <div className="xinhua-carousel-column">
-                <div className="xinhua-carousel-shell">
-                  <div className="xinhua-carousel-stage">
-                    {xinhuaWorks.map((work, index) => {
-                      let delta = index - activeXinhuaIndex;
-                      if (delta > xinhuaWorks.length / 2) delta -= xinhuaWorks.length;
-                      if (delta < -xinhuaWorks.length / 2) delta += xinhuaWorks.length;
-
-                      const arcX = Math.sin(delta * 0.62) * 250;
-                      const arcZ = (Math.cos(delta * 0.62) - 1) * 330;
-                      const absDelta = Math.abs(delta);
-                      const scale = Math.max(0.58, 1 - absDelta * 0.14);
-                      const opacity = absDelta > 3 ? 0 : Math.max(0.14, 1 - absDelta * 0.22);
-                      const blur = absDelta * 1.4;
-                      const rotation = delta * 30;
-
-                      return (
-                        <button
-                          key={work.id}
-                          type="button"
-                          className={`xinhua-rotary-card${index === activeXinhuaIndex ? " is-active" : ""}`}
-                          onClick={() => setActiveXinhuaIndex(index)}
-                          style={
-                            {
-                              "--xinhua-x": `${arcX}px`,
-                              "--xinhua-z": `${arcZ}px`,
-                              "--xinhua-rotate": `${rotation}deg`,
-                              "--xinhua-scale": scale,
-                              "--xinhua-opacity": opacity,
-                              "--xinhua-blur": `${blur}px`,
-                              "--xinhua-order": 20 - absDelta,
-                              "--xinhua-gradient": xinhuaCardGradients[index % xinhuaCardGradients.length],
-                            } as React.CSSProperties
-                          }
-                        >
-                          <div className="xinhua-card-topline">
-                            <span>{work.tag}</span>
-                            <span>{work.year}</span>
-                          </div>
-                          <div className="xinhua-card-title">{work.title}</div>
-                          <p className="xinhua-card-summary">{work.summary}</p>
-                          <div className="xinhua-card-footer">
-                            <span>{`0${index + 1}`}</span>
-                            <span>{work.link ? "查看原文" : "Details Pending"}</span>
-                          </div>
-                        </button>
-                      );
-                    })}
-                  </div>
-
-                  <div className="xinhua-carousel-controls">
-                    <button type="button" className="project-nav-btn" onClick={() => stepXinhua(-1)} aria-label="Previous report">
-                      <ChevronLeft size={18} />
-                    </button>
-                    <div className="xinhua-progress-copy">{`${String(activeXinhuaIndex + 1).padStart(2, "0")} / ${String(
-                      xinhuaWorks.length
-                    ).padStart(2, "0")}`}</div>
-                    <button type="button" className="project-nav-btn" onClick={() => stepXinhua(1)} aria-label="Next report">
-                      <ChevronRight size={18} />
-                    </button>
-                  </div>
-
-                  <div className="xinhua-dot-row">
-                    {xinhuaWorks.map((work, index) => (
-                      <button
-                        key={work.id}
-                        type="button"
-                        className={`xinhua-dot${index === activeXinhuaIndex ? " is-active" : ""}`}
-                        onClick={() => setActiveXinhuaIndex(index)}
-                        aria-label={work.title}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              <div className="xinhua-detail-column">
-                <Panel key={activeXinhuaWork.id} style={{ borderRadius: 32, boxShadow: "0 14px 36px rgba(24,23,22,0.06)" }}>
-                  <div className="xinhua-detail-shell xinhua-detail-animate">
-                    <div className="xinhua-detail-meta">
-                      <span className="xinhua-detail-index">{`${String(activeXinhuaIndex + 1).padStart(2, "0")} / ${String(
-                        xinhuaWorks.length
-                      ).padStart(2, "0")}`}</span>
-                      <span className="project-role-chip">{activeXinhuaWork.role}</span>
-                    </div>
-
-                    <div className="xinhua-detail-tag">{activeXinhuaWork.tag}</div>
-                    <h3 className="xinhua-detail-title display-title">{activeXinhuaWork.title}</h3>
-                    <p className="xinhua-detail-summary">{activeXinhuaWork.summary}</p>
-
-                    <div className="xinhua-detail-actions">
-                      {activeXinhuaWork.link ? (
-                        <a className="hero-primary-btn" href={activeXinhuaWork.link} target="_blank" rel="noreferrer">
-                          查看原文
-                          <ArrowUpRight size={18} />
-                        </a>
-                      ) : (
-                        <div className="xinhua-pending-chip">Details pending</div>
-                      )}
-                    </div>
-
-                    <div className="xinhua-practice-grid">
-                      {xinhuaPracticeNotes.map((item) => (
-                        <div key={item.label} className="xinhua-practice-card">
-                          <div className="xinhua-practice-label">{item.label}</div>
-                          <p className="xinhua-practice-copy">{item.text}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </Panel>
-
-                <div className="xinhua-support-strip">
-                  {supportingExperienceWorks.map((item) => (
-                    <div key={item.title} className="xinhua-support-card">
-                      <div className="xinhua-support-label">Outside The Newsroom</div>
-                      <div className="xinhua-support-title">{item.title}</div>
-                      <p className="xinhua-support-copy">{item.desc}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
         <section id="contact" ref={setSectionRef("contact")} className="snap-section">
-          <div className="section-frame contact-frame">
+          <div className="section-frame contact-frame contact-clean-frame">
             <div className="section-intro">
               <span className="section-index">05</span>
               <div>
                 <div className="section-kicker">Contact</div>
-                <div className="section-cue">Let&apos;s build something tangible</div>
+                <div className="section-cue">Action, resume, and direct contact</div>
               </div>
             </div>
 
@@ -1790,37 +1598,40 @@ export default function App() {
                     Send Email
                     <Mail size={18} />
                   </a>
-                  <button type="button" className="hero-secondary-btn" onClick={() => scrollToSection("home")}>
-                    Back to Top
-                    <ArrowRight size={18} />
-                  </button>
+                  <a className="hero-secondary-btn" href={resumeFile} download="chen-yannian-resume.pdf">
+                    Download Resume
+                    <Download size={18} />
+                  </a>
                 </div>
               </div>
 
-              <Panel style={{ borderRadius: 34, boxShadow: "0 14px 36px rgba(24,23,22,0.06)" }}>
+              <Panel style={{ borderRadius: 30, boxShadow: "0 12px 28px rgba(24,23,22,0.05)" }}>
                 <div className="contact-panel-shell">
                   <div className="contact-card-row">
                     <span className="contact-card-label">Email</span>
-                    <a href="mailto:NeoCyyyn@163.com">NeoCyyyn@163.com</a>
+                    <a href="mailto:NeoCyyyn@163.com">
+                      <Mail size={16} />
+                      NeoCyyyn@163.com
+                    </a>
                   </div>
                   <div className="contact-card-row">
                     <span className="contact-card-label">Phone</span>
-                    <a href="tel:19283287512">192-8328-7512</a>
+                    <a href="tel:19283287512">
+                      <Phone size={16} />
+                      192-8328-7512
+                    </a>
                   </div>
                   <div className="contact-card-row">
                     <span className="contact-card-label">Bilibili</span>
                     <a href="https://space.bilibili.com/1099530248?spm_id_from=333.1007.0.0" target="_blank" rel="noreferrer">
+                      <Play size={16} />
                       账号主页
                     </a>
                   </div>
 
                   <div className="contact-panel-actions">
-                    <a className="hero-secondary-btn" href={resumeFile} download="chen-yannian-resume.pdf">
-                      Download Resume
-                      <Download size={18} />
-                    </a>
-                    <button type="button" className="hero-secondary-btn" onClick={() => scrollToSection("projects")}>
-                      View Projects Again
+                    <button type="button" className="hero-secondary-btn" onClick={() => scrollToSection("home")}>
+                      Back to Top
                       <ArrowRight size={18} />
                     </button>
                   </div>
@@ -1832,449 +1643,6 @@ export default function App() {
       </main>
     </div>
   );
-
-  /*
-  return (
-    <div style={{ minHeight: "100vh", background: palette.bg, color: palette.text }}>
-      <div className="page-shell">
-        <header className="site-header">
-          <div className="header-inner">
-            <div>
-              <div style={{ fontSize: 26, fontWeight: 600, lineHeight: 1.2, color: palette.text }}>陈衍年</div>
-              <div style={{ marginTop: 6, fontSize: 15, fontWeight: 500, letterSpacing: "0.06em", color: palette.blue }}>
-                Ideas, images, and things becoming real
-              </div>
-            </div>
-            <nav className="desktop-nav">
-              <a href="#work">Projects</a>
-              <a href="#additional">Additional</a>
-              <a href="#contact">Contact</a>
-            </nav>
-            <a className="ghost-btn" href={resumeFile} download="chen-yannian-resume.pdf" style={{ textDecoration: "none" }}>
-              下载简历
-            </a>
-          </div>
-        </header>
-
-        <main className="home-main">
-          <section className="hero-section">
-            <Panel style={{ borderRadius: 46, boxShadow: "0 18px 44px rgba(36,49,40,0.05)", maxWidth: 1480, margin: "0 auto" }}>
-              <div className="hero-card home-hero-stage" style={{ padding: "clamp(32px, 4vw, 60px)" }}>
-                <div className="home-hero-identity">
-                  <div style={{ fontSize: "clamp(30px, 2.4vw, 38px)", fontWeight: 600, lineHeight: 1.08, color: palette.text }}>陈衍年</div>
-                  <div style={{ fontSize: "clamp(16px, 1vw, 18px)", fontWeight: 500, letterSpacing: "0.04em", color: palette.blue }}>
-                    Ideas, images, and things becoming real
-                  </div>
-                </div>
-
-                <h1 className="hero-title home-hero-title" style={{ marginTop: 8 }}>
-                  <span className="home-hero-line">有一点想象力，</span>
-                  <span className="home-hero-line">也有一点把它变成现实的魔法。</span>
-                </h1>
-
-                <div className="home-hero-bottom">
-                  <p className="hero-copy home-hero-copy" style={{ margin: 0 }}>
-                    影像、内容、策划和执行，都是把脑海里的东西一点点带到现实里的方式。
-                  </p>
-                  <div className="home-hero-aside">
-                    <div className="home-hero-tags">
-                      <span>影像内容</span>
-                      <span>策划执行</span>
-                      <span>项目落地</span>
-                    </div>
-                    <div className="hero-actions home-hero-actions" style={{ marginTop: 0 }}>
-                      <a href="#work" className="primary-btn">
-                        先看作品
-                        <ArrowRight size={18} />
-                      </a>
-                      <a className="ghost-large-btn" href={resumeFile} download="chen-yannian-resume.pdf" style={{ textDecoration: "none" }}>
-                        下载简历
-                        <Download size={18} />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Panel>
-          </section>
-
-          <section id="work" className="section-block" style={{ paddingTop: 0 }}>
-            <div className="home-sheet-wrap">
-              <div className="home-works-head" style={{ marginBottom: 40, maxWidth: 860 }}>
-                <div style={{ fontSize: 15, fontWeight: 500, letterSpacing: "0.08em", color: palette.blue }}>Selected Works</div>
-                <h2
-                  style={{
-                    margin: "14px 0 0",
-                    fontSize: "clamp(34px, 3.2vw, 46px)",
-                    lineHeight: 1.18,
-                    fontWeight: 600,
-                    color: palette.text,
-                    textWrap: "balance",
-                  }}
-                >
-                  把想法慢慢做成看得见的东西。
-                </h2>
-              </div>
-
-              <div className="project-preview-grid">
-                {projects.map((item, idx) => {
-                  const isFeatured = idx === 0;
-                  const softs = ["#F7FBFF", "#F6FBF0", "#F6FBF6"];
-                  const dots = [palette.blue, palette.apple, palette.moss];
-                  const [leadHighlight, supportingHighlight] = item.highlight.split(" / ");
-                  const mediaNode =
-                    item.coverType === "image" && item.cover ? (
-                      <div className="home-preview-media" style={{ overflow: "hidden", borderRadius: isFeatured ? 24 : 20 }}>
-                        <img
-                          src={item.cover}
-                          alt={item.title}
-                          style={{
-                            height: isFeatured ? "100%" : "clamp(200px, 13vw, 236px)",
-                            minHeight: isFeatured ? 320 : undefined,
-                            width: "100%",
-                            objectFit: "cover",
-                            display: "block",
-                          }}
-                        />
-                      </div>
-                    ) : (
-                      <div className="home-preview-media">
-                        <GeneratedCover project={item} compact />
-                      </div>
-                    );
-
-                  return (
-                    <button key={item.id} className="preview-card-btn" onClick={() => setSelectedProjectId(item.id)}>
-                      <Panel style={{ borderRadius: 34, boxShadow: "0 10px 24px rgba(36,49,40,0.04)", height: "100%" }}>
-                        {isFeatured ? (
-                          <div
-                            className="home-preview-card home-preview-card-featured"
-                            style={{
-                              borderRadius: 28,
-                              border: `1px solid ${palette.line}`,
-                              padding: "28px 28px 26px",
-                              background: softs[idx],
-                              textAlign: "left",
-                              height: "100%",
-                            }}
-                          >
-                            <div className="home-preview-featured-grid">
-                              <div className="home-preview-featured-media">{mediaNode}</div>
-                              <div className="home-preview-featured-content">
-                                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
-                                  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                                    <span style={{ width: 10, height: 10, borderRadius: "50%", background: dots[idx], display: "inline-block" }} />
-                                    <div style={{ fontSize: 15, fontWeight: 600, letterSpacing: "0.04em", color: palette.blue }}>{item.subtitle}</div>
-                                  </div>
-                                  <div style={{ fontSize: 15, fontWeight: 600, letterSpacing: "0.04em", color: palette.textSoft }}>0{idx + 1}</div>
-                                </div>
-
-                                <div
-                                  style={{
-                                    marginTop: 22,
-                                    fontSize: "clamp(38px, 3vw, 50px)",
-                                    fontWeight: 600,
-                                    lineHeight: 1.08,
-                                    color: palette.text,
-                                    textWrap: "balance",
-                                  }}
-                                >
-                                  {item.title}
-                                </div>
-
-                                <div style={{ marginTop: 18 }}>
-                                  <p style={{ margin: 0, fontSize: 19, lineHeight: 1.76, color: palette.textSoft }}>{item.summary}</p>
-                                </div>
-
-                                <div style={{ marginTop: "auto", paddingTop: 24, borderTop: `1px solid ${palette.line}` }}>
-                                  <p style={{ margin: 0, fontSize: "clamp(22px, 1.8vw, 28px)", lineHeight: 1.42, color: palette.textSoft }}>
-                                    <span style={{ fontWeight: 600, color: palette.text }}>{leadHighlight}</span>
-                                    {supportingHighlight ? <span style={{ color: dots[idx] }}> · {supportingHighlight}</span> : null}
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        ) : (
-                          <div
-                            className="home-preview-card home-preview-card-secondary"
-                            style={{
-                              borderRadius: 28,
-                              border: `1px solid ${palette.line}`,
-                              padding: "28px 28px 26px",
-                              background: softs[idx],
-                              textAlign: "left",
-                              display: "flex",
-                              flexDirection: "column",
-                              gap: 0,
-                              height: "100%",
-                              minHeight: "clamp(480px, 34vw, 560px)",
-                            }}
-                          >
-                            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
-                              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                                <span style={{ width: 10, height: 10, borderRadius: "50%", background: dots[idx], display: "inline-block" }} />
-                                <div style={{ fontSize: 15, fontWeight: 600, letterSpacing: "0.04em", color: palette.blue }}>{item.subtitle}</div>
-                              </div>
-                              <div style={{ fontSize: 15, fontWeight: 600, letterSpacing: "0.04em", color: palette.textSoft }}>0{idx + 1}</div>
-                            </div>
-
-                            <div style={{ marginTop: 20 }}>{mediaNode}</div>
-
-                            <div
-                              style={{
-                                marginTop: 22,
-                                fontSize: "clamp(32px, 2.5vw, 40px)",
-                                fontWeight: 600,
-                                lineHeight: 1.08,
-                                color: palette.text,
-                                textWrap: "balance",
-                              }}
-                            >
-                              {item.title}
-                            </div>
-
-                            <div style={{ marginTop: 16 }}>
-                              <p style={{ margin: 0, fontSize: 17, lineHeight: 1.72, color: palette.textSoft }}>{item.summary}</p>
-                            </div>
-
-                            <div style={{ marginTop: "auto", paddingTop: 18, borderTop: `1px solid ${palette.line}` }}>
-                              <p style={{ margin: 0, fontSize: "clamp(18px, 1.4vw, 22px)", lineHeight: 1.45, color: palette.textSoft }}>
-                                <span style={{ fontWeight: 600, color: palette.text }}>{leadHighlight}</span>
-                                {supportingHighlight ? <span style={{ color: dots[idx] }}> · {supportingHighlight}</span> : null}
-                              </p>
-                            </div>
-                          </div>
-                        )}
-                      </Panel>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          </section>
-
-          <section className="section-block" style={{ paddingTop: 8 }}>
-            <Panel style={{ borderRadius: 40, boxShadow: "0 12px 28px rgba(36,49,40,0.035)", maxWidth: 1480, margin: "0 auto" }}>
-              <div
-                className="dashboard-wrap home-about-shell"
-                style={{
-                  padding: "clamp(28px, 3.8vw, 52px)",
-                  background: "linear-gradient(135deg, rgba(255,255,255,0.96), rgba(247,250,247,0.96) 50%, rgba(250,247,241,0.92))",
-                  borderRadius: 40,
-                }}
-              >
-                <div className="home-about-copy">
-                  <div style={{ fontSize: 15, fontWeight: 500, letterSpacing: "0.08em", color: palette.blue }}>About Me</div>
-                  <h2
-                    style={{
-                      margin: "20px 0 0",
-                      maxWidth: 760,
-                      fontSize: "clamp(44px, 3.6vw, 60px)",
-                      lineHeight: 1.12,
-                      fontWeight: 600,
-                      color: palette.text,
-                      textWrap: "balance",
-                    }}
-                  >
-                    一个有点子，
-                    <br />
-                    也很会把事情做出来的人。
-                  </h2>
-                  <p
-                    style={{
-                      margin: "22px 0 0",
-                      maxWidth: 780,
-                      fontSize: "clamp(22px, 1.45vw, 26px)",
-                      lineHeight: 1.78,
-                      color: palette.textSoft,
-                    }}
-                  >
-                    会做内容，会推项目，也会认真回头看看——让好想法不只停在想法里。
-                  </p>
-                  <div
-                    style={{
-                      marginTop: 18,
-                      fontSize: 20,
-                      fontWeight: 500,
-                      lineHeight: 1.6,
-                      letterSpacing: "0.03em",
-                      color: "#8A958D",
-                      fontStyle: "italic",
-                    }}
-                  >
-                    Good ideas deserve to come true.
-                  </div>
-                </div>
-
-                <div className="home-about-notes-grid">
-                  {personalIntroNotes.map((item) => (
-                    <div
-                      key={item.title}
-                      className="home-about-note"
-                      style={{
-                        borderRadius: 28,
-                        border: `1px solid ${palette.line}`,
-                        background: "rgba(255,255,255,0.78)",
-                        padding: "28px 28px 26px",
-                        boxShadow: "0 6px 14px rgba(36,49,40,0.02)",
-                      }}
-                    >
-                      <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                        <span
-                          style={{
-                            width: 12,
-                            height: 12,
-                            borderRadius: "50%",
-                            background: item.tone,
-                            flexShrink: 0,
-                          }}
-                        />
-                        <div
-                          style={{
-                            fontSize: "clamp(26px, 1.6vw, 32px)",
-                            lineHeight: 1.22,
-                            fontWeight: 600,
-                            color: palette.text,
-                          }}
-                        >
-                          {item.title}
-                        </div>
-                      </div>
-                      <p
-                        style={{
-                          margin: "14px 0 0",
-                          fontSize: 20,
-                          lineHeight: 1.7,
-                          color: palette.textSoft,
-                        }}
-                      >
-                        {item.desc}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </Panel>
-          </section>
-
-          <section id="case-studies" className="section-block">
-            <div className="home-sheet-wrap">
-              <SectionLabel number="01" title="CASE STUDIES" />
-              <div style={{ display: "grid", gap: 24 }}>
-                <CaseCard project={projects[0]} onOpen={setSelectedProjectId} priority />
-                <CaseCard project={projects[1]} onOpen={setSelectedProjectId} />
-                <CaseCard project={projects[2]} onOpen={setSelectedProjectId} />
-              </div>
-            </div>
-          </section>
-
-          <section className="section-block">
-            <div className="home-sheet-wrap">
-              <SectionLabel number="02" title="Strategy Visuals" />
-              <div className="two-col-grid">
-                {bayerVisuals.map((item) => (
-                  <div key={item.title} className="visual-card">
-                    <div className="visual-media">
-                      <img src={item.src} alt={item.title} />
-                    </div>
-                    <div style={{ padding: 20 }}>
-                      <div className="visual-title">{item.title}</div>
-                      <p className="visual-copy">{item.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          <section id="additional" className="section-block">
-            <div className="home-sheet-wrap">
-              <SectionLabel number="03" title="MORE" />
-              <Panel style={{ borderRadius: 36, boxShadow: "0 8px 20px rgba(36,49,40,0.03)" }}>
-                <div className="dashboard-wrap">
-                  <div style={{ marginBottom: 24, fontSize: 15, fontWeight: 500, letterSpacing: "0.08em", color: palette.blue }}>MORE</div>
-                  <h2 style={{ margin: "0 0 32px", fontSize: "clamp(32px, 3.8vw, 46px)", lineHeight: 1.22, fontWeight: 600, color: palette.text }}>
-                    还有一些零零碎碎、但也很喜欢的小事。
-                  </h2>
-                  <div className="three-col-grid">
-                    {additionalWorks.map((item) => (
-                      <div key={item.title} className={`experience-card${item.featured ? " experience-card-featured" : ""}`}>
-                        <div className="experience-title">{item.title}</div>
-                        <p className="experience-copy">{item.desc}</p>
-                        {item.links ? (
-                          <div className="experience-links">
-                            {item.links.map((link) => (
-                              <a key={link.href} className="experience-link" href={link.href} target="_blank" rel="noreferrer">
-                                <div className="experience-link-copy">
-                                  <span className="experience-link-label">{link.label}</span>
-                                  <span className="experience-link-meta">{link.meta}</span>
-                                </div>
-                                <ArrowRight size={16} />
-                              </a>
-                            ))}
-                          </div>
-                        ) : null}
-                        {item.note ? <p className="experience-note">{item.note}</p> : null}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </Panel>
-            </div>
-          </section>
-
-          <section id="contact" className="contact-section">
-            <div className="home-sheet-wrap">
-              <SectionLabel number="04" title="Contact" />
-              <div className="contact-grid">
-                <div>
-                  <h2 className="contact-title">
-                    如果你刚好也喜欢把想法做成现实，
-                    <br />
-                    欢迎来找我。
-                  </h2>
-                  <p className="contact-copy">无论是内容、影像、策划，还是一个还在发光的项目灵感，都很愿意继续聊下去。</p>
-                </div>
-
-                <Panel style={{ borderRadius: 32, boxShadow: "0 8px 20px rgba(36,49,40,0.03)" }}>
-                  <div className="contact-card">
-                    <div className="contact-list">
-                      <div className="contact-item">
-                        <Mail size={16} />
-                        <span>NeoCyyyn@163.com</span>
-                      </div>
-                      <div className="contact-item">
-                        <Phone size={16} />
-                        <span>192-8328-7512</span>
-                      </div>
-                      <div className="contact-item">
-                        <Play size={16} />
-                        <a href="https://space.bilibili.com/1099530248?spm_id_from=333.1007.0.0" target="_blank" rel="noreferrer">
-                          B 站账号主页
-                        </a>
-                      </div>
-                    </div>
-                    <div className="hero-actions" style={{ marginTop: 40 }}>
-                      <a className="primary-btn" href={resumeFile} download="chen-yannian-resume.pdf">
-                        下载简历
-                        <Download size={16} />
-                      </a>
-                      <a href="#work" className="ghost-large-btn" style={{ textDecoration: "none" }}>
-                        回到作品
-                        <ArrowRight size={16} />
-                      </a>
-                    </div>
-                  </div>
-                </Panel>
-              </div>
-            </div>
-          </section>
-        </main>
-      </div>
-    </div>
-  );
-  */
 }
 
 const sanityChecks = [
