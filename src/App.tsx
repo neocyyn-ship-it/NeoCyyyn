@@ -229,8 +229,55 @@ const additionalWorks: ExperienceItem[] = [
     ],
   },
   { title: "新闻摄影《旅人》组照", desc: "喜欢用镜头去看人和空间之间那些安静但很有情绪的瞬间。" },
-  { title: "沉船逃生互动视频项目", desc: "从脚本到互动叙事，试着让内容不只是被看见，也能被“进入”。" }
+  { title: "沉船逃生互动视频项目", desc: "把真实事故改编成交互叙事，用三条身份线和 23 个结局，让玩家在选择中进入灾难现场。" }
 ];
+
+const sinkingShipProject = {
+  title: "沉船逃生互动视频项目",
+  label: "Interactive Video / Bilibili",
+  link: "https://www.bilibili.com/video/BV1RA4y1Q76c?share_source=copy_web",
+  intro:
+    "这是一次把真实事故改编成互动视频的课程项目。我们没有把它做成单纯追求刺激的“逃生游戏”，而是希望玩家在学生、乘客、船员三条身份线中不断做选择时，对事故过程、信息误判和求生判断产生更具体的感受。",
+  background:
+    "项目取材于 4·16 韩国客轮沉没事故，以船上学生、教师、船务人员与其他乘客的不同身份视角推进剧情。视频开头提供学生线、乘客线、船员线（审判线）三条故事线，并通过不同选择通向 23 个结局。",
+  endingNote:
+    "互动视频的结尾会回到剧本缘由与真实惨案本身，让玩家在完成一次“进入式体验”之后，再回看灾难中的迟疑、误判和失去。",
+  metrics: [
+    { label: "项目形式", value: "B站互动视频" },
+    { label: "总时长", value: "23:57" },
+    { label: "结局数量", value: "23" },
+    { label: "角色线", value: "学生 / 乘客 / 船员" },
+  ],
+  process: [
+    {
+      date: "3.14 - 3.30",
+      title: "提出设想",
+      desc: "先了解融合新闻的形式与表达，再由组内提出构想、投票筛选，确定互动视频方向。",
+    },
+    {
+      date: "4.1 - 4.13",
+      title: "搭建剧本",
+      desc: "结合电影与资料，把事故过程拆成学生、乘客、船员三条线，写剧本并整理成剧情树。",
+    },
+    {
+      date: "4.13 - 4.20",
+      title: "剪辑与审核",
+      desc: "一边推进画面和剪辑，一边修改剧本、检查逻辑，补全片头与“真相”部分。",
+    },
+    {
+      date: "4.30",
+      title: "完成交付",
+      desc: "在课程节点前完成成片、互动分支与报告整理。",
+    },
+  ],
+  roles: [
+    "提出本次视频设想并编写策划案。",
+    "整理资料、总结真相，并在观影后梳理最初的事故时间线。",
+    "寻找视频制作素材，负责船员线和乘客线的剪辑，以及片头和“真相”部分制作。",
+    "把剧本梳理成完整剧情树，并与组员共同审核和修改剧本。",
+    "完成报告初稿。",
+  ],
+};
 
 const personalIntroNotes = [
   { title: "有点子", desc: "喜欢把灵感变成具体表达", tone: palette.blue },
@@ -1130,6 +1177,75 @@ function ProjectShowcaseMedia({ project }: { project: Project }) {
   );
 }
 
+function SinkingShipFeature() {
+  return (
+    <Panel style={{ borderRadius: 36, boxShadow: "0 8px 20px rgba(36,49,40,0.03)" }}>
+      <div className="dashboard-wrap ship-project-stack">
+        <div className="ship-project-head">
+          <div>
+            <div className="detail-card-label">{sinkingShipProject.label}</div>
+            <h3 className="ship-project-title">{sinkingShipProject.title}</h3>
+            <p className="ship-project-copy">{sinkingShipProject.intro}</p>
+          </div>
+
+          <a className="hero-secondary-btn" href={sinkingShipProject.link} target="_blank" rel="noreferrer">
+            打开视频
+            <ArrowUpRight size={18} />
+          </a>
+        </div>
+
+        <div className="ship-project-metrics">
+          {sinkingShipProject.metrics.map((item) => (
+            <div key={item.label} className="ship-project-metric">
+              <div className="ship-project-metric-label">{item.label}</div>
+              <div className="ship-project-metric-value">{item.value}</div>
+            </div>
+          ))}
+        </div>
+
+        <div className="ship-project-grid">
+          <div className="sub-card">
+            <div className="sub-label">项目背景</div>
+            <div className="sub-title">把真实事故做成可以进入的互动叙事。</div>
+            <p className="ops-card-copy">{sinkingShipProject.background}</p>
+            <p className="ops-card-copy">{sinkingShipProject.endingNote}</p>
+          </div>
+
+          <div className="sub-card">
+            <div className="sub-label">我的角色</div>
+            <div className="sub-title">从设想到剧情树，再到剪辑落地。</div>
+            <div className="detail-points ship-project-points">
+              {sinkingShipProject.roles.map((item) => (
+                <div key={item} className="detail-point-item">
+                  <span className="detail-point-dot" />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div className="detail-card-label">执行过程</div>
+          <div className="timeline-wrap ship-project-timeline">
+            {sinkingShipProject.process.map((item, index) => (
+              <div key={`${item.date}-${item.title}`} className="timeline-item">
+                <div className="timeline-top">
+                  <div className="timeline-date">{item.date}</div>
+                  {index < sinkingShipProject.process.length - 1 ? <div className="timeline-line" /> : null}
+                </div>
+                <div className="timeline-dot" />
+                <div className="timeline-title">{item.title}</div>
+                <p className="timeline-copy">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </Panel>
+  );
+}
+
 export default function App() {
   const [selectedProjectId, setSelectedProjectId] = useState<ProjectId | null>(null);
   const [activeSection, setActiveSection] = useState<SiteSectionId>("home");
@@ -1149,6 +1265,7 @@ export default function App() {
   ];
   const featuredExperience = additionalWorks.find((item) => item.featured) ?? additionalWorks[0];
   const supportingExperienceWorks = additionalWorks.filter((item) => item.title !== featuredExperience.title);
+  const additionalWorkCards = additionalWorks.filter((item) => item.title !== sinkingShipProject.title);
   const mainRef = useRef<HTMLElement | null>(null);
   const projectWheelLockRef = useRef(0);
   const sectionRefs = useRef<Record<SiteSectionId, HTMLElement | null>>({
@@ -2191,36 +2308,39 @@ export default function App() {
           <section id="additional" className="section-block">
             <div className="home-sheet-wrap">
               <SectionLabel number="03" title="MORE" />
-              <Panel style={{ borderRadius: 36, boxShadow: "0 8px 20px rgba(36,49,40,0.03)" }}>
-                <div className="dashboard-wrap">
-                  <div style={{ marginBottom: 24, fontSize: 15, fontWeight: 500, letterSpacing: "0.08em", color: palette.blue }}>MORE</div>
-                  <h2 style={{ margin: "0 0 32px", fontSize: "clamp(32px, 3.8vw, 46px)", lineHeight: 1.22, fontWeight: 600, color: palette.text }}>
-                    还有一些零零碎碎、但也很喜欢的小事。
-                  </h2>
-                  <div className="three-col-grid">
-                    {additionalWorks.map((item) => (
-                      <div key={item.title} className={`experience-card${item.featured ? " experience-card-featured" : ""}`}>
-                        <div className="experience-title">{item.title}</div>
-                        <p className="experience-copy">{item.desc}</p>
-                        {item.links ? (
-                          <div className="experience-links">
-                            {item.links.map((link) => (
-                              <a key={link.href} className="experience-link" href={link.href} target="_blank" rel="noreferrer">
-                                <div className="experience-link-copy">
-                                  <span className="experience-link-label">{link.label}</span>
-                                  <span className="experience-link-meta">{link.meta}</span>
-                                </div>
-                                <ArrowRight size={16} />
-                              </a>
-                            ))}
-                          </div>
-                        ) : null}
-                        {item.note ? <p className="experience-note">{item.note}</p> : null}
-                      </div>
-                    ))}
+              <div style={{ display: "grid", gap: 20 }}>
+                <SinkingShipFeature />
+                <Panel style={{ borderRadius: 36, boxShadow: "0 8px 20px rgba(36,49,40,0.03)" }}>
+                  <div className="dashboard-wrap">
+                    <div style={{ marginBottom: 24, fontSize: 15, fontWeight: 500, letterSpacing: "0.08em", color: palette.blue }}>MORE</div>
+                    <h2 style={{ margin: "0 0 32px", fontSize: "clamp(32px, 3.8vw, 46px)", lineHeight: 1.22, fontWeight: 600, color: palette.text }}>
+                      还有一些零零碎碎、但也很喜欢的小事。
+                    </h2>
+                    <div className="two-col-grid">
+                      {additionalWorkCards.map((item) => (
+                        <div key={item.title} className={`experience-card${item.featured ? " experience-card-featured" : ""}`}>
+                          <div className="experience-title">{item.title}</div>
+                          <p className="experience-copy">{item.desc}</p>
+                          {item.links ? (
+                            <div className="experience-links">
+                              {item.links.map((link) => (
+                                <a key={link.href} className="experience-link" href={link.href} target="_blank" rel="noreferrer">
+                                  <div className="experience-link-copy">
+                                    <span className="experience-link-label">{link.label}</span>
+                                    <span className="experience-link-meta">{link.meta}</span>
+                                  </div>
+                                  <ArrowRight size={16} />
+                                </a>
+                              ))}
+                            </div>
+                          ) : null}
+                          {item.note ? <p className="experience-note">{item.note}</p> : null}
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              </Panel>
+                </Panel>
+              </div>
             </div>
           </section>
 
