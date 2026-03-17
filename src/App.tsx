@@ -1289,6 +1289,7 @@ export default function App() {
   const [activeSection, setActiveSection] = useState<SiteSectionId>("home");
   const [activeProjectIndex, setActiveProjectIndex] = useState(0);
   const [activeXinhuaIndex, setActiveXinhuaIndex] = useState(0);
+  const [isProjectAutoplayPaused, setIsProjectAutoplayPaused] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
   const selectedProject = useMemo(() => projects.find((item) => item.id === selectedProjectId) ?? null, [selectedProjectId]);
   const selectedIndex = useMemo(() => projects.findIndex((item) => item.id === selectedProjectId), [selectedProjectId]);
@@ -1347,6 +1348,10 @@ export default function App() {
     });
   };
 
+  const cycleProject = (direction: 1 | -1) => {
+    setActiveProjectIndex((current) => (current + direction + projects.length) % projects.length);
+  };
+
   const stepXinhua = (direction: 1 | -1) => {
     setActiveXinhuaIndex((current) => (current + direction + xinhuaWorks.length) % xinhuaWorks.length);
   };
@@ -1356,6 +1361,16 @@ export default function App() {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, [selectedProjectId]);
+
+  useEffect(() => {
+    if (!isDesktop || selectedProjectId || activeSection !== "projects" || isProjectAutoplayPaused) return;
+
+    const timer = window.setInterval(() => {
+      setActiveProjectIndex((current) => (current + 1) % projects.length);
+    }, 4600);
+
+    return () => window.clearInterval(timer);
+  }, [activeProjectIndex, activeSection, isDesktop, isProjectAutoplayPaused, selectedProjectId]);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width: 1024px)");
@@ -1411,15 +1426,15 @@ export default function App() {
         return;
       }
 
-      if (activeSection === "projects" && (event.key === "ArrowDown" || event.key === "ArrowRight")) {
+      if (activeSection === "projects" && event.key === "ArrowRight") {
         event.preventDefault();
-        stepProject(1);
+        cycleProject(1);
         return;
       }
 
-      if (activeSection === "projects" && (event.key === "ArrowUp" || event.key === "ArrowLeft")) {
+      if (activeSection === "projects" && event.key === "ArrowLeft") {
         event.preventDefault();
-        stepProject(-1);
+        cycleProject(-1);
         return;
       }
 
@@ -1648,18 +1663,23 @@ export default function App() {
               </div>
 
               <div className="project-nav-controls">
-                <button type="button" className="project-nav-btn" onClick={() => stepProject(-1)} aria-label="Previous project">
+                <button type="button" className="project-nav-btn" onClick={() => cycleProject(-1)} aria-label="Previous project">
                   <ChevronLeft size={18} />
                 </button>
                 <div className="project-nav-status">{`0${activeProjectIndex + 1} / 0${projects.length}`}</div>
-                <button type="button" className="project-nav-btn" onClick={() => stepProject(1)} aria-label="Next project">
+                <button type="button" className="project-nav-btn" onClick={() => cycleProject(1)} aria-label="Next project">
                   <ChevronRight size={18} />
                 </button>
               </div>
             </div>
 
             {isDesktop ? (
-              <div className="project-browser" onWheel={handleProjectWheel}>
+              <div
+                className="project-browser"
+                onWheel={handleProjectWheel}
+                onMouseEnter={() => setIsProjectAutoplayPaused(true)}
+                onMouseLeave={() => setIsProjectAutoplayPaused(false)}
+              >
                 <div className="project-browser-copy">
                   <div className="project-browser-meta">
                     <span className="project-subtitle">{activeProject.subtitle}</span>
