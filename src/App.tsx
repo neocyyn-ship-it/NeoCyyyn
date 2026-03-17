@@ -54,6 +54,8 @@ type ExperienceItem = {
   links?: ExperienceLink[];
   note?: string;
   featured?: boolean;
+  href?: string;
+  actionLabel?: string;
 };
 type EvidenceItem = { title: string; desc: string; src: string };
 type DocumentaryCapability = { label: string; title: string; detail: string; tone: string };
@@ -229,7 +231,12 @@ const additionalWorks: ExperienceItem[] = [
     ],
   },
   { title: "新闻摄影《旅人》组照", desc: "喜欢用镜头去看人和空间之间那些安静但很有情绪的瞬间。" },
-  { title: "沉船逃生互动视频项目", desc: "把真实事故改编成交互叙事，用三条身份线和 23 个结局，让玩家在选择中进入灾难现场。" }
+  {
+    title: "沉船逃生互动视频项目",
+    desc: "把真实事故改编成交互叙事，用三条身份线和 23 个结局，让玩家在选择中进入灾难现场。",
+    href: "https://www.bilibili.com/video/BV1RA4y1Q76c?share_source=copy_web",
+    actionLabel: "打开互动视频",
+  }
 ];
 
 const sinkingShipProject = {
@@ -1873,11 +1880,23 @@ export default function App() {
 
                 <div className="xinhua-support-strip">
                   {supportingExperienceWorks.map((item) => (
-                    <div key={item.title} className="xinhua-support-card">
-                      <div className="xinhua-support-label">Outside The Newsroom</div>
-                      <div className="xinhua-support-title">{item.title}</div>
-                      <p className="xinhua-support-copy">{item.desc}</p>
-                    </div>
+                    item.href ? (
+                      <a key={item.title} className="xinhua-support-card xinhua-support-card-link" href={item.href} target="_blank" rel="noreferrer">
+                        <div className="xinhua-support-label">Outside The Newsroom</div>
+                        <div className="xinhua-support-title">{item.title}</div>
+                        <p className="xinhua-support-copy">{item.desc}</p>
+                        <div className="xinhua-support-action">
+                          <span>{item.actionLabel ?? "查看项目"}</span>
+                          <ArrowUpRight size={16} />
+                        </div>
+                      </a>
+                    ) : (
+                      <div key={item.title} className="xinhua-support-card">
+                        <div className="xinhua-support-label">Outside The Newsroom</div>
+                        <div className="xinhua-support-title">{item.title}</div>
+                        <p className="xinhua-support-copy">{item.desc}</p>
+                      </div>
+                    )
                   ))}
                 </div>
               </div>
