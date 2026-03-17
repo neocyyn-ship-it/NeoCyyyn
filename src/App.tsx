@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { ArrowLeft, ArrowRight, ArrowUpRight, ChevronDown, ChevronLeft, ChevronRight, Download, Mail, Phone, Play } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Download, Mail, Play } from "lucide-react";
 import documentaryHeroImage from "./assets/documentary-hero.jpg";
 import documentaryInterviewImage from "./assets/documentary-interview.jpg";
 import documentaryMarketTouchImage from "./assets/documentary-market-touch.jpg";
@@ -61,7 +61,7 @@ type DocumentaryFrame = { title: string; desc: string; src: string };
 type DocumentaryPerson = { name: string; role: string; desc: string; src: string };
 type BayerStrategyCard = { label: string; title: string; detail: string; tone: string };
 type BayerPhase = { title: string; desc: string; src: string };
-type SiteSectionId = "home" | "about" | "projects" | "experience" | "contact";
+type SiteSectionId = "intro" | "projects" | "experience" | "contact";
 type SiteSection = { id: SiteSectionId; label: string; cue: string; index: string };
 type XinhuaSectionData = { label: string; title: string; intro: string; meta: string[] };
 type XinhuaWork = {
@@ -450,11 +450,10 @@ const bayerVisuals: VisualItem[] = [
 ];
 
 const siteSections: SiteSection[] = [
-  { id: "home", label: "Home", cue: "Introduction", index: "01" },
-  { id: "about", label: "About", cue: "Positioning", index: "02" },
-  { id: "projects", label: "Projects", cue: "Case browser", index: "03" },
-  { id: "experience", label: "Experience", cue: "Practice", index: "04" },
-  { id: "contact", label: "Contact", cue: "Reach out", index: "05" },
+  { id: "intro", label: "Intro", cue: "Opening chapter", index: "01" },
+  { id: "projects", label: "Projects", cue: "Selected cases", index: "02" },
+  { id: "experience", label: "Experience", cue: "Practice archive", index: "03" },
+  { id: "contact", label: "Contact", cue: "Reach out", index: "04" },
 ];
 
 const xinhuaSection: XinhuaSectionData = {
@@ -596,13 +595,6 @@ const experienceHighlights = [
     title: "纪录片《视界之外》",
     detail: "以长期跟拍和人物观察完成毕业设计纪录片，获得 2025 EKA 天物创意奖二等奖。",
   },
-];
-
-const xinhuaCardGradients = [
-  "linear-gradient(160deg, #173A63 0%, #214F84 48%, #E8DCC7 100%)",
-  "linear-gradient(160deg, #52463E 0%, #8F6F57 55%, #EFE3D1 100%)",
-  "linear-gradient(160deg, #395A4C 0%, #5D7C6D 55%, #ECE3D5 100%)",
-  "linear-gradient(160deg, #38496A 0%, #6178A0 58%, #ECE5D9 100%)",
 ];
 
 const projectSpotlights: Record<ProjectId, string[]> = {
@@ -1184,7 +1176,7 @@ function ProjectShowcaseMedia({ project, compact = false }: { project: Project; 
 
 export default function App() {
   const [selectedProjectId, setSelectedProjectId] = useState<ProjectId | null>(null);
-  const [activeSection, setActiveSection] = useState<SiteSectionId>("home");
+  const [activeSection, setActiveSection] = useState<SiteSectionId>("intro");
   const [activeProjectIndex, setActiveProjectIndex] = useState(0);
   const [activeXinhuaIndex, setActiveXinhuaIndex] = useState(0);
   const [isDesktop, setIsDesktop] = useState(false);
@@ -1197,16 +1189,15 @@ export default function App() {
   const activeXinhuaWork = xinhuaWorks[activeXinhuaIndex];
   const heroMetrics = [
     { label: "Selected Projects", value: "03" },
-    { label: "Media Works", value: "08" },
+    { label: "Xinhua Works", value: "08" },
     { label: "Focus", value: "Story + Strategy" },
   ];
   const featuredExperience = additionalWorks.find((item) => item.featured) ?? additionalWorks[0];
   const supportingExperienceWorks = additionalWorks.filter((item) => item.title !== featuredExperience.title);
+  const introExperienceHighlights = experienceHighlights.slice(0, 2);
   const mainRef = useRef<HTMLElement | null>(null);
-  const projectWheelLockRef = useRef(0);
   const sectionRefs = useRef<Record<SiteSectionId, HTMLElement | null>>({
-    home: null,
-    about: null,
+    intro: null,
     projects: null,
     experience: null,
     contact: null,
@@ -1225,20 +1216,14 @@ export default function App() {
     target.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const goToSectionStep = (direction: 1 | -1) => {
-    const currentIndex = siteSections.findIndex((section) => section.id === activeSection);
-    const target = siteSections[currentIndex + direction];
-    if (target) {
-      scrollToSection(target.id);
-    }
+  const openProjectChapter = (index: number) => {
+    setActiveProjectIndex(index);
+    scrollToSection("projects");
   };
 
-  const stepProject = (direction: 1 | -1) => {
-    setActiveProjectIndex((current) => (current + direction + projects.length) % projects.length);
-  };
-
-  const stepXinhua = (direction: 1 | -1) => {
-    setActiveXinhuaIndex((current) => (current + direction + xinhuaWorks.length) % xinhuaWorks.length);
+  const openExperienceChapter = (index = 0) => {
+    setActiveXinhuaIndex(index);
+    scrollToSection("experience");
   };
 
   useEffect(() => {
@@ -1281,7 +1266,7 @@ export default function App() {
       },
       {
         root: isDesktop ? mainRef.current : null,
-        threshold: [0.45, 0.62, 0.8],
+        threshold: [0.28, 0.45, 0.62],
       }
     );
 
@@ -1308,56 +1293,6 @@ export default function App() {
     return () => window.removeEventListener("scroll", syncParallax);
   }, [isDesktop]);
 
-  useEffect(() => {
-    if (!isDesktop || selectedProjectId) return;
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      const target = event.target as HTMLElement | null;
-      const targetTag = target?.tagName ?? "";
-
-      if (["INPUT", "TEXTAREA", "SELECT"].includes(targetTag) || event.metaKey || event.ctrlKey || event.altKey) {
-        return;
-      }
-
-      if (activeSection === "projects" && (event.key === "ArrowDown" || event.key === "ArrowRight")) {
-        event.preventDefault();
-        stepProject(1);
-        return;
-      }
-
-      if (activeSection === "projects" && (event.key === "ArrowUp" || event.key === "ArrowLeft")) {
-        event.preventDefault();
-        stepProject(-1);
-        return;
-      }
-
-      if (activeSection === "experience" && event.key === "ArrowRight") {
-        event.preventDefault();
-        stepXinhua(1);
-        return;
-      }
-
-      if (activeSection === "experience" && event.key === "ArrowLeft") {
-        event.preventDefault();
-        stepXinhua(-1);
-        return;
-      }
-
-      if (event.key === "ArrowDown" || event.key === "PageDown") {
-        event.preventDefault();
-        goToSectionStep(1);
-      }
-
-      if (event.key === "ArrowUp" || event.key === "PageUp") {
-        event.preventDefault();
-        goToSectionStep(-1);
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [activeSection, isDesktop, selectedProjectId]);
-
   if (selectedProject) {
     return (
       <DetailPage
@@ -1369,20 +1304,6 @@ export default function App() {
       />
     );
   }
-
-  const handleProjectWheel: React.WheelEventHandler<HTMLDivElement> = (event) => {
-    if (!isDesktop) return;
-
-    event.preventDefault();
-
-    if (Math.abs(event.deltaY) < 18) return;
-
-    const now = Date.now();
-    if (now - projectWheelLockRef.current < 650) return;
-
-    projectWheelLockRef.current = now;
-    stepProject(event.deltaY > 0 ? 1 : -1);
-  };
 
   return (
     <div
@@ -1416,51 +1337,19 @@ export default function App() {
         </a>
       </header>
 
-      <aside className="section-rail" aria-label="Section indicator">
-        <div className="section-rail-panel">
-          {siteSections.map((section) => (
-            <button
-              key={section.id}
-              type="button"
-              className={`section-rail-item${activeSection === section.id ? " is-active" : ""}`}
-              onClick={() => scrollToSection(section.id)}
-            >
-              <span className="section-rail-index">{section.index}</span>
-              <span className="section-rail-copy">
-                <span className="section-rail-label">{section.label}</span>
-                <span className="section-rail-cue">{section.cue}</span>
-              </span>
-            </button>
-          ))}
-        </div>
-
-        <div className={`project-rail-panel${activeSection === "projects" ? " is-visible" : ""}`}>
-          {projects.map((project, index) => (
-            <button
-              key={project.id}
-              type="button"
-              className={`project-rail-dot${activeProjectIndex === index ? " is-active" : ""}`}
-              onClick={() => setActiveProjectIndex(index)}
-            >
-              <span>{`0${index + 1}`}</span>
-            </button>
-          ))}
-        </div>
-      </aside>
-
       <main ref={mainRef} className={`portfolio-main${isDesktop ? " is-desktop" : ""}`}>
-        <section id="home" ref={setSectionRef("home")} className="snap-section">
-          <div className="section-frame hero-frame prada-stage-frame">
+        <section id="intro" ref={setSectionRef("intro")} className="snap-section">
+          <div className="section-frame hero-frame intro-frame prada-stage-frame">
             <div className="section-intro">
               <span className="section-index">01</span>
               <div>
-                <div className="section-kicker">Prada-Inspired Editorial Portfolio</div>
-                <div className="section-cue">Minimal, cinematic, and built for calm browsing rhythm</div>
+                <div className="section-kicker">Intro</div>
+                <div className="section-cue">Opening chapter, profile, and curated previews</div>
               </div>
             </div>
 
-            <div className="hero-layout hero-layout-luxe">
-              <div className="hero-copy-block">
+            <div className="hero-layout hero-layout-luxe intro-cover-grid">
+              <div className="hero-copy-block intro-copy-block">
                 <div className="hero-note">Content / Editorial / Visual Storytelling / Delivery</div>
                 <h1 className="hero-headline display-title">
                   用更克制的表达，
@@ -1489,13 +1378,12 @@ export default function App() {
                   <span>Execution Rhythm</span>
                 </div>
 
-                <button type="button" className="scroll-hint" onClick={() => scrollToSection("about")}>
-                  Enter portfolio
-                  <ChevronDown size={16} />
+                <button type="button" className="scroll-hint" onClick={() => scrollToSection("projects")}>
+                  Next Chapter
                 </button>
               </div>
 
-              <div className="hero-showcase-shell">
+              <div className="hero-showcase-shell intro-showcase-shell">
                 <div className="hero-visual hero-parallax-panel">
                   <div className="hero-visual-media hero-visual-media-luxe">
                     <img src={documentaryHeroImage} alt="Chen Yannian portfolio cover" />
@@ -1517,39 +1405,30 @@ export default function App() {
                 </div>
               </div>
             </div>
-          </div>
-        </section>
 
-        <section id="about" ref={setSectionRef("about")} className="snap-section">
-          <div className="section-frame about-frame prada-stage-frame">
-            <div className="section-intro">
-              <span className="section-index">02</span>
-              <div>
-                <div className="section-kicker">About</div>
-                <div className="section-cue">Background, academic path, and personal capability</div>
-              </div>
+            <div className="chapter-contents" aria-label="Portfolio chapters">
+              {siteSections.map((section) => (
+                <button
+                  key={section.id}
+                  type="button"
+                  className={`chapter-contents-item${activeSection === section.id ? " is-active" : ""}`}
+                  onClick={() => scrollToSection(section.id)}
+                >
+                  <span className="chapter-contents-index">{section.index}</span>
+                  <span className="chapter-contents-copy">
+                    <span>{section.label}</span>
+                    <span>{section.cue}</span>
+                  </span>
+                </button>
+              ))}
             </div>
 
-            <div className="section-heading-row">
-              <div>
-                <h2 className="section-title display-title">不是只会想点子，也会把结构、判断和执行一起做稳的人。</h2>
-                <p className="section-summary">
-                  我更在意一件作品是否成立，而不只是它是否好看。无论是新闻报道、纪录片、内容运营还是传播提案，我都会先判断核心问题，再组织表达方式，最后把执行节奏推进到位。
-                </p>
-              </div>
-
-              <div className="about-quote-card about-manifesto-card">
-                <div className="about-quote-label">Working Principle</div>
-                <div className="about-quote-text">Good ideas deserve a calm structure, a precise point of view, and a reliable way to land.</div>
-              </div>
-            </div>
-
-            <div className="about-editorial-grid">
-              <div className="about-bio-sheet">
-                <div className="about-panel-label">Profile</div>
-                <div className="about-bio-title">内容策划、影像创作、采访拍摄、后期整理、项目执行。</div>
+            <div className="intro-preview-grid">
+              <article className="about-bio-sheet intro-preview-card intro-profile-card">
+                <div className="about-panel-label">Working Approach</div>
+                <div className="about-bio-title">不是只会想点子，也会把结构、判断和执行一起做稳的人。</div>
                 <p className="about-bio-copy">
-                  我擅长在内容、视觉和执行之间搭桥。做报道时关注新闻线索和人物角度，做项目时关注叙事结构和交付质量，做页面时也会把浏览节奏和信息层级一起考虑进去。
+                  我更在意一件作品是否成立，而不只是它是否好看。无论是新闻报道、纪录片、内容运营还是传播提案，我都会先判断核心问题，再组织表达方式，最后把执行节奏推进到位。
                 </p>
                 <div className="about-chip-row">
                   {personalIntroNotes.map((item) => (
@@ -1558,39 +1437,75 @@ export default function App() {
                     </span>
                   ))}
                 </div>
-              </div>
-
-              <div className="about-panel-stack">
-                <div className="about-panel-label">Academic Background</div>
-                {academicBackgroundNotes.map((item) => (
-                  <div key={item.title} className="about-panel-card">
-                    <div className="about-panel-meta">{item.label}</div>
-                    <div className="about-panel-title">{item.title}</div>
-                    <p className="about-panel-copy">{item.detail}</p>
-                  </div>
-                ))}
-              </div>
-
-              <div className="about-panel-stack">
-                <div className="about-panel-label">Personal Capability</div>
-                {capabilityNotes.map((item) => (
-                  <div key={item.title} className="about-panel-card">
-                    <div className="about-panel-meta">{item.label}</div>
-                    <div className="about-panel-title">{item.title}</div>
-                    <p className="about-panel-copy">{item.detail}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="about-card-grid about-signal-grid">
-              {personalIntroNotes.map((item) => (
-                <div key={item.title} className="about-card about-signal-card">
-                  <div className="about-card-dot" style={{ background: item.tone }} />
-                  <div className="about-card-title">{item.title}</div>
-                  <p className="about-card-copy">{item.desc}</p>
+                <div className="intro-academic-list">
+                  {academicBackgroundNotes.map((item) => (
+                    <div key={item.title} className="intro-academic-item">
+                      <div className="about-panel-meta">{item.label}</div>
+                      <div className="about-panel-title">{item.title}</div>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </article>
+
+              <article className="about-panel-card intro-preview-card intro-project-preview-card">
+                <div className="about-panel-label">Selected Projects</div>
+                <div className="intro-preview-title">开场不只自我介绍，也先给出作品章节的浏览入口。</div>
+                <div className="intro-project-preview-list">
+                  {projects.map((project, index) => (
+                    <button
+                      key={project.id}
+                      type="button"
+                      className={`intro-project-preview-item${activeProjectIndex === index ? " is-active" : ""}`}
+                      onClick={() => openProjectChapter(index)}
+                    >
+                      <span className="intro-project-preview-index">{`0${index + 1}`}</span>
+                      <span className="intro-project-preview-copy">
+                        <span className="intro-project-preview-title">{project.title}</span>
+                        <span className="intro-project-preview-meta">{project.highlight}</span>
+                      </span>
+                      <ArrowUpRight size={16} />
+                    </button>
+                  ))}
+                </div>
+              </article>
+
+              <article className="about-panel-card intro-preview-card intro-experience-preview-card">
+                <div className="about-panel-label">Experience Preview</div>
+                <div className="intro-preview-title">{xinhuaSection.title}</div>
+                <p className="about-panel-copy">{featuredExperience.desc}</p>
+                <div className="intro-meta-row">
+                  {xinhuaSection.meta.map((item) => (
+                    <span key={item} className="intro-meta-pill">
+                      {item}
+                    </span>
+                  ))}
+                </div>
+                <div className="intro-experience-glance">
+                  {introExperienceHighlights.map((item) => (
+                    <div key={item.title} className="intro-experience-glance-item">
+                      <div className="experience-highlight-label">{item.label}</div>
+                      <div className="intro-experience-glance-title">{item.title}</div>
+                    </div>
+                  ))}
+                </div>
+                <button type="button" className="project-inline-link intro-panel-link" onClick={() => openExperienceChapter()}>
+                  Open Experience Chapter
+                  <ArrowRight size={16} />
+                </button>
+              </article>
+
+              <article className="about-panel-card intro-preview-card intro-capability-preview-card">
+                <div className="about-panel-label">Capability Snapshot</div>
+                <div className="intro-capability-grid">
+                  {capabilityNotes.map((item) => (
+                    <div key={item.title} className="intro-capability-item">
+                      <div className="about-panel-meta">{item.label}</div>
+                      <div className="about-panel-title">{item.title}</div>
+                      <p className="about-panel-copy">{item.detail}</p>
+                    </div>
+                  ))}
+                </div>
+              </article>
             </div>
           </div>
         </section>
@@ -1598,10 +1513,10 @@ export default function App() {
         <section id="projects" ref={setSectionRef("projects")} className="snap-section">
           <div className="section-frame project-frame prada-stage-frame">
             <div className="section-intro">
-              <span className="section-index">03</span>
+              <span className="section-index">02</span>
               <div>
                 <div className="section-kicker">Projects</div>
-                <div className="section-cue">Bento-box portfolio cards with editorial focus</div>
+                <div className="section-cue">Selected cases arranged as a readable chapter</div>
               </div>
             </div>
 
@@ -1609,30 +1524,28 @@ export default function App() {
               <div>
                 <h2 className="section-title display-title">项目经历改成像陈列册一样的便当盒布局。</h2>
                 <p className="section-summary">
-                  参考 Prada 官网的陈列方式，这里不再做普通项目列表，而是用不对称卡片和固定信息面板去组织观看顺序。悬停、键盘切换和右侧分页都会更新当前焦点项目。
+                  参考 Prada 官网的陈列方式，这里不再做普通项目列表，而是把项目整理成一组可以逐张浏览的案例页：先看封面和摘要，再看右侧聚焦信息，最后决定是否进入完整 case。
                 </p>
-              </div>
-
-              <div className="project-nav-controls">
-                <button type="button" className="project-nav-btn" onClick={() => stepProject(-1)} aria-label="Previous project">
-                  <ChevronLeft size={18} />
-                </button>
-                <div className="project-nav-status">{`0${activeProjectIndex + 1} / 0${projects.length}`}</div>
-                <button type="button" className="project-nav-btn" onClick={() => stepProject(1)} aria-label="Next project">
-                  <ChevronRight size={18} />
-                </button>
               </div>
             </div>
 
-            <div className="project-bento-layout" onWheel={handleProjectWheel}>
+            <div className="project-bento-layout project-chapter-layout">
               <div className="project-bento-grid">
                 {projects.map((project, index) => (
                   <article
                     key={project.id}
                     className={`project-bento-card project-bento-${project.id}${activeProjectIndex === index ? " is-active" : ""}`}
-                    onMouseEnter={() => setActiveProjectIndex(index)}
-                    onFocus={() => setActiveProjectIndex(index)}
+                    role="button"
                     tabIndex={0}
+                    aria-pressed={activeProjectIndex === index}
+                    onClick={() => setActiveProjectIndex(index)}
+                    onFocus={() => setActiveProjectIndex(index)}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        setActiveProjectIndex(index);
+                      }
+                    }}
                   >
                     <div className="project-bento-media">
                       <ProjectShowcaseMedia project={project} compact />
@@ -1646,7 +1559,14 @@ export default function App() {
                       <p className="project-bento-summary">{project.summary}</p>
                       <div className="project-bento-footer">
                         <span className="project-role-chip">{project.role}</span>
-                        <button type="button" className="project-inline-link" onClick={() => setSelectedProjectId(project.id)}>
+                        <button
+                          type="button"
+                          className="project-inline-link"
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            setSelectedProjectId(project.id);
+                          }}
+                        >
                           View Case
                           <ArrowUpRight size={16} />
                         </button>
@@ -1701,20 +1621,6 @@ export default function App() {
                     </button>
                   )}
                 </div>
-
-                <div className="project-browser-pagination">
-                  {projects.map((project, index) => (
-                    <button
-                      key={project.id}
-                      type="button"
-                      className={`project-pagination-item${activeProjectIndex === index ? " is-active" : ""}`}
-                      onClick={() => setActiveProjectIndex(index)}
-                    >
-                      <span className="project-pagination-index">{`0${index + 1}`}</span>
-                      <span className="project-pagination-title">{project.title}</span>
-                    </button>
-                  ))}
-                </div>
               </div>
             </div>
           </div>
@@ -1723,7 +1629,7 @@ export default function App() {
         <section id="experience" ref={setSectionRef("experience")} className="snap-section">
           <div className="section-frame experience-frame prada-stage-frame">
             <div className="section-intro">
-              <span className="section-index">04</span>
+              <span className="section-index">03</span>
               <div>
                 <div className="section-kicker">Experience</div>
                 <div className="section-cue">Work experience, newsroom practice, and editorial growth</div>
@@ -1750,96 +1656,42 @@ export default function App() {
               </div>
             </div>
 
-            <div className="xinhua-section-head">
-              <div className="xinhua-heading-copy">
-                <div className="xinhua-eyebrow">{xinhuaSection.label}</div>
-                <h3 className="section-title display-title">{xinhuaSection.title}</h3>
-                <p className="section-summary xinhua-summary">{xinhuaSection.intro}</p>
-              </div>
-
-              <div className="xinhua-meta-grid">
-                {xinhuaSection.meta.map((item) => (
-                  <div key={item} className="xinhua-meta-card">
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="xinhua-showcase">
-              <div className="xinhua-carousel-column">
-                <div className="xinhua-carousel-shell">
-                  <div className="xinhua-carousel-stage">
-                    {xinhuaWorks.map((work, index) => {
-                      let delta = index - activeXinhuaIndex;
-                      if (delta > xinhuaWorks.length / 2) delta -= xinhuaWorks.length;
-                      if (delta < -xinhuaWorks.length / 2) delta += xinhuaWorks.length;
-
-                      const arcX = Math.sin(delta * 0.62) * 250;
-                      const arcZ = (Math.cos(delta * 0.62) - 1) * 330;
-                      const absDelta = Math.abs(delta);
-                      const scale = Math.max(0.58, 1 - absDelta * 0.14);
-                      const opacity = absDelta > 3 ? 0 : Math.max(0.14, 1 - absDelta * 0.22);
-                      const blur = absDelta * 1.4;
-                      const rotation = delta * 30;
-
-                      return (
-                        <button
-                          key={work.id}
-                          type="button"
-                          className={`xinhua-rotary-card${index === activeXinhuaIndex ? " is-active" : ""}`}
-                          onClick={() => setActiveXinhuaIndex(index)}
-                          style={
-                            {
-                              "--xinhua-x": `${arcX}px`,
-                              "--xinhua-z": `${arcZ}px`,
-                              "--xinhua-rotate": `${rotation}deg`,
-                              "--xinhua-scale": scale,
-                              "--xinhua-opacity": opacity,
-                              "--xinhua-blur": `${blur}px`,
-                              "--xinhua-order": 20 - absDelta,
-                              "--xinhua-gradient": xinhuaCardGradients[index % xinhuaCardGradients.length],
-                            } as React.CSSProperties
-                          }
-                        >
-                          <div className="xinhua-card-topline">
-                            <span>{work.tag}</span>
-                            <span>{work.year}</span>
-                          </div>
-                          <div className="xinhua-card-title">{work.title}</div>
-                          <p className="xinhua-card-summary">{work.summary}</p>
-                          <div className="xinhua-card-footer">
-                            <span>{`0${index + 1}`}</span>
-                            <span>{work.link ? "查看原文" : "Details Pending"}</span>
-                          </div>
-                        </button>
-                      );
-                    })}
+            <div className="experience-chapter-layout">
+              <div className="experience-browser-panel">
+                <div className="xinhua-section-head experience-browser-head">
+                  <div className="xinhua-heading-copy">
+                    <div className="xinhua-eyebrow">{xinhuaSection.label}</div>
+                    <h3 className="section-title display-title">{xinhuaSection.title}</h3>
+                    <p className="section-summary xinhua-summary">{xinhuaSection.intro}</p>
                   </div>
 
-                  <div className="xinhua-carousel-controls">
-                    <button type="button" className="project-nav-btn" onClick={() => stepXinhua(-1)} aria-label="Previous report">
-                      <ChevronLeft size={18} />
-                    </button>
-                    <div className="xinhua-progress-copy">{`${String(activeXinhuaIndex + 1).padStart(2, "0")} / ${String(
-                      xinhuaWorks.length
-                    ).padStart(2, "0")}`}</div>
-                    <button type="button" className="project-nav-btn" onClick={() => stepXinhua(1)} aria-label="Next report">
-                      <ChevronRight size={18} />
-                    </button>
-                  </div>
-
-                  <div className="xinhua-dot-row">
-                    {xinhuaWorks.map((work, index) => (
-                      <button
-                        key={work.id}
-                        type="button"
-                        className={`xinhua-dot${index === activeXinhuaIndex ? " is-active" : ""}`}
-                        onClick={() => setActiveXinhuaIndex(index)}
-                        aria-label={work.title}
-                      />
+                  <div className="xinhua-meta-grid">
+                    {xinhuaSection.meta.map((item) => (
+                      <div key={item} className="xinhua-meta-card">
+                        {item}
+                      </div>
                     ))}
                   </div>
+                </div>
+
+                <div className="experience-browser-list" role="listbox" aria-label="Xinhua works">
+                  {xinhuaWorks.map((work, index) => (
+                    <button
+                      key={work.id}
+                      type="button"
+                      role="option"
+                      className={`experience-browser-item${index === activeXinhuaIndex ? " is-active" : ""}`}
+                      onClick={() => setActiveXinhuaIndex(index)}
+                      aria-selected={index === activeXinhuaIndex}
+                    >
+                      <div className="experience-browser-topline">
+                        <span>{work.tag}</span>
+                        <span>{work.year}</span>
+                      </div>
+                      <div className="experience-browser-title">{work.title}</div>
+                      <p className="experience-browser-summary">{work.summary}</p>
+                    </button>
+                  ))}
                 </div>
               </div>
 
@@ -1896,7 +1748,7 @@ export default function App() {
         <section id="contact" ref={setSectionRef("contact")} className="snap-section">
           <div className="section-frame contact-frame prada-stage-frame">
             <div className="section-intro">
-              <span className="section-index">05</span>
+              <span className="section-index">04</span>
               <div>
                 <div className="section-kicker">Contact</div>
                 <div className="section-cue">Clear collaboration, calm communication, tangible output</div>
@@ -1922,8 +1774,8 @@ export default function App() {
                     Send Email
                     <Mail size={18} />
                   </a>
-                  <button type="button" className="hero-secondary-btn" onClick={() => scrollToSection("home")}>
-                    Back to Top
+                  <button type="button" className="hero-secondary-btn" onClick={() => scrollToSection("intro")}>
+                    Back to Intro
                     <ArrowRight size={18} />
                   </button>
                 </div>
