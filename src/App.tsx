@@ -16,7 +16,7 @@ import bayerStageImage from "./assets/bayer-stage.jpg";
 import bayerVenueImage from "./assets/bayer-venue.jpg";
 import bayerVrImage from "./assets/bayer-vr.jpg";
 
-type ProjectId = "documentary" | "bilibili" | "bayer";
+type ProjectId = "documentary" | "sinkingShip" | "bilibili" | "bayer";
 
 type Project = {
   id: ProjectId;
@@ -117,6 +117,26 @@ const projects: Project[] = [
     ]
   },
   {
+    id: "sinkingShip",
+    title: "沉船逃生互动视频项目",
+    subtitle: "Interactive Video Case",
+    role: "策划 / 剧情树梳理 / 剪辑执行",
+    summary: "基于真实沉船事故改编的 B 站互动视频课程项目，用学生、乘客、船员三条身份线和 23 个结局，让观众在选择中进入灾难现场。",
+    highlight: "23 个结局 / 3 条角色线 / 23:57 互动视频",
+    accent: "linear-gradient(135deg, #EAF1F8 0%, #9EB6C9 50%, #3C4F67 100%)",
+    coverType: "generated",
+    tags: ["互动视频", "叙事设计", "剪辑执行"],
+    situation: "课程希望尝试融合新闻和互动视频的表达方式，我们最终没有把它做成单纯追求刺激的“逃生游戏”，而是想让观众在选择里感受到灾难现场的信息误判、时间压力和求生判断。",
+    action: "我负责提出视频设想并编写策划案，整理资料和事故时间线，把学生、乘客、船员三条线梳理成剧情树，同时承担船员线、乘客线剪辑，以及片头和“真相”部分制作。",
+    result: "最终完成一支总时长 23:57 的 B 站互动视频，设置 23 个结局和三条身份线，让项目既能被进入，也能在结尾重新回到真实事故本身。",
+    detailIntro: "这不是把灾难题材做成刺激性的互动闯关，而是希望观众在一次次选择里，更具体地感受到事故过程、判断失误和失去是怎样发生的。",
+    detailPoints: [
+      "从设想到策划案，先把互动视频的方向、资料来源和真实事件框架搭起来。",
+      "把学生、乘客、船员三条身份线整理成完整剧情树，让分支选择和时间推进保持清楚的逻辑。",
+      "负责船员线、乘客线剪辑，以及片头和“真相”部分制作，让互动体验最终回到真实事件的反思。"
+    ]
+  },
+  {
     id: "bilibili",
     title: "《大反派》B 站宣发运营",
     subtitle: "Bilibili Campaign",
@@ -166,6 +186,12 @@ const caseTimelines: Record<ProjectId, TimelineItem[]> = {
     { date: "2024.11", title: "补齐采访关系", desc: "围绕人物本人、母亲与伙伴三组关系补拍采访，给后期结构留出解释和对照。" },
     { date: "2025.01", title: "重组叙事重点", desc: "在大量生活变化中重新判断主线，舍弃分散注意力的支线素材。" },
     { date: "2025.05", title: "完成成片展出", desc: "完成 15 分钟成片与创作报告，并进入毕业设计展陈系统。" }
+  ],
+  sinkingShip: [
+    { date: "3.14 - 3.30", title: "提出设想", desc: "先了解融合新闻的形式与表达，再由组内提出构想、投票筛选，确定互动视频方向。" },
+    { date: "4.1 - 4.13", title: "搭建剧本", desc: "结合电影与资料，把事故过程拆成学生、乘客、船员三条线，写剧本并整理成剧情树。" },
+    { date: "4.13 - 4.20", title: "剪辑与审核", desc: "一边推进画面和剪辑，一边修改剧本、检查逻辑，补全片头与“真相”部分。" },
+    { date: "4.30", title: "完成交付", desc: "在课程节点前完成成片、互动分支与报告整理。" }
   ],
   bilibili: [
     { date: "2024.04.04", title: "上映节点启动", desc: "围绕电影上映窗口开始集中发布内容。" },
@@ -230,13 +256,6 @@ const additionalWorks: ExperienceItem[] = [
       { label: "网页报道", href: "http://sh.news.cn/20230912/35d5d91126f34a3596fc4118459d4450/c.html", meta: "sh.news.cn" },
     ],
   },
-  { title: "新闻摄影《旅人》组照", desc: "喜欢用镜头去看人和空间之间那些安静但很有情绪的瞬间。" },
-  {
-    title: "沉船逃生互动视频项目",
-    desc: "把真实事故改编成交互叙事，用三条身份线和 23 个结局，让玩家在选择中进入灾难现场。",
-    href: "https://www.bilibili.com/video/BV1RA4y1Q76c?share_source=copy_web",
-    actionLabel: "打开互动视频",
-  }
 ];
 
 const sinkingShipProject = {
@@ -609,6 +628,7 @@ const xinhuaCardGradients = [
 
 const projectSpotlights: Record<ProjectId, string[]> = {
   documentary: ["15 分钟人物纪录片", "长期跟拍与采访组织", "导演 / 摄影 / 后期叙事结构", "2025 EKA 天物创意奖二等奖"],
+  sinkingShip: ["B站互动视频课程项目", "3 条身份线 / 23 个结局", "策划案 + 剧情树 + 剪辑执行", "基于真实事故改编的进入式叙事"],
   bilibili: ["累计播放 98.7 万", "4 条视频突破 10 万", "内容节奏与标题优化", "宣发窗口内快速复盘迭代"],
   bayer: ["公关策略提案项目", "品牌问题拆解与受众洞察", "线下展演与媒介路径设计", "中国大学生公共关系策划创业大赛三等奖"],
 };
@@ -1006,7 +1026,8 @@ function DetailPage({
   nextProject: Project;
 }) {
   const timeline = caseTimelines[project.id];
-  const closingSectionNumber = project.id === "bilibili" ? "06" : project.id === "documentary" || project.id === "bayer" ? "05" : "04";
+  const closingSectionNumber =
+    project.id === "bilibili" ? "06" : project.id === "documentary" || project.id === "bayer" || project.id === "sinkingShip" ? "05" : "04";
 
   return (
     <div className="detail-page">
@@ -1151,6 +1172,17 @@ function DetailPage({
             </section>
           ) : null}
 
+          {project.id === "sinkingShip" ? (
+            <section className="section-block">
+              <SectionLabel number="04" title="Interactive Setup" />
+              <Panel style={{ borderRadius: 36 }}>
+                <div className="dashboard-wrap">
+                  <SinkingShipDetailModule />
+                </div>
+              </Panel>
+            </section>
+          ) : null}
+
           <section className="section-block">
             <SectionLabel number={closingSectionNumber} title="More Cases" />
             <div className="case-switch-grid">
@@ -1184,72 +1216,53 @@ function ProjectShowcaseMedia({ project }: { project: Project }) {
   );
 }
 
-function SinkingShipFeature() {
+function SinkingShipDetailModule() {
   return (
-    <Panel style={{ borderRadius: 36, boxShadow: "0 8px 20px rgba(36,49,40,0.03)" }}>
-      <div className="dashboard-wrap ship-project-stack">
-        <div className="ship-project-head">
-          <div>
-            <div className="detail-card-label">{sinkingShipProject.label}</div>
-            <h3 className="ship-project-title">{sinkingShipProject.title}</h3>
-            <p className="ship-project-copy">{sinkingShipProject.intro}</p>
-          </div>
-
-          <a className="hero-secondary-btn" href={sinkingShipProject.link} target="_blank" rel="noreferrer">
-            打开视频
-            <ArrowUpRight size={18} />
-          </a>
-        </div>
-
-        <div className="ship-project-metrics">
-          {sinkingShipProject.metrics.map((item) => (
-            <div key={item.label} className="ship-project-metric">
-              <div className="ship-project-metric-label">{item.label}</div>
-              <div className="ship-project-metric-value">{item.value}</div>
-            </div>
-          ))}
-        </div>
-
-        <div className="ship-project-grid">
-          <div className="sub-card">
-            <div className="sub-label">项目背景</div>
-            <div className="sub-title">把真实事故做成可以进入的互动叙事。</div>
-            <p className="ops-card-copy">{sinkingShipProject.background}</p>
-            <p className="ops-card-copy">{sinkingShipProject.endingNote}</p>
-          </div>
-
-          <div className="sub-card">
-            <div className="sub-label">我的角色</div>
-            <div className="sub-title">从设想到剧情树，再到剪辑落地。</div>
-            <div className="detail-points ship-project-points">
-              {sinkingShipProject.roles.map((item) => (
-                <div key={item} className="detail-point-item">
-                  <span className="detail-point-dot" />
-                  <span>{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
+    <div className="ship-project-stack">
+      <div className="ship-project-head">
         <div>
-          <div className="detail-card-label">执行过程</div>
-          <div className="timeline-wrap ship-project-timeline">
-            {sinkingShipProject.process.map((item, index) => (
-              <div key={`${item.date}-${item.title}`} className="timeline-item">
-                <div className="timeline-top">
-                  <div className="timeline-date">{item.date}</div>
-                  {index < sinkingShipProject.process.length - 1 ? <div className="timeline-line" /> : null}
-                </div>
-                <div className="timeline-dot" />
-                <div className="timeline-title">{item.title}</div>
-                <p className="timeline-copy">{item.desc}</p>
+          <div className="detail-card-label">{sinkingShipProject.label}</div>
+          <h3 className="ship-project-title">三条身份线和 23 个结局，把观众带进灾难现场。</h3>
+          <p className="ship-project-copy">{sinkingShipProject.intro}</p>
+        </div>
+
+        <a className="hero-secondary-btn" href={sinkingShipProject.link} target="_blank" rel="noreferrer">
+          打开互动视频
+          <ArrowUpRight size={18} />
+        </a>
+      </div>
+
+      <div className="ship-project-metrics">
+        {sinkingShipProject.metrics.map((item) => (
+          <div key={item.label} className="ship-project-metric">
+            <div className="ship-project-metric-label">{item.label}</div>
+            <div className="ship-project-metric-value">{item.value}</div>
+          </div>
+        ))}
+      </div>
+
+      <div className="ship-project-grid">
+        <div className="sub-card">
+          <div className="sub-label">项目背景</div>
+          <div className="sub-title">不是为了刺激，而是为了进入和反思。</div>
+          <p className="ops-card-copy">{sinkingShipProject.background}</p>
+          <p className="ops-card-copy">{sinkingShipProject.endingNote}</p>
+        </div>
+
+        <div className="sub-card">
+          <div className="sub-label">我的角色</div>
+          <div className="sub-title">从设想到剧情树，再到剪辑落地。</div>
+          <div className="detail-points ship-project-points">
+            {sinkingShipProject.roles.map((item) => (
+              <div key={item} className="detail-point-item">
+                <span className="detail-point-dot" />
+                <span>{item}</span>
               </div>
             ))}
           </div>
         </div>
       </div>
-    </Panel>
+    </div>
   );
 }
 
@@ -1266,13 +1279,12 @@ export default function App() {
   const activeProject = projects[activeProjectIndex];
   const activeXinhuaWork = xinhuaWorks[activeXinhuaIndex];
   const heroMetrics = [
-    { label: "Selected Cases", value: "03" },
+    { label: "Selected Cases", value: String(projects.length).padStart(2, "0") },
     { label: "Internship Links", value: String(additionalWorks[0].links?.length ?? 0).padStart(2, "0") },
     { label: "Work Mode", value: "Content + Strategy" },
   ];
   const featuredExperience = additionalWorks.find((item) => item.featured) ?? additionalWorks[0];
   const supportingExperienceWorks = additionalWorks.filter((item) => item.title !== featuredExperience.title);
-  const additionalWorkCards = additionalWorks.filter((item) => item.title !== sinkingShipProject.title);
   const mainRef = useRef<HTMLElement | null>(null);
   const projectWheelLockRef = useRef(0);
   const sectionRefs = useRef<Record<SiteSectionId, HTMLElement | null>>({
@@ -1673,6 +1685,11 @@ export default function App() {
                         Watch Film
                         <Play size={18} />
                       </a>
+                    ) : activeProject.id === "sinkingShip" ? (
+                      <a className="hero-secondary-btn" href={sinkingShipProject.link} target="_blank" rel="noreferrer">
+                        Open Interactive Video
+                        <ArrowUpRight size={18} />
+                      </a>
                     ) : (
                       <button type="button" className="hero-secondary-btn" onClick={() => scrollToSection("contact")}>
                         Discuss Similar Work
@@ -1878,27 +1895,29 @@ export default function App() {
                   </div>
                 </Panel>
 
-                <div className="xinhua-support-strip">
-                  {supportingExperienceWorks.map((item) => (
-                    item.href ? (
-                      <a key={item.title} className="xinhua-support-card xinhua-support-card-link" href={item.href} target="_blank" rel="noreferrer">
-                        <div className="xinhua-support-label">Outside The Newsroom</div>
-                        <div className="xinhua-support-title">{item.title}</div>
-                        <p className="xinhua-support-copy">{item.desc}</p>
-                        <div className="xinhua-support-action">
-                          <span>{item.actionLabel ?? "查看项目"}</span>
-                          <ArrowUpRight size={16} />
+                {supportingExperienceWorks.length > 0 ? (
+                  <div className="xinhua-support-strip">
+                    {supportingExperienceWorks.map((item) => (
+                      item.href ? (
+                        <a key={item.title} className="xinhua-support-card xinhua-support-card-link" href={item.href} target="_blank" rel="noreferrer">
+                          <div className="xinhua-support-label">Outside The Newsroom</div>
+                          <div className="xinhua-support-title">{item.title}</div>
+                          <p className="xinhua-support-copy">{item.desc}</p>
+                          <div className="xinhua-support-action">
+                            <span>{item.actionLabel ?? "查看项目"}</span>
+                            <ArrowUpRight size={16} />
+                          </div>
+                        </a>
+                      ) : (
+                        <div key={item.title} className="xinhua-support-card">
+                          <div className="xinhua-support-label">Outside The Newsroom</div>
+                          <div className="xinhua-support-title">{item.title}</div>
+                          <p className="xinhua-support-copy">{item.desc}</p>
                         </div>
-                      </a>
-                    ) : (
-                      <div key={item.title} className="xinhua-support-card">
-                        <div className="xinhua-support-label">Outside The Newsroom</div>
-                        <div className="xinhua-support-title">{item.title}</div>
-                        <p className="xinhua-support-copy">{item.desc}</p>
-                      </div>
-                    )
-                  ))}
-                </div>
+                      )
+                    ))}
+                  </div>
+                ) : null}
               </div>
             </div>
           </div>
@@ -2417,8 +2436,8 @@ export default function App() {
 }
 
 const sanityChecks = [
-  projects.length === 3,
-  additionalWorks.length === 3,
+  projects.length === 4,
+  additionalWorks.length === 1,
   xinhuaWorks.length === 8,
   bilibiliStats.length === 4,
   operationsMetrics.length === 8,
