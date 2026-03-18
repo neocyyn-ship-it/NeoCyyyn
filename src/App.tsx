@@ -64,7 +64,7 @@ type DocumentaryFrame = { title: string; desc: string; src: string };
 type DocumentaryPerson = { name: string; role: string; desc: string; src: string };
 type BayerStrategyCard = { label: string; title: string; detail: string; tone: string };
 type BayerPhase = { title: string; desc: string; src: string };
-type SiteSectionId = "home" | "about" | "projects" | "experience" | "contact";
+type SiteSectionId = "home" | "about" | "projects" | "experience" | "specCase" | "contact";
 type SiteSection = { id: SiteSectionId; label: string; cue: string; index: string };
 type XinhuaSectionData = { label: string; title: string; intro: string; meta: string[] };
 type AIFeatureFact = { label: string; title: string; detail: string };
@@ -538,7 +538,8 @@ const siteSections: SiteSection[] = [
   { id: "home", label: "Home", cue: "Introduction", index: "01" },
   { id: "projects", label: "Projects", cue: "Case browser", index: "02" },
   { id: "experience", label: "Experience", cue: "Practice", index: "03" },
-  { id: "contact", label: "Contact", cue: "Reach out", index: "04" },
+  { id: "specCase", label: "Spec Case", cue: "AI test case", index: "04" },
+  { id: "contact", label: "Contact", cue: "Reach out", index: "05" },
 ];
 
 const xinhuaSection: XinhuaSectionData = {
@@ -1326,17 +1327,18 @@ function SinkingShipDetailModule() {
 
 function AIFashionPlanningFeature() {
   return (
-    <Panel style={{ borderRadius: 32, boxShadow: "0 12px 28px rgba(24,23,22,0.05)", marginTop: 22 }}>
+    <Panel style={{ borderRadius: 32, boxShadow: "0 12px 28px rgba(24,23,22,0.05)", marginTop: 0 }}>
       <div id="ai-visual-planning" className="ai-feature-shell">
         <div className="ai-feature-head">
-          <div>
+          <div className="ai-feature-meta-row">
             <div className="ai-feature-eyebrow">SPEC CASE</div>
-            <h3 className="ai-feature-title display-title">
-              <span className="ai-feature-title-line">把 benchmark</span>
-              <span className="ai-feature-title-line">拆成 15 秒样片。</span>
-            </h3>
+            <div className="ai-feature-kicker">AI Test</div>
           </div>
-          <div className="ai-feature-kicker">AI Visual</div>
+
+          <h3 className="ai-feature-title display-title">
+            <span className="ai-feature-title-line">把 benchmark</span>
+            <span className="ai-feature-title-line">拆成 15 秒样片。</span>
+          </h3>
         </div>
 
         <p className="ai-feature-copy">
@@ -1411,6 +1413,7 @@ export default function App() {
     about: null,
     projects: null,
     experience: null,
+    specCase: null,
     contact: null,
   });
 
@@ -1751,15 +1754,15 @@ export default function App() {
               <span className="section-index">02</span>
               <div>
                 <div className="section-kicker">Projects</div>
-                <div className="section-cue">One project, one screen</div>
+                <div className="section-cue">04 core projects</div>
               </div>
             </div>
 
             <div className="section-heading-row project-heading-row">
               <div>
-                <h2 className="section-title display-title">每次切换，只看一个项目。</h2>
+                <h2 className="section-title display-title">四个核心项目，逐个展开。</h2>
                 <p className="section-summary">
-                  这一屏只保留项目最重要的判断、亮点和入口。想继续深读时，再进入对应 case detail。
+                  这里一共放了 4 个核心项目。每次切换只看一个，先读重点判断、亮点和入口，再决定要不要进入对应 case detail。
                 </p>
               </div>
 
@@ -2152,6 +2155,28 @@ export default function App() {
               </div>
             </div>
 
+          </div>
+        </section>
+
+        <section id="specCase" ref={setSectionRef("specCase")} className="snap-section">
+          <div className="section-frame experience-frame">
+            <div className="section-intro">
+              <span className="section-index">04</span>
+              <div>
+                <div className="section-kicker">Spec Case</div>
+                <div className="section-cue">AI testing and iteration</div>
+              </div>
+            </div>
+
+            <div className="section-heading-row">
+              <div>
+                <h2 className="section-title display-title">用一个匿名化测试案，补充我的 AI 策划能力。</h2>
+                <p className="section-summary">
+                  这部分不是主项目案例，而是补充说明我如何做 benchmark、拆镜头、生成初稿并修正具体问题，让 AI 结果真正靠近品牌表达。
+                </p>
+              </div>
+            </div>
+
             <AIFashionPlanningFeature />
           </div>
         </section>
@@ -2159,7 +2184,7 @@ export default function App() {
         <section id="contact" ref={setSectionRef("contact")} className="snap-section">
           <div className="section-frame contact-frame">
             <div className="section-intro">
-              <span className="section-index">04</span>
+              <span className="section-index">05</span>
               <div>
                 <div className="section-kicker">Contact</div>
                 <div className="section-cue">Let&apos;s build something tangible</div>

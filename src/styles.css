@@ -2297,10 +2297,15 @@ button {
 }
 
 .ai-feature-head {
+  display: grid;
+  gap: 12px;
+}
+
+.ai-feature-meta-row {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 18px;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .ai-feature-eyebrow {
@@ -2474,13 +2479,8 @@ button {
   }
 
   .ai-feature-facts,
-  .ai-feature-head,
   .ai-feature-video-grid {
     grid-template-columns: 1fr;
-  }
-
-  .ai-feature-head {
-    display: grid;
   }
 }
 
