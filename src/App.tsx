@@ -674,13 +674,13 @@ const aiFashionFeatureVideos: AIFeatureVideo[] = [
     title: "纯 AI 生成版",
     detail: "用于确认镜头方向、材质氛围和整体节奏是否成立。",
     note: "优势是快，问题也暴露得很直接，比如服装类别和画面稳定性会发生偏差。",
-    src: aiFashionDraftVideo,
+    src: aiFashionEditedVideo,
   },
   {
     title: "剪辑修正版",
     detail: "保留有效镜头后重新整理节奏和品牌呈现，更接近可投递的样片版本。",
     note: "这一版更能说明我不只是会生成，也会判断哪里该删、哪里该收、哪里需要重新定调。",
-    src: aiFashionEditedVideo,
+    src: aiFashionDraftVideo,
   },
 ];
 
