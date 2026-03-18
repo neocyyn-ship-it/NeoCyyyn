@@ -124,7 +124,8 @@ button {
 .hero-secondary-btn,
 .project-nav-btn,
 .project-pagination-item,
-.scroll-hint {
+.scroll-hint,
+.autoplay-toggle-btn {
   border: 1px solid rgba(216, 208, 197, 0.94);
   background: rgba(255, 255, 255, 0.72);
   color: #181716;
@@ -158,7 +159,8 @@ button {
 .hero-secondary-btn:hover,
 .project-nav-btn:hover,
 .project-pagination-item:hover,
-.scroll-hint:hover {
+.scroll-hint:hover,
+.autoplay-toggle-btn:hover {
   transform: translateY(-1px);
   border-color: rgba(31, 79, 143, 0.34);
   box-shadow: 0 12px 24px rgba(24, 23, 22, 0.08);
@@ -195,6 +197,36 @@ button {
 
 .hero-secondary-btn {
   background: rgba(255, 255, 255, 0.8);
+}
+
+.autoplay-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 50px;
+  padding: 0 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.autoplay-toggle-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.autoplay-toggle-btn.is-active {
+  border-color: rgba(31, 79, 143, 0.22);
+  background: rgba(31, 79, 143, 0.1);
+  color: #1f4f8f;
+  box-shadow: 0 12px 24px rgba(31, 79, 143, 0.12);
+}
+
+.autoplay-toggle-btn--center {
+  justify-self: center;
 }
 
 .portfolio-main {
@@ -490,7 +522,9 @@ button {
 .project-nav-controls {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .project-nav-meter {
@@ -516,12 +550,43 @@ button {
 
 .project-nav-status {
   min-width: 98px;
+  display: grid;
+  gap: 6px;
+  justify-items: center;
   text-align: center;
   font-size: 13px;
   line-height: 1.2;
   font-weight: 700;
   letter-spacing: 0.16em;
   color: #6f685f;
+}
+
+.autoplay-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 22px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(31, 79, 143, 0.08);
+  background: rgba(31, 79, 143, 0.06);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: #7b7268;
+  text-transform: uppercase;
+}
+
+.autoplay-badge.is-active {
+  border-color: rgba(31, 79, 143, 0.18);
+  background: rgba(31, 79, 143, 0.12);
+  color: #1f4f8f;
+}
+
+.autoplay-badge.is-paused {
+  border-color: rgba(122, 160, 208, 0.2);
+  background: rgba(122, 160, 208, 0.14);
+  color: #4f678a;
 }
 
 .project-nav-track,
@@ -534,14 +599,31 @@ button {
   background: rgba(31, 79, 143, 0.1);
 }
 
+.project-nav-track.is-idle::after,
+.xinhua-progress-track.is-idle::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 18px;
+  border-radius: inherit;
+  background: rgba(31, 79, 143, 0.2);
+}
+
 .project-nav-fill,
 .xinhua-progress-fill {
   display: block;
   width: 100%;
   height: 100%;
   transform-origin: left center;
+  transform: scaleX(0);
+  opacity: 0;
   background: linear-gradient(90deg, #1f4f8f, #7aa0d0);
+}
+
+.project-nav-fill.is-active,
+.xinhua-progress-fill.is-active {
   animation: autoplayProgress linear forwards;
+  opacity: 1;
 }
 
 @keyframes autoplayProgress {
@@ -859,6 +941,12 @@ button {
   min-height: 0;
 }
 
+.xinhua-carousel-column {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+}
+
 .xinhua-detail-column {
   display: grid;
   gap: 14px;
@@ -1020,6 +1108,9 @@ button {
 
 .xinhua-progress-copy {
   min-width: 108px;
+  display: grid;
+  gap: 6px;
+  justify-items: center;
   text-align: center;
   font-size: 13px;
   line-height: 1.2;

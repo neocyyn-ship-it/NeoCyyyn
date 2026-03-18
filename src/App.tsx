@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { ArrowLeft, ArrowRight, ArrowUpRight, ChevronDown, ChevronLeft, ChevronRight, Download, Mail, Phone, Play } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, ChevronDown, ChevronLeft, ChevronRight, Download, Mail, Pause, Phone, Play } from "lucide-react";
 import documentaryHeroImage from "./assets/documentary-hero.jpg";
 import documentaryInterviewImage from "./assets/documentary-interview.jpg";
 import documentaryMarketTouchImage from "./assets/documentary-market-touch.jpg";
@@ -95,8 +95,8 @@ const palette = {
   teal: "#2D6F70",
 };
 
-const PROJECT_AUTOPLAY_MS = 4200;
-const XINHUA_AUTOPLAY_MS = 3800;
+const PROJECT_AUTOPLAY_MS = 6800;
+const XINHUA_AUTOPLAY_MS = 6200;
 
 const projects: Project[] = [
   {
@@ -1292,6 +1292,10 @@ export default function App() {
   const [activeSection, setActiveSection] = useState<SiteSectionId>("home");
   const [activeProjectIndex, setActiveProjectIndex] = useState(0);
   const [activeXinhuaIndex, setActiveXinhuaIndex] = useState(0);
+  const [isProjectAutoplayEnabled, setIsProjectAutoplayEnabled] = useState(false);
+  const [isXinhuaAutoplayEnabled, setIsXinhuaAutoplayEnabled] = useState(false);
+  const [isProjectAutoplayPaused, setIsProjectAutoplayPaused] = useState(false);
+  const [isXinhuaAutoplayPaused, setIsXinhuaAutoplayPaused] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
   const selectedProject = useMemo(() => projects.find((item) => item.id === selectedProjectId) ?? null, [selectedProjectId]);
   const selectedIndex = useMemo(() => projects.findIndex((item) => item.id === selectedProjectId), [selectedProjectId]);
@@ -1299,6 +1303,12 @@ export default function App() {
   const nextProject = selectedIndex >= 0 ? projects[(selectedIndex + 1) % projects.length] : projects[1];
   const activeProject = projects[activeProjectIndex];
   const activeXinhuaWork = xinhuaWorks[activeXinhuaIndex];
+  const isProjectAutoplayRunning =
+    isDesktop && !selectedProjectId && activeSection === "projects" && isProjectAutoplayEnabled && !isProjectAutoplayPaused;
+  const isXinhuaAutoplayRunning =
+    isDesktop && !selectedProjectId && activeSection === "experience" && isXinhuaAutoplayEnabled && !isXinhuaAutoplayPaused;
+  const projectAutoplayLabel = !isProjectAutoplayEnabled ? "Manual" : isProjectAutoplayRunning ? "Auto" : "Paused";
+  const xinhuaAutoplayLabel = !isXinhuaAutoplayEnabled ? "Manual" : isXinhuaAutoplayRunning ? "Auto" : "Paused";
   const featuredExperience = additionalWorks.find((item) => item.featured) ?? additionalWorks[0];
   const supportingExperienceWorks = additionalWorks.filter((item) => item.title !== featuredExperience.title);
   const mainRef = useRef<HTMLElement | null>(null);
@@ -1358,6 +1368,14 @@ export default function App() {
     setActiveXinhuaIndex((current) => (current + direction + xinhuaWorks.length) % xinhuaWorks.length);
   };
 
+  const handleAutoplayBlur =
+    (setPaused: React.Dispatch<React.SetStateAction<boolean>>) =>
+    (event: React.FocusEvent<HTMLElement>) => {
+      const nextTarget = event.relatedTarget;
+      if (nextTarget instanceof Node && event.currentTarget.contains(nextTarget)) return;
+      setPaused(false);
+    };
+
   useEffect(() => {
     if (selectedProjectId) {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -1365,24 +1383,34 @@ export default function App() {
   }, [selectedProjectId]);
 
   useEffect(() => {
-    if (!isDesktop || selectedProjectId || activeSection !== "projects") return;
-
-    const timer = window.setInterval(() => {
-      setActiveProjectIndex((current) => (current + 1) % projects.length);
-    }, PROJECT_AUTOPLAY_MS);
-
-    return () => window.clearInterval(timer);
+    if (isDesktop && !selectedProjectId && activeSection === "projects") return;
+    setIsProjectAutoplayPaused(false);
   }, [activeSection, isDesktop, selectedProjectId]);
 
   useEffect(() => {
-    if (!isDesktop || selectedProjectId || activeSection !== "experience") return;
+    if (isDesktop && !selectedProjectId && activeSection === "experience") return;
+    setIsXinhuaAutoplayPaused(false);
+  }, [activeSection, isDesktop, selectedProjectId]);
 
-    const timer = window.setInterval(() => {
+  useEffect(() => {
+    if (!isProjectAutoplayRunning) return;
+
+    const timer = window.setTimeout(() => {
+      setActiveProjectIndex((current) => (current + 1) % projects.length);
+    }, PROJECT_AUTOPLAY_MS);
+
+    return () => window.clearTimeout(timer);
+  }, [activeProjectIndex, isProjectAutoplayRunning]);
+
+  useEffect(() => {
+    if (!isXinhuaAutoplayRunning) return;
+
+    const timer = window.setTimeout(() => {
       setActiveXinhuaIndex((current) => (current + 1) % xinhuaWorks.length);
     }, XINHUA_AUTOPLAY_MS);
 
-    return () => window.clearInterval(timer);
-  }, [activeSection, isDesktop, selectedProjectId]);
+    return () => window.clearTimeout(timer);
+  }, [activeXinhuaIndex, isXinhuaAutoplayRunning]);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width: 1024px)");
@@ -1647,23 +1675,60 @@ export default function App() {
                   <ChevronLeft size={18} />
                 </button>
                 <div className="project-nav-meter">
-                  <div className="project-nav-status">{`0${activeProjectIndex + 1} / 0${projects.length}`}</div>
-                  <div className="project-nav-track" aria-hidden="true">
+                  <div className="project-nav-status">
+                    <span>{`0${activeProjectIndex + 1} / 0${projects.length}`}</span>
+                    {isDesktop ? (
+                      <span
+                        className={`autoplay-badge${isProjectAutoplayEnabled ? " is-active" : ""}${
+                          isProjectAutoplayEnabled && !isProjectAutoplayRunning ? " is-paused" : ""
+                        }`}
+                      >
+                        {projectAutoplayLabel}
+                      </span>
+                    ) : null}
+                  </div>
+                  <div className={`project-nav-track${isProjectAutoplayEnabled ? "" : " is-idle"}`} aria-hidden="true">
                     <span
-                      key={activeProject.id}
-                      className="project-nav-fill"
-                      style={{ animationDuration: `${PROJECT_AUTOPLAY_MS}ms` }}
+                      key={`${activeProject.id}-${isProjectAutoplayEnabled ? activeSection : "manual"}`}
+                      className={`project-nav-fill${isProjectAutoplayEnabled ? " is-active" : ""}`}
+                      style={
+                        isProjectAutoplayEnabled
+                          ? {
+                              animationDuration: `${PROJECT_AUTOPLAY_MS}ms`,
+                              animationPlayState: isProjectAutoplayRunning ? "running" : "paused",
+                            }
+                          : undefined
+                      }
                     />
                   </div>
                 </div>
                 <button type="button" className="project-nav-btn" onClick={() => cycleProject(1)} aria-label="Next project">
                   <ChevronRight size={18} />
                 </button>
+                {isDesktop ? (
+                  <button
+                    type="button"
+                    className={`autoplay-toggle-btn${isProjectAutoplayEnabled ? " is-active" : ""}`}
+                    onClick={() => setIsProjectAutoplayEnabled((current) => !current)}
+                    aria-pressed={isProjectAutoplayEnabled}
+                    aria-label={isProjectAutoplayEnabled ? "Stop automatic project rotation" : "Start automatic project rotation"}
+                  >
+                    {isProjectAutoplayEnabled ? <Pause size={16} /> : <Play size={16} />}
+                    <span>{isProjectAutoplayEnabled ? "Stop autoplay" : "Start autoplay"}</span>
+                  </button>
+                ) : null}
               </div>
             </div>
 
             {isDesktop ? (
-              <div className="project-browser" onWheel={handleProjectWheel}>
+              <div
+                className="project-browser"
+                onWheel={handleProjectWheel}
+                onMouseEnter={() => setIsProjectAutoplayPaused(true)}
+                onMouseLeave={() => setIsProjectAutoplayPaused(false)}
+                onFocusCapture={() => setIsProjectAutoplayPaused(true)}
+                onBlurCapture={handleAutoplayBlur(setIsProjectAutoplayPaused)}
+              >
                 <div key={`${activeProject.id}-copy`} className="project-browser-copy project-panel-animate">
                   <div className="project-browser-meta">
                     <span className="project-subtitle">{activeProject.subtitle}</span>
@@ -1716,9 +1781,11 @@ export default function App() {
                   </div>
 
                   <div className="project-browser-hint">
-                    {activeProjectIndex === projects.length - 1
-                      ? "项目会自动循环播放，继续滚动可进入 Experience。"
-                      : "项目会自动循环播放，也可以用方向键、分页点或箭头手动切换。"}
+                    {isProjectAutoplayEnabled
+                      ? "自动播放会在悬停、聚焦或开始手动切换时暂停，不会打断阅读。"
+                      : activeProjectIndex === projects.length - 1
+                        ? "项目默认静止展示，读完这一页后继续滚动就能进入 Experience。"
+                        : "项目默认静止展示，你可以慢慢读，也可以用箭头、分页点或 Start autoplay 往下看。"}
                   </div>
                 </div>
 
@@ -1805,7 +1872,13 @@ export default function App() {
 
             <div className="xinhua-showcase">
               <div className="xinhua-carousel-column">
-                <div className="xinhua-carousel-shell">
+                <div
+                  className="xinhua-carousel-shell"
+                  onMouseEnter={() => setIsXinhuaAutoplayPaused(true)}
+                  onMouseLeave={() => setIsXinhuaAutoplayPaused(false)}
+                  onFocusCapture={() => setIsXinhuaAutoplayPaused(true)}
+                  onBlurCapture={handleAutoplayBlur(setIsXinhuaAutoplayPaused)}
+                >
                   <div className="xinhua-carousel-stage">
                     {xinhuaWorks.map((work, index) => {
                       let delta = index - activeXinhuaIndex;
@@ -1859,14 +1932,30 @@ export default function App() {
                       <ChevronLeft size={18} />
                     </button>
                     <div className="xinhua-progress-meter">
-                      <div className="xinhua-progress-copy">{`${String(activeXinhuaIndex + 1).padStart(2, "0")} / ${String(
-                        xinhuaWorks.length
-                      ).padStart(2, "0")}`}</div>
-                      <div className="xinhua-progress-track" aria-hidden="true">
+                      <div className="xinhua-progress-copy">
+                        <span>{`${String(activeXinhuaIndex + 1).padStart(2, "0")} / ${String(xinhuaWorks.length).padStart(2, "0")}`}</span>
+                        {isDesktop ? (
+                          <span
+                            className={`autoplay-badge${isXinhuaAutoplayEnabled ? " is-active" : ""}${
+                              isXinhuaAutoplayEnabled && !isXinhuaAutoplayRunning ? " is-paused" : ""
+                            }`}
+                          >
+                            {xinhuaAutoplayLabel}
+                          </span>
+                        ) : null}
+                      </div>
+                      <div className={`xinhua-progress-track${isXinhuaAutoplayEnabled ? "" : " is-idle"}`} aria-hidden="true">
                         <span
-                          key={activeXinhuaWork.id}
-                          className="xinhua-progress-fill"
-                          style={{ animationDuration: `${XINHUA_AUTOPLAY_MS}ms` }}
+                          key={`${activeXinhuaWork.id}-${isXinhuaAutoplayEnabled ? activeSection : "manual"}`}
+                          className={`xinhua-progress-fill${isXinhuaAutoplayEnabled ? " is-active" : ""}`}
+                          style={
+                            isXinhuaAutoplayEnabled
+                              ? {
+                                  animationDuration: `${XINHUA_AUTOPLAY_MS}ms`,
+                                  animationPlayState: isXinhuaAutoplayRunning ? "running" : "paused",
+                                }
+                              : undefined
+                          }
                         />
                       </div>
                     </div>
@@ -1887,9 +1976,27 @@ export default function App() {
                     ))}
                   </div>
                 </div>
+                {isDesktop ? (
+                  <button
+                    type="button"
+                    className={`autoplay-toggle-btn autoplay-toggle-btn--center${isXinhuaAutoplayEnabled ? " is-active" : ""}`}
+                    onClick={() => setIsXinhuaAutoplayEnabled((current) => !current)}
+                    aria-pressed={isXinhuaAutoplayEnabled}
+                    aria-label={isXinhuaAutoplayEnabled ? "Stop automatic report rotation" : "Start automatic report rotation"}
+                  >
+                    {isXinhuaAutoplayEnabled ? <Pause size={16} /> : <Play size={16} />}
+                    <span>{isXinhuaAutoplayEnabled ? "Stop autoplay" : "Start autoplay"}</span>
+                  </button>
+                ) : null}
               </div>
 
-              <div className="xinhua-detail-column">
+              <div
+                className="xinhua-detail-column"
+                onMouseEnter={() => setIsXinhuaAutoplayPaused(true)}
+                onMouseLeave={() => setIsXinhuaAutoplayPaused(false)}
+                onFocusCapture={() => setIsXinhuaAutoplayPaused(true)}
+                onBlurCapture={handleAutoplayBlur(setIsXinhuaAutoplayPaused)}
+              >
                 <Panel key={activeXinhuaWork.id} style={{ borderRadius: 32, boxShadow: "0 14px 36px rgba(24,23,22,0.06)" }}>
                   <div className="xinhua-detail-shell xinhua-detail-animate">
                     <div className="xinhua-detail-meta">
