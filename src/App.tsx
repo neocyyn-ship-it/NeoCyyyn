@@ -643,22 +643,22 @@ const aiFashionFeatureFacts: AIFeatureFact[] = [
   },
   {
     label: "最终输出",
-    title: "两支 17 秒竖屏样片",
-    detail: "用一支 AI 初稿和一支修正版，对照展示镜头语言从参考到品牌表达的迁移过程。",
+    title: "两支竖屏测试样片",
+    detail: "一支保留 AI 初稿，一支针对服装偏差和节奏问题做修正，用来展示从参考到成片的调整过程。",
   },
 ];
 
 const aiFashionFeatureVideos: AIFeatureVideo[] = [
   {
     title: "AI 初稿",
-    detail: "先看镜头方向、材质氛围和节奏骨架。",
-    note: "负责快速验证方向。",
+    detail: "先确认镜头方向、材质氛围和节奏骨架。",
+    note: "这一版能快速验证方向，但服装细节有偏差，裙装被生成为裤装。",
     src: aiFashionEditedVideo,
   },
   {
     title: "修正版",
-    detail: "把偏差收回来，再统一品牌感和节奏。",
-    note: "负责把样片整理到可呈现状态。",
+    detail: "针对服装生成偏差重新筛镜头并调整节奏，整理成更可投递的版本。",
+    note: "重点修正了裙装变裤装的问题，也把整体品牌感收得更统一。",
     src: aiFashionDraftVideo,
   },
 ];
@@ -1331,12 +1331,17 @@ function AIFashionPlanningFeature() {
         <div className="ai-feature-head">
           <div>
             <div className="ai-feature-eyebrow">OUTSIDE THE NEWSROOM / AI VISUAL PLANNING</div>
-            <h3 className="ai-feature-title display-title">把 benchmark 拆成 17 秒样片。</h3>
+            <h3 className="ai-feature-title display-title">
+              <span className="ai-feature-title-line">把 benchmark</span>
+              <span className="ai-feature-title-line">拆成 15 秒样片。</span>
+            </h3>
           </div>
           <div className="ai-feature-kicker">匿名化 Spec Case</div>
         </div>
 
-        <p className="ai-feature-copy">为某女装品牌做的测试案：筛选高奢参考，用 TapNow 拆镜头，再把 AI 初稿修到可投递状态。</p>
+        <p className="ai-feature-copy">
+          为某女装品牌做的测试案：筛选高奢参考，用 TapNow 拆镜头，先生成 AI 初稿，再针对“裙子被生成为裤子”等偏差做后续调整。
+        </p>
 
         <div className="ai-feature-facts">
           {aiFashionFeatureFacts.map((item) => (

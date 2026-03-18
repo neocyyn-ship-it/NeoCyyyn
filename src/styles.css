@@ -2312,10 +2312,14 @@ button {
 
 .ai-feature-title {
   margin: 10px 0 0;
-  max-width: 12ch;
+  max-width: none;
   font-size: clamp(30px, 3vw, 40px);
   line-height: 1.12;
   color: #243128;
+}
+
+.ai-feature-title-line {
+  display: block;
 }
 
 .ai-feature-copy {
