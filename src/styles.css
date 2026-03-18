@@ -2327,6 +2327,10 @@ button {
   display: block;
 }
 
+.xinhua-title-line {
+  display: block;
+}
+
 .ai-feature-copy {
   margin: 0;
   max-width: 56ch;

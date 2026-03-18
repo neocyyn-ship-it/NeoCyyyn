@@ -66,7 +66,7 @@ type BayerStrategyCard = { label: string; title: string; detail: string; tone: s
 type BayerPhase = { title: string; desc: string; src: string };
 type SiteSectionId = "home" | "about" | "projects" | "experience" | "specCase" | "contact";
 type SiteSection = { id: SiteSectionId; label: string; cue: string; index: string };
-type XinhuaSectionData = { label: string; title: string; intro: string; meta: string[] };
+type XinhuaSectionData = { label: string; title: string; titleLines?: string[]; intro: string; meta: string[] };
 type AIFeatureFact = { label: string; title: string; detail: string };
 type AIFeatureVideo = { title: string; detail: string; note: string; src: string };
 type XinhuaWork = {
@@ -545,6 +545,7 @@ const siteSections: SiteSection[] = [
 const xinhuaSection: XinhuaSectionData = {
   label: "XINHUA SHANGHAI / INTERNSHIP",
   title: "新华社上海分社实习报道",
+  titleLines: ["新华社上海分社", "实习报道"],
   intro:
     "2023 年 6 月至 12 月，我在新华社上海分社音视频采编部参与新闻内容实践，工作覆盖热点观察、实地调研、采访拍摄、脚本撰写、视频剪辑等，报道方向涉及心理健康、民生科普、城市观察、消费报道和乡村振兴。",
   meta: ["2023.06 — 2023.12", "Audio / Video / Reporting", "08 Works"],
@@ -1754,15 +1755,15 @@ export default function App() {
               <span className="section-index">02</span>
               <div>
                 <div className="section-kicker">Projects</div>
-                <div className="section-cue">04 core projects</div>
+                <div className="section-cue">One project, one screen</div>
               </div>
             </div>
 
             <div className="section-heading-row project-heading-row">
               <div>
-                <h2 className="section-title display-title">四个核心项目，逐个展开。</h2>
+                <h2 className="section-title display-title">每次切换，只看一个项目。</h2>
                 <p className="section-summary">
-                  这里一共放了 4 个核心项目。每次切换只看一个，先读重点判断、亮点和入口，再决定要不要进入对应 case detail。
+                  这一屏只保留项目最重要的判断、亮点和入口。想继续深读时，再进入对应 case detail。
                 </p>
               </div>
 
@@ -1954,7 +1955,13 @@ export default function App() {
             <div className="xinhua-section-head">
               <div className="xinhua-heading-copy">
                 <div className="xinhua-eyebrow">{xinhuaSection.label}</div>
-                <h2 className="section-title display-title">{xinhuaSection.title}</h2>
+                <h2 className="section-title display-title">
+                  {(xinhuaSection.titleLines ?? [xinhuaSection.title]).map((line) => (
+                    <span key={line} className="xinhua-title-line">
+                      {line}
+                    </span>
+                  ))}
+                </h2>
                 <p className="section-summary xinhua-summary">{xinhuaSection.intro}</p>
               </div>
 
