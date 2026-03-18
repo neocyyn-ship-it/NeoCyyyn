@@ -67,7 +67,7 @@ type BayerPhase = { title: string; desc: string; src: string };
 type SiteSectionId = "home" | "about" | "projects" | "experience" | "specCase" | "contact";
 type SiteSection = { id: SiteSectionId; label: string; cue: string; index: string };
 type XinhuaSectionData = { label: string; title: string; titleLines?: string[]; intro: string; meta: string[] };
-type AIFeatureFact = { label: string; title: string; detail: string };
+type AIFeatureFact = { label: string; text: string };
 type AIFeatureVideo = { title: string; detail: string; note: string; src: string };
 type XinhuaWork = {
   id: string;
@@ -634,19 +634,20 @@ const xinhuaPracticeNotes = [
 
 const aiFashionFeatureFacts: AIFeatureFact[] = [
   {
-    label: "项目背景",
-    title: "某女装品牌内容测试案",
-    detail: "基于对方希望统一小红书和其他平台风格的需求，自发完成匿名化 spec case。",
+    label: "Situation",
+    text: "某女装品牌希望统一小红书与其他平台风格，需要一版更贴近品牌调性的测试样片。",
   },
   {
-    label: "我的角色",
-    title: "从判断到修正都自己完成",
-    detail: "账号观察、对标筛选、TapNow 拆镜头、AI 初稿生成和后期整理都由我独立推进。",
+    label: "Task",
+    text: "把高奢参考压缩成一支 15 秒竖屏样片，验证镜头语言、质感方向和可执行性。",
   },
   {
-    label: "最终输出",
-    title: "两支竖屏测试样片",
-    detail: "一支保留 AI 初稿，一支针对服装偏差和节奏问题做修正，用来展示从参考到成片的调整过程。",
+    label: "Action",
+    text: "筛选高奢 benchmark，用 TapNow 拆镜头，生成 AI 初稿，再针对服装偏差和节奏问题修正。",
+  },
+  {
+    label: "Result",
+    text: "最终保留 AI 初稿与修正版两支样片，并修正了“裙装误生成为裤装”的问题。",
   },
 ];
 
@@ -1343,18 +1344,8 @@ function AIFashionPlanningFeature() {
         </div>
 
         <p className="ai-feature-copy">
-          为某女装品牌做的测试案：筛选高奢参考，用 TapNow 拆镜头，先生成 AI 初稿，再针对“裙子被生成为裤子”等偏差做后续调整。
+          先拆高奢参考，再生成 15 秒 AI 样片，并把“裙子误生成为裤子”这类偏差修回可投递状态。
         </p>
-
-        <div className="ai-feature-facts">
-          {aiFashionFeatureFacts.map((item) => (
-            <div key={item.label} className="ai-feature-fact-card">
-              <div className="ai-feature-fact-label">{item.label}</div>
-              <div className="ai-feature-fact-title">{item.title}</div>
-              <p className="ai-feature-fact-copy">{item.detail}</p>
-            </div>
-          ))}
-        </div>
 
         <div className="ai-feature-chip-row">
           {["Benchmark", "TapNow", "AI first pass", "Edit polish"].map((item) => (
@@ -2177,10 +2168,17 @@ export default function App() {
 
             <div className="section-heading-row">
               <div>
-                <h2 className="section-title display-title">用一个匿名化测试案，补充我的 AI 策划能力。</h2>
-                <p className="section-summary">
-                  这部分不是主项目案例，而是补充说明我如何做 benchmark、拆镜头、生成初稿并修正具体问题，让 AI 结果真正靠近品牌表达。
-                </p>
+                <h2 className="section-title display-title">把参考做成可投递样片。</h2>
+                <p className="section-summary">某女装品牌匿名化测试案，用 STAR 把需求、动作和结果讲清楚。</p>
+              </div>
+
+              <div className="spec-case-rule-grid">
+                {aiFashionFeatureFacts.map((item) => (
+                  <div key={item.label} className="spec-case-rule-card">
+                    <div className="spec-case-rule-label">{item.label}</div>
+                    <p className="spec-case-rule-copy">{item.text}</p>
+                  </div>
+                ))}
               </div>
             </div>
 

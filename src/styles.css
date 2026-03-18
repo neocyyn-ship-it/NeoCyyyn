@@ -346,6 +346,39 @@ button {
   color: #5c564d;
 }
 
+.spec-case-rule-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  width: min(100%, 560px);
+  justify-self: end;
+}
+
+.spec-case-rule-card {
+  display: grid;
+  gap: 8px;
+  padding: 16px 18px;
+  border-radius: 22px;
+  border: 1px solid rgba(31, 79, 143, 0.12);
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 10px 24px rgba(24, 23, 22, 0.03);
+}
+
+.spec-case-rule-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #1f4f8f;
+}
+
+.spec-case-rule-copy {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #5c564d;
+}
+
 .hero-frame {
   justify-content: space-between;
 }
@@ -1477,6 +1510,11 @@ button {
     max-width: none;
   }
 
+  .spec-case-rule-grid {
+    width: 100%;
+    justify-self: stretch;
+  }
+
   .hero-side-panel {
     max-width: none;
     justify-self: stretch;
@@ -2489,6 +2527,10 @@ button {
 }
 
 @media (max-width: 760px) {
+  .spec-case-rule-grid {
+    grid-template-columns: 1fr;
+  }
+
   .ship-project-metrics,
   .ship-project-timeline,
   .ai-feature-facts,
