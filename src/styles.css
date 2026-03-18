@@ -364,6 +364,7 @@ button {
 
 .spec-case-title-line {
   display: block;
+  white-space: nowrap;
 }
 
 .spec-case-heading-copy .section-summary {
@@ -951,6 +952,10 @@ button {
 
 .xinhua-heading-copy {
   max-width: 980px;
+}
+
+.xinhua-heading-copy .section-title {
+  max-width: none;
 }
 
 .xinhua-eyebrow {
@@ -2397,6 +2402,7 @@ button {
 
 .xinhua-title-line {
   display: block;
+  white-space: nowrap;
 }
 
 .ai-feature-copy {

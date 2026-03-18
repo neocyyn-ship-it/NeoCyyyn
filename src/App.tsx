@@ -15,6 +15,7 @@ import bayerProductsImage from "./assets/bayer-products.jpg";
 import bayerStageImage from "./assets/bayer-stage.jpg";
 import bayerVenueImage from "./assets/bayer-venue.jpg";
 import bayerVrImage from "./assets/bayer-vr.jpg";
+import dafanpaiPosterImage from "./assets/dafanpai-poster.png";
 
 type ProjectId = "documentary" | "sinkingShip" | "bilibili" | "bayer";
 
@@ -29,6 +30,8 @@ type Project = {
   accent: string;
   coverType: "image" | "generated";
   cover?: string;
+  coverFit?: "cover" | "contain";
+  coverSurface?: string;
   tags: string[];
   situation: string;
   action: string;
@@ -134,7 +137,10 @@ const projects: Project[] = [
     summary: "围绕电影《大反派》上映窗口完成 B 站内容发布、标题优化与数据复盘，跑出 98.7 万累计播放和 4 条 10 万+ 视频。",
     highlight: "累计播放 98.7 万 / 单日净增粉 53",
     accent: "linear-gradient(135deg, #EEF6DD 0%, #94C000 55%, #4B6B03 100%)",
-    coverType: "generated",
+    coverType: "image",
+    cover: dafanpaiPosterImage,
+    coverFit: "contain",
+    coverSurface: "linear-gradient(180deg, #7b2e1c 0%, #a94b27 100%)",
     tags: ["影视宣发", "B 站运营", "内容复盘"],
     situation: "电影上映期需要在 B 站持续输出短视频内容，提升讨论度、拉动播放，并尽可能承接角色与剧情热度。",
     action: "我负责整理宣发素材、撰写标题与文案、按上映节奏安排发布，并根据后台反馈不断优化表达方向。",
@@ -784,8 +790,19 @@ function CaseCard({ project, onOpen, priority }: { project: Project; onOpen: (id
 
             <div className="case-grid" style={{ marginTop: 36, display: "grid", gap: 16, gridTemplateColumns: isDocumentary ? "minmax(0,0.95fr) minmax(0,1.05fr)" : "repeat(3, minmax(0,1fr))" }}>
               {isDocumentary ? (
-                <div style={{ overflow: "hidden", borderRadius: 24, border: "1px solid rgba(255,255,255,0.25)", background: "rgba(255,255,255,0.16)" }}>
-                  <img src={project.cover} alt={project.title} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                <div
+                  style={{
+                    overflow: "hidden",
+                    borderRadius: 24,
+                    border: "1px solid rgba(255,255,255,0.25)",
+                    background: project.coverSurface ?? "rgba(255,255,255,0.16)",
+                  }}
+                >
+                  <img
+                    src={project.cover}
+                    alt={project.title}
+                    style={{ width: "100%", height: "100%", objectFit: project.coverFit ?? "cover", display: "block" }}
+                  />
                 </div>
               ) : (
                 <GeneratedCover project={project} />
@@ -1118,8 +1135,12 @@ function DetailPage({
                   </div>
                 </div>
 
-                <div className="detail-hero-media">
-                  {project.coverType === "image" && project.cover ? <img src={project.cover} alt={project.title} /> : <GeneratedCover project={project} />}
+                <div className="detail-hero-media" style={project.coverSurface ? { background: project.coverSurface } : undefined}>
+                  {project.coverType === "image" && project.cover ? (
+                    <img src={project.cover} alt={project.title} style={{ objectFit: project.coverFit ?? "cover" }} />
+                  ) : (
+                    <GeneratedCover project={project} />
+                  )}
                 </div>
               </div>
             </Panel>
@@ -1267,9 +1288,9 @@ function DetailPage({
 
 function ProjectShowcaseMedia({ project }: { project: Project }) {
   return (
-    <div className="project-showcase-media">
+    <div className="project-showcase-media" style={project.coverSurface ? { background: project.coverSurface } : undefined}>
       {project.coverType === "image" && project.cover ? (
-        <img src={project.cover} alt={project.title} />
+        <img src={project.cover} alt={project.title} style={{ objectFit: project.coverFit ?? "cover" }} />
       ) : (
         <GeneratedCover project={project} />
       )}
@@ -2169,8 +2190,8 @@ export default function App() {
             <div className="section-heading-row spec-case-heading-row">
               <div className="spec-case-heading-copy">
                 <h2 className="section-title display-title">
-                  <span className="spec-case-title-line">把参考做成</span>
-                  <span className="spec-case-title-line">可投递样片。</span>
+                  <span className="spec-case-title-line">AI生成</span>
+                  <span className="spec-case-title-line">样片案例</span>
                 </h2>
                 <p className="section-summary">某女装品牌匿名化测试案，用 STAR 把需求、动作和结果讲清楚。</p>
               </div>
@@ -2345,7 +2366,14 @@ export default function App() {
                   const [leadHighlight, supportingHighlight] = item.highlight.split(" / ");
                   const mediaNode =
                     item.coverType === "image" && item.cover ? (
-                      <div className="home-preview-media" style={{ overflow: "hidden", borderRadius: isFeatured ? 24 : 20 }}>
+                      <div
+                        className="home-preview-media"
+                        style={{
+                          overflow: "hidden",
+                          borderRadius: isFeatured ? 24 : 20,
+                          background: item.coverSurface ?? undefined,
+                        }}
+                      >
                         <img
                           src={item.cover}
                           alt={item.title}
@@ -2353,7 +2381,7 @@ export default function App() {
                             height: isFeatured ? "100%" : "clamp(200px, 13vw, 236px)",
                             minHeight: isFeatured ? 320 : undefined,
                             width: "100%",
-                            objectFit: "cover",
+                            objectFit: item.coverFit ?? "cover",
                             display: "block",
                           }}
                         />
