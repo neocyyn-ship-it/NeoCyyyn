@@ -67,6 +67,7 @@ type BayerPhase = { title: string; desc: string; src: string };
 type SiteSectionId = "home" | "about" | "projects" | "experience" | "contact";
 type SiteSection = { id: SiteSectionId; label: string; cue: string; index: string };
 type XinhuaSectionData = { label: string; title: string; intro: string; meta: string[] };
+type AIFeatureFact = { label: string; title: string; detail: string };
 type AIFeatureVideo = { title: string; detail: string; note: string; src: string };
 type XinhuaWork = {
   id: string;
@@ -627,6 +628,24 @@ const xinhuaPracticeNotes = [
   { label: "工作流程", text: "热点观察、实地调研、采访拍摄、采访提纲、脚本撰写、视频剪辑。" },
   { label: "报道方向", text: "心理健康、民生科普、城市观察、消费报道和乡村振兴等多类题材。" },
   { label: "成长路径", text: "从协作参与，逐步成长到能独立完成部分采访和视频编辑。" },
+];
+
+const aiFashionFeatureFacts: AIFeatureFact[] = [
+  {
+    label: "项目背景",
+    title: "某女装品牌内容测试案",
+    detail: "基于对方希望统一小红书和其他平台风格的需求，自发完成匿名化 spec case。",
+  },
+  {
+    label: "我的角色",
+    title: "从判断到修正都自己完成",
+    detail: "账号观察、对标筛选、TapNow 拆镜头、AI 初稿生成和后期整理都由我独立推进。",
+  },
+  {
+    label: "最终输出",
+    title: "两支 17 秒竖屏样片",
+    detail: "用一支 AI 初稿和一支修正版，对照展示镜头语言从参考到品牌表达的迁移过程。",
+  },
 ];
 
 const aiFashionFeatureVideos: AIFeatureVideo[] = [
@@ -1318,6 +1337,16 @@ function AIFashionPlanningFeature() {
         </div>
 
         <p className="ai-feature-copy">为某女装品牌做的测试案：筛选高奢参考，用 TapNow 拆镜头，再把 AI 初稿修到可投递状态。</p>
+
+        <div className="ai-feature-facts">
+          {aiFashionFeatureFacts.map((item) => (
+            <div key={item.label} className="ai-feature-fact-card">
+              <div className="ai-feature-fact-label">{item.label}</div>
+              <div className="ai-feature-fact-title">{item.title}</div>
+              <p className="ai-feature-fact-copy">{item.detail}</p>
+            </div>
+          ))}
+        </div>
 
         <div className="ai-feature-chip-row">
           {["Benchmark", "TapNow", "AI first pass", "Edit polish"].map((item) => (
