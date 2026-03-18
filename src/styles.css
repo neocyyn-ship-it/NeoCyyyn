@@ -346,6 +346,30 @@ button {
   color: #5c564d;
 }
 
+.spec-case-frame {
+  min-height: auto;
+  gap: 18px;
+}
+
+.spec-case-heading-row {
+  grid-template-columns: minmax(260px, 0.78fr) minmax(480px, 1.05fr);
+  gap: clamp(24px, 3vw, 42px);
+  align-items: center;
+}
+
+.spec-case-heading-copy .section-title {
+  max-width: 9ch;
+  text-wrap: initial;
+}
+
+.spec-case-title-line {
+  display: block;
+}
+
+.spec-case-heading-copy .section-summary {
+  max-width: 30ch;
+}
+
 .spec-case-rule-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1510,6 +1534,12 @@ button {
     max-width: none;
   }
 
+  .spec-case-heading-row {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .spec-case-heading-copy .section-summary,
   .spec-case-rule-grid {
     width: 100%;
     justify-self: stretch;

@@ -131,8 +131,8 @@ const projects: Project[] = [
     titleLines: ["《大反派》", "B站运营宣发"],
     subtitle: "Bilibili Campaign",
     role: "内容策划 / 文案撰写 / 平台运营",
-    summary: "围绕电影《大反派》上映窗口完成 B 站内容发布、标题优化与数据复盘。",
-    highlight: "累计播放 98.7 万 / 4 条视频破 10 万",
+    summary: "围绕电影《大反派》上映窗口完成 B 站内容发布、标题优化与数据复盘，跑出 98.7 万累计播放和 4 条 10 万+ 视频。",
+    highlight: "累计播放 98.7 万 / 单日净增粉 53",
     accent: "linear-gradient(135deg, #EEF6DD 0%, #94C000 55%, #4B6B03 100%)",
     coverType: "generated",
     tags: ["影视宣发", "B 站运营", "内容复盘"],
@@ -538,7 +538,7 @@ const siteSections: SiteSection[] = [
   { id: "home", label: "Home", cue: "Introduction", index: "01" },
   { id: "projects", label: "Projects", cue: "Case browser", index: "02" },
   { id: "experience", label: "Experience", cue: "Practice", index: "03" },
-  { id: "specCase", label: "Spec Case", cue: "AI test case", index: "04" },
+  { id: "specCase", label: "Spec Case", cue: "AI planning test", index: "04" },
   { id: "contact", label: "Contact", cue: "Reach out", index: "05" },
 ];
 
@@ -676,7 +676,7 @@ const xinhuaCardGradients = [
 const projectSpotlights: Record<ProjectId, string[]> = {
   documentary: ["15 分钟人物纪录片", "长期跟拍与采访组织", "导演 / 摄影 / 后期叙事结构", "2025 EKA 天物创意奖二等奖"],
   sinkingShip: ["B站互动视频课程项目", "3 条身份线 / 23 个结局", "策划案 + 剧情树 + 剪辑执行", "基于真实事故改编的进入式叙事"],
-  bilibili: ["累计播放 98.7 万", "4 条视频突破 10 万", "内容节奏与标题优化", "宣发窗口内快速复盘迭代"],
+  bilibili: ["累计播放 98.7 万", "单日播放 41.6 万", "单日净增粉 53", "4 条视频突破 10 万"],
   bayer: ["公关策略提案项目", "品牌问题拆解与受众洞察", "线下展演与媒介路径设计", "中国大学生公共关系策划创业大赛三等奖"],
 };
 
@@ -2157,18 +2157,21 @@ export default function App() {
         </section>
 
         <section id="specCase" ref={setSectionRef("specCase")} className="snap-section">
-          <div className="section-frame experience-frame">
+          <div className="section-frame spec-case-frame">
             <div className="section-intro">
               <span className="section-index">04</span>
               <div>
                 <div className="section-kicker">Spec Case</div>
-                <div className="section-cue">AI testing and iteration</div>
+                <div className="section-cue">AI planning test</div>
               </div>
             </div>
 
-            <div className="section-heading-row">
-              <div>
-                <h2 className="section-title display-title">把参考做成可投递样片。</h2>
+            <div className="section-heading-row spec-case-heading-row">
+              <div className="spec-case-heading-copy">
+                <h2 className="section-title display-title">
+                  <span className="spec-case-title-line">把参考做成</span>
+                  <span className="spec-case-title-line">可投递样片。</span>
+                </h2>
                 <p className="section-summary">某女装品牌匿名化测试案，用 STAR 把需求、动作和结果讲清楚。</p>
               </div>
 
