@@ -67,8 +67,6 @@ type BayerPhase = { title: string; desc: string; src: string };
 type SiteSectionId = "home" | "about" | "projects" | "experience" | "contact";
 type SiteSection = { id: SiteSectionId; label: string; cue: string; index: string };
 type XinhuaSectionData = { label: string; title: string; intro: string; meta: string[] };
-type AIFeatureMetric = { label: string; value: string };
-type AIFeatureStep = { label: string; title: string; detail: string; tone: string };
 type AIFeatureVideo = { title: string; detail: string; note: string; src: string };
 type XinhuaWork = {
   id: string;
@@ -631,55 +629,17 @@ const xinhuaPracticeNotes = [
   { label: "成长路径", text: "从协作参与，逐步成长到能独立完成部分采访和视频编辑。" },
 ];
 
-const aiFashionFeatureMetrics: AIFeatureMetric[] = [
-  { label: "项目属性", value: "匿名化 Spec Case" },
-  { label: "输出内容", value: "2 支 17 秒竖屏样片" },
-  { label: "核心工具", value: "TapNow / AI Video / Edit" },
-  { label: "能力重点", value: "AI 策划与风格统一" },
-];
-
-const aiFashionFeatureSteps: AIFeatureStep[] = [
-  {
-    label: "Benchmark",
-    title: "先挑对参考，再决定往哪里学。",
-    detail:
-      "从高奢、轻奢与成熟品牌账号里筛选近期案例，不直接抄形式，而是先判断哪些内容真的建立了控制感、节奏感和品牌气质。",
-    tone: palette.blue,
-  },
-  {
-    label: "TapNow",
-    title: "把直觉拆成可以执行的镜头语言。",
-    detail:
-      "用 TapNow 拆解镜号、景别、运动、光线和音乐节奏，把参考片里的“好看”拆成后续可以重组的分镜结构。",
-    tone: palette.sky,
-  },
-  {
-    label: "AI First Pass",
-    title: "先让 AI 出方向，再判断哪里不对。",
-    detail:
-      "根据品牌时长要求，把镜头语言压缩成 17 秒竖屏样片，先验证材质、廓形和氛围是否成立，而不是一开始就追求完美成片。",
-    tone: palette.apple,
-  },
-  {
-    label: "Edit Polish",
-    title: "把 AI 的偏差收回来，才是真的完成。",
-    detail:
-      "AI 初稿可以帮我快速验证方向，但也会出现款式偏差和节奏松散的问题。最后再通过剪辑和整体节奏整理，把样片收回可呈现状态。",
-    tone: palette.moss,
-  },
-];
-
 const aiFashionFeatureVideos: AIFeatureVideo[] = [
   {
-    title: "纯 AI 生成版",
-    detail: "用于确认镜头方向、材质氛围和整体节奏是否成立。",
-    note: "优势是快，问题也暴露得很直接，比如服装类别和画面稳定性会发生偏差。",
+    title: "AI 初稿",
+    detail: "先看镜头方向、材质氛围和节奏骨架。",
+    note: "负责快速验证方向。",
     src: aiFashionEditedVideo,
   },
   {
-    title: "剪辑修正版",
-    detail: "保留有效镜头后重新整理节奏和品牌呈现，更接近可投递的样片版本。",
-    note: "这一版更能说明我不只是会生成，也会判断哪里该删、哪里该收、哪里需要重新定调。",
+    title: "修正版",
+    detail: "把偏差收回来，再统一品牌感和节奏。",
+    note: "负责把样片整理到可呈现状态。",
     src: aiFashionDraftVideo,
   },
 ];
@@ -1347,38 +1307,23 @@ function SinkingShipDetailModule() {
 
 function AIFashionPlanningFeature() {
   return (
-    <Panel style={{ borderRadius: 34, boxShadow: "0 14px 36px rgba(24,23,22,0.06)", marginTop: 28 }}>
+    <Panel style={{ borderRadius: 32, boxShadow: "0 12px 28px rgba(24,23,22,0.05)", marginTop: 22 }}>
       <div id="ai-visual-planning" className="ai-feature-shell">
         <div className="ai-feature-head">
           <div>
-            <div className="ai-feature-eyebrow">AI VISUAL PLANNING / SPEC CASE</div>
-            <h3 className="ai-feature-title display-title">把 benchmark、分镜拆解和 AI 生成接成一条能落地的样片流程。</h3>
-            <p className="ai-feature-copy">
-              这是一次面向某女装品牌的匿名化测试案例。公开版只保留方法和结果，不公开品牌诊断细节。重点不是“让 AI 自动出片”，而是把参考判断、
-              镜头语言、时长压缩和后期修正接在一起，做成一条可复用的内容策划流程。
-            </p>
+            <div className="ai-feature-eyebrow">OUTSIDE THE NEWSROOM / AI VISUAL PLANNING</div>
+            <h3 className="ai-feature-title display-title">把 benchmark 拆成 17 秒样片。</h3>
           </div>
-
-          <div className="ai-feature-note">
-            <span className="ai-feature-note-label">Public version</span>
-            <span>Brand anonymized</span>
-          </div>
+          <div className="ai-feature-kicker">匿名化 Spec Case</div>
         </div>
 
+        <p className="ai-feature-copy">为某女装品牌做的测试案：筛选高奢参考，用 TapNow 拆镜头，再把 AI 初稿修到可投递状态。</p>
+
         <div className="ai-feature-chip-row">
-          {["Luxury benchmark screening", "TapNow shot analysis", "AI sample generation", "Editing polish"].map((item) => (
+          {["Benchmark", "TapNow", "AI first pass", "Edit polish"].map((item) => (
             <span key={item} className="ai-feature-chip">
               {item}
             </span>
-          ))}
-        </div>
-
-        <div className="ai-feature-metrics">
-          {aiFashionFeatureMetrics.map((item) => (
-            <div key={item.label} className="ai-feature-metric">
-              <div className="ai-feature-metric-label">{item.label}</div>
-              <div className="ai-feature-metric-value">{item.value}</div>
-            </div>
           ))}
         </div>
 
@@ -1393,19 +1338,6 @@ function AIFashionPlanningFeature() {
                 <p className="ai-feature-video-copy">{item.detail}</p>
                 <p className="ai-feature-video-note">{item.note}</p>
               </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="ai-feature-process-grid">
-          {aiFashionFeatureSteps.map((item) => (
-            <div key={item.label} className="ai-feature-process-card">
-              <div className="ai-feature-process-head">
-                <span className="ai-feature-process-dot" style={{ background: item.tone }} />
-                <div className="ai-feature-process-label">{item.label}</div>
-              </div>
-              <div className="ai-feature-process-title">{item.title}</div>
-              <p className="ai-feature-process-copy">{item.detail}</p>
             </div>
           ))}
         </div>
@@ -1969,7 +1901,6 @@ export default function App() {
               </div>
             )}
 
-            <AIFashionPlanningFeature />
           </div>
         </section>
 
@@ -2186,6 +2117,8 @@ export default function App() {
                 ) : null}
               </div>
             </div>
+
+            <AIFashionPlanningFeature />
           </div>
         </section>
 
