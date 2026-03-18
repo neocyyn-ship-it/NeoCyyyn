@@ -170,16 +170,18 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 22px;
-  height: 22px;
+  min-width: 30px;
+  height: 24px;
+  padding: 0 7px;
   border-radius: 999px;
   border: 1px solid rgba(216, 208, 197, 0.94);
   background: rgba(255, 255, 255, 0.68);
   color: #6f685f;
   cursor: pointer;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   line-height: 1;
+  letter-spacing: 0.08em;
   transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background 180ms ease, color 180ms ease;
 }
 

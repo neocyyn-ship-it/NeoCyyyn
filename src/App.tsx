@@ -1420,7 +1420,6 @@ export default function App() {
   const featuredExperience = additionalWorks.find((item) => item.featured) ?? additionalWorks[0];
   const supportingExperienceWorks = additionalWorks.filter((item) => item.title !== featuredExperience.title);
   const mainRef = useRef<HTMLElement | null>(null);
-  const projectWheelLockRef = useRef(0);
   const sectionRefs = useRef<Record<SiteSectionId, HTMLElement | null>>({
     home: null,
     about: null,
@@ -1449,24 +1448,6 @@ export default function App() {
     if (target) {
       scrollToSection(target.id);
     }
-  };
-
-  const stepProject = (direction: 1 | -1) => {
-    setActiveProjectIndex((current) => {
-      const nextIndex = current + direction;
-
-      if (nextIndex < 0) {
-        scrollToSection("home");
-        return 0;
-      }
-
-      if (nextIndex >= projects.length) {
-        scrollToSection("experience");
-        return current;
-      }
-
-      return nextIndex;
-    });
   };
 
   const cycleProject = (direction: 1 | -1) => {
@@ -1626,20 +1607,6 @@ export default function App() {
     );
   }
 
-  const handleProjectWheel: React.WheelEventHandler<HTMLDivElement> = (event) => {
-    if (!isDesktop) return;
-
-    event.preventDefault();
-
-    if (Math.abs(event.deltaY) < 18) return;
-
-    const now = Date.now();
-    if (now - projectWheelLockRef.current < 650) return;
-
-    projectWheelLockRef.current = now;
-    stepProject(event.deltaY > 0 ? 1 : -1);
-  };
-
   return (
     <div className={`portfolio-shell${isDesktop ? " desktop-mode" : " mobile-mode"}`} style={{ background: palette.bg, color: palette.text }}>
       <div className="portfolio-backdrop" />
@@ -1674,9 +1641,9 @@ export default function App() {
                         setActiveProjectIndex(index);
                         scrollToSection("projects");
                       }}
-                      aria-label={`Go to project ${index + 1}`}
+                      aria-label={`Go to project ${String(index + 1).padStart(2, "0")}`}
                     >
-                      {index + 1}
+                      {String(index + 1).padStart(2, "0")}
                     </button>
                   ))}
                 </div>
@@ -1863,7 +1830,6 @@ export default function App() {
             {isDesktop ? (
               <div
                 className="project-browser"
-                onWheel={handleProjectWheel}
                 onMouseEnter={() => setIsProjectAutoplayPaused(true)}
                 onMouseLeave={() => setIsProjectAutoplayPaused(false)}
                 onFocusCapture={() => setIsProjectAutoplayPaused(true)}
