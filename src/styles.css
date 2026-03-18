@@ -116,6 +116,7 @@ button {
   justify-content: center;
   gap: 8px;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .portfolio-nav-link,
@@ -151,6 +152,48 @@ button {
 .portfolio-nav-link {
   border-radius: 999px;
   padding: 0 15px;
+}
+
+.portfolio-nav-project-group {
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+}
+
+.portfolio-project-jump-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.portfolio-project-jump-dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(216, 208, 197, 0.94);
+  background: rgba(255, 255, 255, 0.68);
+  color: #6f685f;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background 180ms ease, color 180ms ease;
+}
+
+.portfolio-project-jump-dot:hover {
+  transform: translateY(-1px);
+  border-color: rgba(31, 79, 143, 0.34);
+  box-shadow: 0 10px 18px rgba(24, 23, 22, 0.06);
+}
+
+.portfolio-project-jump-dot.is-active {
+  background: #1f4f8f;
+  color: #ffffff;
+  border-color: #1f4f8f;
+  box-shadow: 0 12px 24px rgba(31, 79, 143, 0.2);
 }
 
 .portfolio-nav-link:hover,
@@ -1503,6 +1546,10 @@ button {
     flex-wrap: nowrap;
     overflow-x: auto;
     scrollbar-width: none;
+  }
+
+  .portfolio-nav-project-group {
+    justify-items: start;
   }
 
   .portfolio-nav-links::-webkit-scrollbar {

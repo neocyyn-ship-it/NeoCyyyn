@@ -1651,16 +1651,47 @@ export default function App() {
         </div>
 
         <nav className="portfolio-nav-links" aria-label="Primary">
-          {siteSections.map((section) => (
-            <button
-              key={section.id}
-              type="button"
-              className={`portfolio-nav-link${activeSection === section.id ? " is-active" : ""}`}
-              onClick={() => scrollToSection(section.id)}
-            >
-              {section.label}
-            </button>
-          ))}
+          {siteSections.map((section) =>
+            section.id === "projects" ? (
+              <div key={section.id} className={`portfolio-nav-project-group${activeSection === section.id ? " is-active" : ""}`}>
+                <button
+                  type="button"
+                  className={`portfolio-nav-link${activeSection === section.id ? " is-active" : ""}`}
+                  onClick={() => scrollToSection(section.id)}
+                >
+                  {section.label}
+                </button>
+
+                <div className="portfolio-project-jump-row" aria-label="Project shortcuts">
+                  {projects.map((project, index) => (
+                    <button
+                      key={project.id}
+                      type="button"
+                      className={`portfolio-project-jump-dot${
+                        activeSection === "projects" && activeProjectIndex === index ? " is-active" : ""
+                      }`}
+                      onClick={() => {
+                        setActiveProjectIndex(index);
+                        scrollToSection("projects");
+                      }}
+                      aria-label={`Go to project ${index + 1}`}
+                    >
+                      {index + 1}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <button
+                key={section.id}
+                type="button"
+                className={`portfolio-nav-link${activeSection === section.id ? " is-active" : ""}`}
+                onClick={() => scrollToSection(section.id)}
+              >
+                {section.label}
+              </button>
+            )
+          )}
         </nav>
 
         <a className="portfolio-nav-cta" href={resumeFile} download="chen-yannian-resume.pdf">
