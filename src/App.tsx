@@ -1330,13 +1330,13 @@ function AIFashionPlanningFeature() {
       <div id="ai-visual-planning" className="ai-feature-shell">
         <div className="ai-feature-head">
           <div>
-            <div className="ai-feature-eyebrow">OUTSIDE THE NEWSROOM / AI VISUAL PLANNING</div>
+            <div className="ai-feature-eyebrow">SPEC CASE</div>
             <h3 className="ai-feature-title display-title">
               <span className="ai-feature-title-line">把 benchmark</span>
               <span className="ai-feature-title-line">拆成 15 秒样片。</span>
             </h3>
           </div>
-          <div className="ai-feature-kicker">匿名化 Spec Case</div>
+          <div className="ai-feature-kicker">AI Visual</div>
         </div>
 
         <p className="ai-feature-copy">
