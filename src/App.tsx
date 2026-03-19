@@ -16,7 +16,6 @@ import bayerStageImage from "./assets/bayer-stage.jpg";
 import bayerVenueImage from "./assets/bayer-venue.jpg";
 import bayerVrImage from "./assets/bayer-vr.jpg";
 import dafanpaiPosterImage from "./assets/dafanpai-poster.png";
-import fudanZylabDeckFile from "./assets/fudan-zylab-tianluan-deck.pptx?url";
 
 type ProjectId = "documentary" | "sinkingShip" | "bilibili" | "bayer";
 
@@ -274,13 +273,6 @@ const additionalWorks: ExperienceItem[] = [
       { label: "融媒作品 06", href: "https://h.xinhuaxmt.com/vh512/share/11641855?d=134b2a1&channel=weixin", meta: "h.xinhuaxmt.com" },
       { label: "网页报道", href: "http://sh.news.cn/20230912/35d5d91126f34a3596fc4118459d4450/c.html", meta: "sh.news.cn" },
     ],
-  },
-  {
-    title: "复旦智研院 / 天璺科技宣传册",
-    desc: "公开版企业宣传册，适合放在实习经历里展示信息整理、PPT 表达和视觉编排能力。",
-    note: "公开版 PPT 文件，作为经历区的辅助作品入口。",
-    actionLabel: "打开宣传册",
-    href: fudanZylabDeckFile,
   },
 ];
 
@@ -2893,7 +2885,7 @@ export default function App() {
 
 const sanityChecks = [
   projects.length === 4,
-  additionalWorks.length === 2,
+  additionalWorks.length === 1,
   xinhuaWorks.length === 8,
   bilibiliStats.length === 4,
   operationsMetrics.length === 8,
