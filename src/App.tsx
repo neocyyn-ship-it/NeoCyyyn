@@ -821,19 +821,71 @@ function SinkingShipCover({ compact = false, linked = false }: { compact?: boole
   );
 }
 
+function SinkingShipLandingCover({ compact = false }: { compact?: boolean }) {
+  const choices = [
+    { key: "A", label: "学生" },
+    { key: "B", label: "乘客" },
+    { key: "C", label: "船员" },
+  ];
+
+  return (
+    <div className={`ship-cover ship-cover--landing${compact ? " is-compact" : ""}`}>
+      <div className="ship-cover-header">
+        <div className="ship-cover-title">沉船逃生互动视频——据真实事件改编</div>
+        <div className="ship-cover-meta">
+          <span>互动视频</span>
+          <span>1.0万</span>
+          <span>48</span>
+          <span>2022-04-17 14:35:34</span>
+          <span>未经作者授权，禁止转载</span>
+        </div>
+      </div>
+
+      <div className="ship-game-cover-stage">
+        <div className="ship-game-cover-restart">重播</div>
+        <div className="ship-game-cover-prompt">如果您准备好的话就开始本次游戏吧！</div>
+        <div className="ship-game-cover-choice-grid">
+          {choices.map((item) => (
+            <div key={item.key} className="ship-game-cover-choice-card">
+              <span className="ship-game-cover-choice-key">{item.key}</span>
+              <span className="ship-game-cover-choice-label">{item.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {!compact ? (
+        <div className="ship-game-cover-footer">
+          <div className="ship-game-cover-footer-status">2人正在看，已装填 5 条弹幕</div>
+          <div className="ship-game-cover-footer-tools" aria-hidden="true">
+            <span className="ship-game-cover-footer-tool">弹</span>
+            <span className="ship-game-cover-footer-tool">弹</span>
+          </div>
+          <div className="ship-game-cover-footer-input">已关闭弹幕</div>
+          <div className="ship-game-cover-footer-send">发送</div>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+type SinkingShipCoverMode = "published" | "landing";
+
 function ProjectVisual({
   project,
   compact = false,
   linked = false,
   imageStyle,
+  sinkingShipMode = "published",
 }: {
   project: Project;
   compact?: boolean;
   linked?: boolean;
   imageStyle?: React.CSSProperties;
+  sinkingShipMode?: SinkingShipCoverMode;
 }) {
   if (project.id === "sinkingShip") {
-    return <SinkingShipCover compact={compact} linked={linked} />;
+    return sinkingShipMode === "landing" ? <SinkingShipLandingCover compact={compact} /> : <SinkingShipCover compact={compact} linked={linked} />;
   }
 
   if (project.coverType === "image" && project.cover) {
@@ -1359,10 +1411,10 @@ function DetailPage({
   );
 }
 
-function ProjectShowcaseMedia({ project }: { project: Project }) {
+function ProjectShowcaseMedia({ project, sinkingShipMode = "published" }: { project: Project; sinkingShipMode?: SinkingShipCoverMode }) {
   return (
     <div className="project-showcase-media" style={project.coverSurface ? { background: project.coverSurface } : undefined}>
-      <ProjectVisual project={project} />
+      <ProjectVisual project={project} sinkingShipMode={sinkingShipMode} />
     </div>
   );
 }
@@ -1979,7 +2031,7 @@ export default function App() {
                 </div>
 
                 <div key={`${activeProject.id}-visual`} className="project-browser-visual project-panel-animate">
-                  <ProjectShowcaseMedia project={activeProject} />
+                  <ProjectShowcaseMedia project={activeProject} sinkingShipMode="landing" />
 
                   <div className="project-browser-footer">
                     <div className="project-browser-highlight">{activeProject.highlight}</div>
@@ -2008,7 +2060,7 @@ export default function App() {
                         <span className="project-subtitle">{project.subtitle}</span>
                         <span className="project-nav-status">{`0${index + 1}`}</span>
                       </div>
-                      <ProjectShowcaseMedia project={project} />
+                      <ProjectShowcaseMedia project={project} sinkingShipMode="landing" />
                       <h3 className="project-mobile-title display-title">
                         <ProjectTitleLines project={project} />
                       </h3>
@@ -2457,6 +2509,7 @@ export default function App() {
                         <ProjectVisual
                           project={item}
                           compact
+                          sinkingShipMode="landing"
                           imageStyle={{
                             height: isFeatured ? "100%" : "clamp(200px, 13vw, 236px)",
                             minHeight: isFeatured ? 320 : undefined,
