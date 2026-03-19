@@ -1339,6 +1339,16 @@ function SinkingShipDetailModule() {
 
         <div className="ship-project-visual-frame">
           <img src={sinkingShipCover} alt="沉船逃生互动视频封面" />
+          <a
+            className="ship-project-visual-link"
+            href={sinkingShipProject.link}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="在 B 站打开沉船逃生互动视频"
+            title="前往 B 站观看互动视频"
+          >
+            <Play size={26} fill="currentColor" strokeWidth={2.2} />
+          </a>
         </div>
       </div>
 
