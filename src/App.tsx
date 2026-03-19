@@ -16,7 +16,6 @@ import bayerStageImage from "./assets/bayer-stage.jpg";
 import bayerVenueImage from "./assets/bayer-venue.jpg";
 import bayerVrImage from "./assets/bayer-vr.jpg";
 import dafanpaiPosterImage from "./assets/dafanpai-poster.png";
-import sinkingShipCoverImage from "./assets/sinking-ship-cover.png";
 
 type ProjectId = "documentary" | "sinkingShip" | "bilibili" | "bayer";
 
@@ -85,7 +84,6 @@ type XinhuaWork = {
 
 const baseUrl = import.meta.env.BASE_URL;
 const documentaryCover = documentaryHeroImage;
-const sinkingShipCover = sinkingShipCoverImage;
 const resumeFile = `${baseUrl}assets/chen-yannian-resume.pdf`;
 const documentaryWatchLink = "https://pan.baidu.com/s/15sMVeJ_CkSf2tGbXJz0EXw?pwd=rajy";
 const aiFashionDraftVideo = `${baseUrl}assets/ai-fashion-draft.mp4`;
@@ -185,10 +183,7 @@ const projects: Project[] = [
     summary: "基于真实沉船事故改编的 B 站互动视频课程项目，用学生、乘客、船员三条身份线和 23 个结局，让观众在选择中进入灾难现场。",
     highlight: "23 个结局 / 3 条角色线 / 23:57 互动视频",
     accent: "linear-gradient(135deg, #EAF1F8 0%, #9EB6C9 50%, #3C4F67 100%)",
-    coverType: "image",
-    cover: sinkingShipCover,
-    coverFit: "contain",
-    coverSurface: "linear-gradient(180deg, #091018 0%, #0f2132 100%)",
+    coverType: "generated",
     tags: ["互动视频", "叙事设计", "剪辑执行"],
     situation: "课程希望尝试融合新闻和互动视频的表达方式，我们最终没有把它做成单纯追求刺激的“逃生游戏”，而是想让观众在选择里感受到灾难现场的信息误判、时间压力和求生判断。",
     action: "我负责提出视频设想并编写策划案，整理资料和事故时间线，把学生、乘客、船员三条线梳理成剧情树，同时承担船员线、乘客线剪辑，以及片头和“真相”部分制作。",
@@ -770,8 +765,86 @@ function GeneratedCover({ project, compact = false }: { project: Project; compac
   );
 }
 
+function SinkingShipCover({ compact = false, linked = false }: { compact?: boolean; linked?: boolean }) {
+  const choiceMarkers = ["•", "✓", "✓", "✓", "✓"];
+
+  return (
+    <div className={`ship-cover${compact ? " is-compact" : ""}`}>
+      <div className="ship-cover-header">
+        <div className="ship-cover-title">沉船逃生互动视频——据真实事件改编</div>
+        <div className="ship-cover-meta">
+          <span>互动视频</span>
+          <span>1.0万</span>
+          <span>48</span>
+          <span>2022-04-17 14:35:34</span>
+          <span>未经作者授权，禁止转载</span>
+        </div>
+      </div>
+
+      <div className="ship-cover-stage">
+        <div className="ship-cover-stage-copy">此次互动视频是根据4・16韩国客轮沉没事故改编</div>
+        <div className="ship-cover-choice-row" aria-hidden="true">
+          {choiceMarkers.map((item, index) => (
+            <span key={`${item}-${index}`} className={`ship-cover-choice${index === 0 ? " is-location" : ""}`}>
+              {item}
+            </span>
+          ))}
+        </div>
+        <span className="ship-cover-progress" aria-hidden="true" />
+
+        {linked ? (
+          <a
+            className="ship-cover-link"
+            href={sinkingShipProject.link}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="在 B 站打开沉船逃生互动视频"
+            title="前往 B 站观看互动视频"
+          >
+            <Play size={22} fill="currentColor" strokeWidth={2.2} />
+          </a>
+        ) : null}
+      </div>
+
+      {!compact ? (
+        <div className="ship-cover-footer">
+          <div className="ship-cover-footer-status">3人正在看，已装填 5 条弹幕</div>
+          <div className="ship-cover-footer-tools" aria-hidden="true">
+            <span className="ship-cover-footer-tool">弹</span>
+            <span className="ship-cover-footer-tool">弹</span>
+          </div>
+          <div className="ship-cover-footer-input">已关闭弹幕</div>
+          <div className="ship-cover-footer-send">发送</div>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+function ProjectVisual({
+  project,
+  compact = false,
+  linked = false,
+  imageStyle,
+}: {
+  project: Project;
+  compact?: boolean;
+  linked?: boolean;
+  imageStyle?: React.CSSProperties;
+}) {
+  if (project.id === "sinkingShip") {
+    return <SinkingShipCover compact={compact} linked={linked} />;
+  }
+
+  if (project.coverType === "image" && project.cover) {
+    return <img src={project.cover} alt={project.title} style={imageStyle ?? { width: "100%", height: "100%", objectFit: project.coverFit ?? "cover", display: "block" }} />;
+  }
+
+  return <GeneratedCover project={project} compact={compact} />;
+}
+
 function CaseCard({ project, onOpen, priority }: { project: Project; onOpen: (id: ProjectId) => void; priority?: boolean }) {
-  const isDocumentary = project.coverType === "image" && project.cover;
+  const hasVisualCover = project.id === "sinkingShip" || (project.coverType === "image" && project.cover);
 
   return (
     <section id={`case-${project.id}`}>
@@ -793,8 +866,8 @@ function CaseCard({ project, onOpen, priority }: { project: Project; onOpen: (id
               <p style={{ marginTop: 18, fontSize: 17, lineHeight: 1.72, letterSpacing: "0.04em", color: "rgba(255,255,255,0.9)" }}>{project.role}</p>
             </div>
 
-            <div className="case-grid" style={{ marginTop: 36, display: "grid", gap: 16, gridTemplateColumns: isDocumentary ? "minmax(0,0.95fr) minmax(0,1.05fr)" : "repeat(3, minmax(0,1fr))" }}>
-              {isDocumentary ? (
+            <div className="case-grid" style={{ marginTop: 36, display: "grid", gap: 16, gridTemplateColumns: hasVisualCover ? "minmax(0,0.95fr) minmax(0,1.05fr)" : "repeat(3, minmax(0,1fr))" }}>
+              {hasVisualCover ? (
                 <div
                   style={{
                     overflow: "hidden",
@@ -803,10 +876,9 @@ function CaseCard({ project, onOpen, priority }: { project: Project; onOpen: (id
                     background: project.coverSurface ?? "rgba(255,255,255,0.16)",
                   }}
                 >
-                  <img
-                    src={project.cover}
-                    alt={project.title}
-                    style={{ width: "100%", height: "100%", objectFit: project.coverFit ?? "cover", display: "block" }}
+                  <ProjectVisual
+                    project={project}
+                    imageStyle={{ width: "100%", height: "100%", objectFit: project.coverFit ?? "cover", display: "block" }}
                   />
                 </div>
               ) : (
@@ -1141,11 +1213,7 @@ function DetailPage({
                 </div>
 
                 <div className="detail-hero-media" style={project.coverSurface ? { background: project.coverSurface } : undefined}>
-                  {project.coverType === "image" && project.cover ? (
-                    <img src={project.cover} alt={project.title} style={{ objectFit: project.coverFit ?? "cover" }} />
-                  ) : (
-                    <GeneratedCover project={project} />
-                  )}
+                  <ProjectVisual project={project} />
                 </div>
               </div>
             </Panel>
@@ -1294,11 +1362,7 @@ function DetailPage({
 function ProjectShowcaseMedia({ project }: { project: Project }) {
   return (
     <div className="project-showcase-media" style={project.coverSurface ? { background: project.coverSurface } : undefined}>
-      {project.coverType === "image" && project.cover ? (
-        <img src={project.cover} alt={project.title} style={{ objectFit: project.coverFit ?? "cover" }} />
-      ) : (
-        <GeneratedCover project={project} />
-      )}
+      <ProjectVisual project={project} />
     </div>
   );
 }
@@ -1338,17 +1402,7 @@ function SinkingShipDetailModule() {
         </div>
 
         <div className="ship-project-visual-frame">
-          <img src={sinkingShipCover} alt="沉船逃生互动视频封面" />
-          <a
-            className="ship-project-visual-link"
-            href={sinkingShipProject.link}
-            target="_blank"
-            rel="noreferrer"
-            aria-label="在 B 站打开沉船逃生互动视频"
-            title="前往 B 站观看互动视频"
-          >
-            <Play size={26} fill="currentColor" strokeWidth={2.2} />
-          </a>
+          <SinkingShipCover linked />
         </div>
       </div>
 
@@ -2391,7 +2445,7 @@ export default function App() {
                   const dots = [palette.blue, palette.apple, palette.moss];
                   const [leadHighlight, supportingHighlight] = item.highlight.split(" / ");
                   const mediaNode =
-                    item.coverType === "image" && item.cover ? (
+                    item.id === "sinkingShip" || (item.coverType === "image" && item.cover) ? (
                       <div
                         className="home-preview-media"
                         style={{
@@ -2400,10 +2454,10 @@ export default function App() {
                           background: item.coverSurface ?? undefined,
                         }}
                       >
-                        <img
-                          src={item.cover}
-                          alt={item.title}
-                          style={{
+                        <ProjectVisual
+                          project={item}
+                          compact
+                          imageStyle={{
                             height: isFeatured ? "100%" : "clamp(200px, 13vw, 236px)",
                             minHeight: isFeatured ? 320 : undefined,
                             width: "100%",
