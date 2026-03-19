@@ -2433,6 +2433,45 @@ button {
   gap: 14px;
 }
 
+.ship-project-visual-card {
+  padding: 22px;
+  border-radius: 28px;
+  border: 1px solid #dce7de;
+  background: linear-gradient(135deg, #f7fbff 0%, #edf4ff 48%, #eef6dd 100%);
+  box-shadow: 0 6px 16px rgba(36, 49, 40, 0.02);
+}
+
+.ship-project-visual-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.ship-project-visual-note {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #4d5b53;
+  white-space: nowrap;
+}
+
+.ship-project-visual-frame {
+  margin-top: 20px;
+  overflow: hidden;
+  border-radius: 24px;
+  border: 1px solid rgba(15, 33, 50, 0.18);
+  background: linear-gradient(180deg, #091018 0%, #0f2132 100%);
+  padding: clamp(12px, 1.4vw, 18px);
+}
+
+.ship-project-visual-frame img {
+  width: 100%;
+  display: block;
+  border-radius: 18px;
+}
+
 .ship-project-metric {
   padding: 22px 20px;
   border-radius: 24px;
@@ -2674,6 +2713,14 @@ button {
 @media (max-width: 760px) {
   .spec-case-rule-grid {
     grid-template-columns: 1fr;
+  }
+
+  .ship-project-visual-head {
+    display: grid;
+  }
+
+  .ship-project-visual-note {
+    white-space: normal;
   }
 
   .ship-project-metrics,

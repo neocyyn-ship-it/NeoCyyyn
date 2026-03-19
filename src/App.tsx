@@ -16,6 +16,7 @@ import bayerStageImage from "./assets/bayer-stage.jpg";
 import bayerVenueImage from "./assets/bayer-venue.jpg";
 import bayerVrImage from "./assets/bayer-vr.jpg";
 import dafanpaiPosterImage from "./assets/dafanpai-poster.png";
+import sinkingShipCoverImage from "./assets/sinking-ship-cover.png";
 
 type ProjectId = "documentary" | "sinkingShip" | "bilibili" | "bayer";
 
@@ -84,6 +85,7 @@ type XinhuaWork = {
 
 const baseUrl = import.meta.env.BASE_URL;
 const documentaryCover = documentaryHeroImage;
+const sinkingShipCover = sinkingShipCoverImage;
 const resumeFile = `${baseUrl}assets/chen-yannian-resume.pdf`;
 const documentaryWatchLink = "https://pan.baidu.com/s/15sMVeJ_CkSf2tGbXJz0EXw?pwd=rajy";
 const aiFashionDraftVideo = `${baseUrl}assets/ai-fashion-draft.mp4`;
@@ -183,7 +185,10 @@ const projects: Project[] = [
     summary: "基于真实沉船事故改编的 B 站互动视频课程项目，用学生、乘客、船员三条身份线和 23 个结局，让观众在选择中进入灾难现场。",
     highlight: "23 个结局 / 3 条角色线 / 23:57 互动视频",
     accent: "linear-gradient(135deg, #EAF1F8 0%, #9EB6C9 50%, #3C4F67 100%)",
-    coverType: "generated",
+    coverType: "image",
+    cover: sinkingShipCover,
+    coverFit: "contain",
+    coverSurface: "linear-gradient(180deg, #091018 0%, #0f2132 100%)",
     tags: ["互动视频", "叙事设计", "剪辑执行"],
     situation: "课程希望尝试融合新闻和互动视频的表达方式，我们最终没有把它做成单纯追求刺激的“逃生游戏”，而是想让观众在选择里感受到灾难现场的信息误判、时间压力和求生判断。",
     action: "我负责提出视频设想并编写策划案，整理资料和事故时间线，把学生、乘客、船员三条线梳理成剧情树，同时承担船员线、乘客线剪辑，以及片头和“真相”部分制作。",
@@ -1321,6 +1326,20 @@ function SinkingShipDetailModule() {
             <div className="ship-project-metric-value">{item.value}</div>
           </div>
         ))}
+      </div>
+
+      <div className="ship-project-visual-card">
+        <div className="ship-project-visual-head">
+          <div>
+            <div className="sub-label">项目封面</div>
+            <div className="sub-title">把成片入口的观看氛围，直接带进案例页。</div>
+          </div>
+          <div className="ship-project-visual-note">Published cover</div>
+        </div>
+
+        <div className="ship-project-visual-frame">
+          <img src={sinkingShipCover} alt="沉船逃生互动视频封面" />
+        </div>
       </div>
 
       <div className="ship-project-grid">
