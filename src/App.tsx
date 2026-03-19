@@ -821,7 +821,7 @@ function SinkingShipCover({ compact = false, linked = false }: { compact?: boole
   );
 }
 
-function SinkingShipLandingCover({ compact = false }: { compact?: boolean }) {
+function SinkingShipLandingCover({ compact = false, linked = false }: { compact?: boolean; linked?: boolean }) {
   const choices = [
     { key: "A", label: "学生" },
     { key: "B", label: "乘客" },
@@ -852,6 +852,19 @@ function SinkingShipLandingCover({ compact = false }: { compact?: boolean }) {
             </div>
           ))}
         </div>
+
+        {linked ? (
+          <a
+            className="ship-cover-link"
+            href={sinkingShipProject.link}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="在 B 站打开沉船逃生互动视频"
+            title="前往 B 站观看互动视频"
+          >
+            <Play size={22} fill="currentColor" strokeWidth={2.2} />
+          </a>
+        ) : null}
       </div>
 
       {!compact ? (
@@ -885,7 +898,7 @@ function ProjectVisual({
   sinkingShipMode?: SinkingShipCoverMode;
 }) {
   if (project.id === "sinkingShip") {
-    return sinkingShipMode === "landing" ? <SinkingShipLandingCover compact={compact} /> : <SinkingShipCover compact={compact} linked={linked} />;
+    return sinkingShipMode === "landing" ? <SinkingShipLandingCover compact={compact} linked={linked} /> : <SinkingShipCover compact={compact} linked={linked} />;
   }
 
   if (project.coverType === "image" && project.cover) {
@@ -1411,10 +1424,18 @@ function DetailPage({
   );
 }
 
-function ProjectShowcaseMedia({ project, sinkingShipMode = "published" }: { project: Project; sinkingShipMode?: SinkingShipCoverMode }) {
+function ProjectShowcaseMedia({
+  project,
+  sinkingShipMode = "published",
+  linked = false,
+}: {
+  project: Project;
+  sinkingShipMode?: SinkingShipCoverMode;
+  linked?: boolean;
+}) {
   return (
     <div className="project-showcase-media" style={project.coverSurface ? { background: project.coverSurface } : undefined}>
-      <ProjectVisual project={project} sinkingShipMode={sinkingShipMode} />
+      <ProjectVisual project={project} sinkingShipMode={sinkingShipMode} linked={linked} />
     </div>
   );
 }
@@ -2031,7 +2052,7 @@ export default function App() {
                 </div>
 
                 <div key={`${activeProject.id}-visual`} className="project-browser-visual project-panel-animate">
-                  <ProjectShowcaseMedia project={activeProject} sinkingShipMode="landing" />
+                  <ProjectShowcaseMedia project={activeProject} sinkingShipMode="landing" linked={activeProject.id === "sinkingShip"} />
 
                   <div className="project-browser-footer">
                     <div className="project-browser-highlight">{activeProject.highlight}</div>
@@ -2060,7 +2081,7 @@ export default function App() {
                         <span className="project-subtitle">{project.subtitle}</span>
                         <span className="project-nav-status">{`0${index + 1}`}</span>
                       </div>
-                      <ProjectShowcaseMedia project={project} sinkingShipMode="landing" />
+                      <ProjectShowcaseMedia project={project} sinkingShipMode="landing" linked={project.id === "sinkingShip"} />
                       <h3 className="project-mobile-title display-title">
                         <ProjectTitleLines project={project} />
                       </h3>
